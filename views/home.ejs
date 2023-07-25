@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="main-card">
+        <div class="q-card">
+            <% if (!question) { %>
+                <h1><a href="/">Restart</a></h1>
+            <% } else { %>
+                <h1>Answer This</h1><br>
+                <form action="/main-quiz" method="POST">                
+                    <p><%=question.question%></p>
+                    <% 
+                    question['options'].forEach(option=>{
+                    %>
+                    <div>
+                        <label for="<%=option%>"><%=option%>    
+                            <input required type="radio"
+                                id="<%=option%>"
+                                name="option"
+                                value="<%=option%>">
+                            </label>
+                        </div>
+                    <% 
+                })
+                    %>
+                    <br>
+                    
+                    <div>
+                        <button type="submit">Answer</button>
+                    </div>
+
+                </form>
+
+            <% } %>
+
+        </div>
+
+        
+    </div>
+</body>
+</html>

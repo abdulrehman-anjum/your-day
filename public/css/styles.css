@@ -1,0 +1,25 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.main-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: blueviolet;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.q-card{
+    background-color: burlywood;
+    height: 30rem;
+    width: 20rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
