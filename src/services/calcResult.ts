@@ -1,11 +1,15 @@
 import Answer from "../types/answer"
+import QuestionType from "../types/question";
 
-function results(userAnswers: Answer[], answerKey: string[]){
+async function results(userAnswers: Answer[], questions: QuestionType[]){
     let i = 0
-console.log(userAnswers, "efoiwehro");
-
+    console.log(userAnswers, "calcResult");
     userAnswers.forEach(answer=>{
-        if (answer.answer === answerKey[i]){answer.valid = true}
+        if (answer.answer === questions[i].correct){
+            answer.valid = true
+        }
+        answer.answer = questions[i].options[questions[i].correct]
+        console.log(questions[i].options[questions[i].correct])
         i=i+1      
     })
 }

@@ -4,6 +4,7 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import routes from './routes/routes'
+import adminRoutes from './routes/admin-routes'
 
 const app: Application = express()
 app.set('view engine', 'ejs');
@@ -14,5 +15,6 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.use('/', routes)
+app.use('/admin', adminRoutes)
 
 export default app

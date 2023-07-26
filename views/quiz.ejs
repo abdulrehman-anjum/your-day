@@ -10,7 +10,7 @@
     <div class="main-card">
         <div class="q-card">
             <% if (!question) { %>
-                <h1><a href="/">Restart</a></h1>
+                <h1><a href="/">No Question</a></h1>
             <% } else { %>
                 <h1>Answer This</h1><br>
                 <form action="/main-quiz" method="POST">                
@@ -23,7 +23,7 @@
                             <input required type="radio"
                                 id="<%=option%>"
                                 name="option"
-                                value="<%=option%>">
+                                value="<%=question['options'].indexOf(option)%>">
                             </label>
                         </div>
                     <% 

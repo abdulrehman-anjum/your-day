@@ -1,8 +1,8 @@
 
-interface Question {
+interface QuestionType {
     question: string;
     options: string[];
     correct: number;
   }
 
-export default Question
+export default QuestionType
