@@ -8,7 +8,7 @@ async function results(userAnswers: Answer[], questions: QuestionType[]){
         if (answer.answer === questions[i].correct){
             answer.valid = true
         }
-        answer.answer = questions[i].options[questions[i].correct]
+        answer.answer = questions[i].options[Number(answer.answer)]
         console.log(questions[i].options[questions[i].correct])
         i=i+1      
     })
