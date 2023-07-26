@@ -1,6 +1,7 @@
 body{
     padding: 0;
     margin: 0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .main-card{
@@ -14,7 +15,7 @@ body{
 }
 
 .q-card{
-    background-color: burlywood;
+    background-color: rgb(255, 176, 72);
     height: 30rem;
     width: 20rem;
     border-radius: 5px;

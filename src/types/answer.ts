@@ -1,5 +1,5 @@
 interface Answer {
-    answer: string
+    answer: number | string
     valid: boolean
 }
 
