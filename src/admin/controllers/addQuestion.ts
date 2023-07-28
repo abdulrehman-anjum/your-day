@@ -1,6 +1,6 @@
 import {Request, Response} from 'express'
-import QuestionType from '../types/question'
-import Question from '../models/question'
+import QuestionType from '../../quiz/types/question'
+import Question from '../../quiz/models/question'
 
 const addQuestion = async (req: Request, res: Response) => {
     const options: Array<string> = [req.body.a, req.body.b, req.body.c]
@@ -11,8 +11,7 @@ const addQuestion = async (req: Request, res: Response) => {
     }
 
     const newQuestion = new Question(question)
-    newQuestion.save()
-    
+    await newQuestion.save()
     
     res.redirect('/admin')
 }

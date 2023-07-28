@@ -1,7 +1,12 @@
 body{
     padding: 0;
+    background-color: blueviolet;
     margin: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+img{
+    margin: 50px
 }
 
 .main-card{

@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <!-- ✔☑✅☑✔😌😛 -->
-</head>
-<body>
+<%- include('partials/header') %>
+
     <div class="main-card">
         <div class="q-card">
+            <p>true=😌, false=😛</p><br>
+            <h1>You Choose</h1><br>
             <ul>
-              <%  results.forEach(result=>{ %> 
+                <%  results.forEach(result=>{ %> 
                     <li><%= result.question %> - <%= result.answer %> <%= result.valid?"😌":"😛" %></li>
                 <% }) %>
             </ul>
-            <p><a href="/quiz">Retake Test</a></p>
+            <p><a href="/quiz/start/">Retake Test</a></p>
+            <p><a href="/slide/">Go Farward -></a></p>
         </div>
-
-        
     </div>
-</body>
-</html>
+
+<%- include('partials/footer') %>
