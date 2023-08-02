@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const authenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     //! check whter the client has our cookie and if he does then next() or otherwise go to authentication page
+    //! and set a cookie as auth 
     res.send("yes");
     next();
 });
