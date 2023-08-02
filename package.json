@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "nodemon src/index.ts",
     "dev": "nodemon src/index.ts",
-    "build": "tsc -p"
-  },
+    "old-build": "tsc -p",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
+    },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -29,7 +32,14 @@
     "@types/multer": "^1.4.7",
     "@types/node": "^20.4.2",
     "nodemon": "^3.0.1",
+    "pre-commit": "^1.2.2",
+    "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
-  }
+  },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+]
 }
