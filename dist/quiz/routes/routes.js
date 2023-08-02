@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const quizPage_1 = __importDefault(require("../controllers/quizPage"));
+const getAnswer_1 = __importDefault(require("../controllers/getAnswer"));
+const result_1 = __importDefault(require("../controllers/result"));
+const router = express_1.default.Router();
+router.get('/', (req, res) => {
+    res.send(`
+        <h1 align=center>Hi<br><a align=center href='/quiz/start/'>Quiz</a></h1>
+    `);
+});
+router.get('/start/:qn?', quizPage_1.default);
+router.get('/result', result_1.default);
+router.post('/submit-quiz', getAnswer_1.default);
+exports.default = router;
+//# sourceMappingURL=routes.js.map

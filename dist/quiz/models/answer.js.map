@@ -1,0 +1,1 @@
+{"version":3,"file":"answer.js","sourceRoot":"","sources":["../../../src/quiz/models/answer.ts"],"names":[],"mappings":";;;;;AAAA,wDAA+B;AAE/B,MAAM,MAAM,GAAG,kBAAQ,CAAC,MAAM,CAAA;AAE9B,MAAM,YAAY,GAAG,IAAI,MAAM,CAAE;IAC7B,MAAM,EAAE,MAAM;IACd,KAAK,EAAE,OAAO;CACjB,CAAC,CAAA;AAEF,MAAM,MAAM,GAAG,kBAAQ,CAAC,KAAK,CAAC,QAAQ,EAAE,YAAY,CAAC,CAAA;AAErD,kBAAe,MAAM,CAAA"}

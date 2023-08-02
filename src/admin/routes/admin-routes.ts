@@ -32,7 +32,7 @@ router.post('/upload-image', multerUploads, async (req: Request, res: Response)=
             await uploader.uploader.upload(cont).then(result => {
                 const image = result.url;
                 console.log(image);
-                res.send("image uploaded");
+                res.send(`image uploaded: <a href='${image}'>see here<a>`);
             });
         } catch (error) {
             console.error("Error uploading image:", error);
