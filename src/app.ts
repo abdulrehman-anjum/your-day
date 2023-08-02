@@ -3,17 +3,15 @@ import express, {Application} from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 //image upload
-import { cloudinaryConfig } from './cloudinaryConfig'
+import { cloudinaryConfig } from './utils/cloudinaryConfig'
 
 //routes
 import adminRoutes from './admin/routes/admin-routes'
 import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
+import authenticated from './utils/authenticated'
 
 const app: Application = express()
-
-//image upload
-app.use('*', cloudinaryConfig)
 
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, '..', 'views'));
@@ -21,19 +19,15 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')));
 app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
+//image upload
+app.use('*', cloudinaryConfig)
 
-app.use('/admin', adminRoutes)
-app.use('/quiz', quizRoutes)
-app.use('/slide', slideRoutes)
+app.use('/admin',authenticated, adminRoutes)
+app.use('/quiz',authenticated, quizRoutes)
+app.use('/slide',authenticated, slideRoutes)
 
 app.get('/', (req, res)=>{
-    res.send(`
-        <h1 align=center>Hi Person
-        <br><a align=center href='/admin'>Admin</a>
-        <br><a align=center href='/quiz'>Quiz</a>
-        <br><a align=center href='/slide'>Slide</a>
-        </h1>
-    `)
+    res.render('index')
 })
 
 export default app

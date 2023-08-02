@@ -5,9 +5,7 @@ import result from '../controllers/result'
 const router = express.Router()
 
 router.get('/', (req, res)=>{
-    res.send(`
-        <h1 align=center>Hi<br><a align=center href='/quiz/start/'>Quiz</a></h1>
-    `)
+    res.render('quiz-home')
 })
 
 

@@ -9,9 +9,7 @@ const getAnswer_1 = __importDefault(require("../controllers/getAnswer"));
 const result_1 = __importDefault(require("../controllers/result"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => {
-    res.send(`
-        <h1 align=center>Hi<br><a align=center href='/quiz/start/'>Quiz</a></h1>
-    `);
+    res.render('quiz-home');
 });
 router.get('/start/:qn?', quizPage_1.default);
 router.get('/result', result_1.default);

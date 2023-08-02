@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import connectDB from './connectDB';
+import connectDB from './utils/connectDB';
 
 import app from './app'
 

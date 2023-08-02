@@ -5,6 +5,20 @@ body{
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
+nav{
+    height: 80px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none
+}
+
 img{
     margin: 50px
 }
@@ -28,4 +42,5 @@ img{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: 14px;
 }
