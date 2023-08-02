@@ -14,13 +14,13 @@ const dUri = new Datauri();
 * @returns {String} The data url from the string buffer
 */
 
-const dataUri = async (reqfile: any) =>{
+//function that convert buffer to image path
+const dataUri = (reqfile: any) =>{
     if (reqfile){
         console.log(reqfile, 'multer.js')
-        await dUri.format(path.extname(reqfile.originalname).toString(), reqfile.buffer)
+        const imagestring = dUri.format(path.extname(reqfile.originalname).toString(), reqfile.buffer)
+        return imagestring
     }
 }
-
-
 
 export {multerUploads, dataUri}

@@ -3,8 +3,7 @@ import express, {Application} from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 //image upload
-import { uploader, cloudinaryConfig } from './cloudinaryConfig'
-import { multerUploads, dataUri } from './admin/middlewares/multer'
+import { cloudinaryConfig } from './cloudinaryConfig'
 
 //routes
 import adminRoutes from './admin/routes/admin-routes'
@@ -12,9 +11,9 @@ import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
 
 const app: Application = express()
+
 //image upload
 app.use('*', cloudinaryConfig)
-
 
 app.set('view engine', 'ejs');
 app.set('views', path.resolve(__dirname, '..', 'views'));
