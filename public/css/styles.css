@@ -44,3 +44,8 @@ img{
     flex-direction: column;
     padding: 14px;
 }
+
+
+.login-popup {
+    background-color: #fff;
+}

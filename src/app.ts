@@ -1,3 +1,4 @@
+export let mode: string = "normal"
 import path from 'path'
 import express, {Application} from 'express'
 import bodyParser from 'body-parser'
@@ -9,7 +10,7 @@ import { cloudinaryConfig } from './utils/cloudinaryConfig'
 import adminRoutes from './admin/routes/admin-routes'
 import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
-import authenticated from './utils/authenticated'
+import authenticated, { restore, setRestoreValue } from './utils/cookie-authed'
 
 const app: Application = express()
 
@@ -22,12 +23,23 @@ app.use(bodyParser.urlencoded({extended: true}))
 //image upload
 app.use('*', cloudinaryConfig)
 
-app.use('/admin',authenticated, adminRoutes)
-app.use('/quiz',authenticated, quizRoutes)
-app.use('/slide',authenticated, slideRoutes)
+app.use('/admin', authenticated, adminRoutes)
+app.use('/quiz',  authenticated,  quizRoutes)
+app.use('/slide', authenticated, slideRoutes)
+
+
+
+
+export async function setMode(newMode: string): Promise<void>{mode = newMode}
 
 app.get('/', (req, res)=>{
-    res.render('index')
-})
+    const restore2 = restore
+    setRestoreValue(false)
+    res.render('index', {mode: restore2===true?mode:"mode"})
+    }
+)
+
+
+
 
 export default app
