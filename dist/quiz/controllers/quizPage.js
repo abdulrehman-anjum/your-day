@@ -13,15 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const question_1 = __importDefault(require("../models/question"));
+const getAnswer_1 = require("./getAnswer");
 const quizPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const questions = yield question_1.default.find().lean();
     console.log(questions.length);
-    //! if the quiz start over in the middle the answers array should also get empty
-    if (Number(req.params.qn ? req.params.qn : 0) < questions.length) {
-        res.render("quiz", {
-            question: questions[Number(req.params.qn ? req.params.qn : 0)]
-        });
-    }
+    res.render("quiz", {
+        question: questions[getAnswer_1.answers.length]
+    });
 });
 exports.default = quizPage;
 //# sourceMappingURL=quizPage.js.map

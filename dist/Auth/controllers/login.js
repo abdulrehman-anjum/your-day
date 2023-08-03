@@ -8,10 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const user_1 = __importDefault(require("../models/user"));
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // res.send(`User ${req.body.username} Save`)
     res.cookie("username", req.body.username);
+    const user = {
+        username: req.body.username,
+        type: "", //etermine by whether the user visited with a personal_id that exist in our db in the url already, 
+        //then its a taker, otherwise giver
+        //know this how???? find a way
+    };
+    const newUser = new user_1.default(user);
     res.render('message-to-user', {
         message: `
                     Welcome ${req.body.username}

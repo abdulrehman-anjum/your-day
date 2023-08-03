@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const question_1 = __importDefault(require("../../quiz/models/question"));
+//! Add questions in the quiz array 
 const addQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const options = [req.body.a, req.body.b, req.body.c];
     const question = {

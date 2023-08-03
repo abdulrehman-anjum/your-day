@@ -19,9 +19,7 @@ exports.answers = [];
 const submitQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const questions = yield question_1.default.find().lean();
     yield (0, takeAnswer_1.default)(Number(req.body.option));
-    let qindex = exports.answers.length;
-    console.log(qindex, "qn");
-    qindex < questions.length ? res.redirect(`/quiz/start/${qindex}`) : res.redirect('/quiz/result');
+    res.redirect(exports.answers.length < questions.length ? '/quiz/start' : '/quiz/result');
 });
 exports.default = submitQuiz;
 //# sourceMappingURL=getAnswer.js.map

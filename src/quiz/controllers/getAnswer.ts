@@ -7,9 +7,7 @@ export let answers: Answer[] = []
 const submitQuiz = async (req: Request, res: Response) => {
     const questions = await Question.find().lean()
     await takeAnswer(Number(req.body.option))
-    let qindex: number = answers.length
-    console.log(qindex, "qn")
-    qindex<questions.length?res.redirect(`/quiz/start/${qindex}`):res.redirect('/quiz/result')
+    res.redirect(answers.length<questions.length?'/quiz/start':'/quiz/result')        
 }
 
 export default submitQuiz

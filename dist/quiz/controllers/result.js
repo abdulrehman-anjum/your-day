@@ -16,12 +16,14 @@ const getAnswer_1 = require("./getAnswer");
 // import { questions } from '../utils/questions'
 const calcResult_1 = __importDefault(require("../services/calcResult"));
 const question_1 = __importDefault(require("../models/question"));
+const emptyAnswersArray_1 = require("../services/emptyAnswersArray");
 const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const questions = yield question_1.default.find().lean();
     // const answerKey: Array<number> = questions.map(question => Number(question.correct)); 
     const userAnswers = JSON.parse(JSON.stringify(getAnswer_1.answers));
     console.log("iser amserrr", userAnswers);
-    getAnswer_1.answers.splice(0, getAnswer_1.answers.length);
+    // answers.splice(0, answers.length) 
+    (0, emptyAnswersArray_1.emptyAnswersArray)();
     console.log("iser amserrr", userAnswers);
     (0, calcResult_1.default)(userAnswers, questions);
     res.render('results', { results: userAnswers });

@@ -1,6 +1,8 @@
 import { Response, Request } from "express";
+import { emptyAnswersArray } from "../../quiz/services/emptyAnswersArray"
 
 const logout = async (req: Request, res: Response)=>{
+    emptyAnswersArray()
     res.clearCookie("username")
     res.render('message-to-user', 
         {

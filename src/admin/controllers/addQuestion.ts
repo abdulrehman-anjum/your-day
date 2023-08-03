@@ -2,6 +2,8 @@ import {Request, Response} from 'express'
 import QuestionType from '../../quiz/types/question'
 import Question from '../../quiz/models/question'
 
+
+//! Add questions in the quiz array 
 const addQuestion = async (req: Request, res: Response) => {
     const options: Array<string> = [req.body.a, req.body.b, req.body.c]
     const question: QuestionType = {

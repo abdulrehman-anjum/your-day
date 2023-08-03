@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const emptyAnswersArray_1 = require("../../quiz/services/emptyAnswersArray");
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    (0, emptyAnswersArray_1.emptyAnswersArray)();
     res.clearCookie("username");
     res.render('message-to-user', {
         message: `
