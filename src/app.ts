@@ -1,4 +1,3 @@
-export let mode: string = "normal"
 import path from 'path'
 import express, {Application} from 'express'
 import bodyParser from 'body-parser'
@@ -7,10 +6,11 @@ import cookieParser from 'cookie-parser'
 import { cloudinaryConfig } from './utils/cloudinaryConfig'
 
 //routes
+import authRoutes from './Auth/routes/routes'
 import adminRoutes from './admin/routes/admin-routes'
 import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
-import authenticated, { restore, setRestoreValue } from './utils/cookie-authed'
+import authenticated, { restore, setRestoreValue } from './Auth/utils/cookie-authed'
 
 const app: Application = express()
 
@@ -23,19 +23,18 @@ app.use(bodyParser.urlencoded({extended: true}))
 //image upload
 app.use('*', cloudinaryConfig)
 
+app.use('/auth', authRoutes)
 app.use('/admin', authenticated, adminRoutes)
 app.use('/quiz',  authenticated,  quizRoutes)
 app.use('/slide', authenticated, slideRoutes)
 
+//!!! explore 'express-session' 
 
-
-
-export async function setMode(newMode: string): Promise<void>{mode = newMode}
 
 app.get('/', (req, res)=>{
     const restore2 = restore
     setRestoreValue(false)
-    res.render('index', {mode: restore2===true?mode:"mode"})
+    res.render('index', {mode: restore2?"login":"homepage"})
     }
 )
 

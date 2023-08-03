@@ -22,21 +22,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setMode = exports.mode = void 0;
-exports.mode = "normal";
 const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
@@ -44,10 +33,11 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 //image upload
 const cloudinaryConfig_1 = require("./utils/cloudinaryConfig");
 //routes
+const routes_1 = __importDefault(require("./Auth/routes/routes"));
 const admin_routes_1 = __importDefault(require("./admin/routes/admin-routes"));
-const routes_1 = __importDefault(require("./quiz/routes/routes"));
-const routes_2 = __importDefault(require("./slide/routes/routes"));
-const cookie_authed_1 = __importStar(require("./utils/cookie-authed"));
+const routes_2 = __importDefault(require("./quiz/routes/routes"));
+const routes_3 = __importDefault(require("./slide/routes/routes"));
+const cookie_authed_1 = __importStar(require("./Auth/utils/cookie-authed"));
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
@@ -57,17 +47,15 @@ app.use((0, cookie_parser_1.default)());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 //image upload
 app.use('*', cloudinaryConfig_1.cloudinaryConfig);
+app.use('/auth', routes_1.default);
 app.use('/admin', cookie_authed_1.default, admin_routes_1.default);
-app.use('/quiz', cookie_authed_1.default, routes_1.default);
-app.use('/slide', cookie_authed_1.default, routes_2.default);
-function setMode(newMode) {
-    return __awaiter(this, void 0, void 0, function* () { exports.mode = newMode; });
-}
-exports.setMode = setMode;
+app.use('/quiz', cookie_authed_1.default, routes_2.default);
+app.use('/slide', cookie_authed_1.default, routes_3.default);
+//!!! explore 'express-session' 
 app.get('/', (req, res) => {
     const restore2 = cookie_authed_1.restore;
     (0, cookie_authed_1.setRestoreValue)(false);
-    res.render('index', { mode: restore2 === true ? exports.mode : "mode" });
+    res.render('index', { mode: restore2 ? "login" : "homepage" });
 });
 exports.default = app;
 //# sourceMappingURL=app.js.map

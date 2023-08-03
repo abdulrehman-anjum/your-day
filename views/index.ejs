@@ -2,21 +2,16 @@
 
     <div class="main-card">
 
-        <% if (mode.toString().toLowerCase()=='login') { 
-            console.log(mode, "see mode")
-            %>
+        <% if (mode==='login') { %>
             <%- include('partials/login-popup') %>
-        <% } else {
-            console.log('lalala mode', mode)
-            %>
-
+        <% } else { %>
         <h1 class="q-card" align=center>
-            <br><a align=center href='/admin'>Admin</a>
             <br><a align=center href='/quiz'>Quiz</a>
             <br><a align=center href='/slide'>Slide</a>
+            <br><a align=center href='/admin'>Admin</a>
             </h1>
+        <% } %>
     </div>
 
-    <% }%>
 
 <%- include('partials/footer') %>
