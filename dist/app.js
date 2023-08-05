@@ -38,6 +38,7 @@ const admin_routes_1 = __importDefault(require("./admin/routes/admin-routes"));
 const routes_2 = __importDefault(require("./quiz/routes/routes"));
 const routes_3 = __importDefault(require("./slide/routes/routes"));
 const cookie_authed_1 = __importStar(require("./Auth/utils/cookie-authed"));
+const admin_authed_1 = __importDefault(require("./Auth/utils/admin-authed"));
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
@@ -48,7 +49,7 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 //image upload
 app.use('*', cloudinaryConfig_1.cloudinaryConfig);
 app.use('/auth', routes_1.default);
-app.use('/admin', cookie_authed_1.default, admin_routes_1.default);
+app.use('/admin', admin_authed_1.default, admin_routes_1.default);
 app.use('/quiz', cookie_authed_1.default, routes_2.default);
 app.use('/slide', cookie_authed_1.default, routes_3.default);
 //!!! explore 'express-session' 

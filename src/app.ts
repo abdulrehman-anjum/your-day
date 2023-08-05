@@ -11,6 +11,7 @@ import adminRoutes from './admin/routes/admin-routes'
 import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
 import authenticated, { restore, setRestoreValue } from './Auth/utils/cookie-authed'
+import authenticatedAdmin from './Auth/utils/admin-authed'
 
 const app: Application = express()
 
@@ -24,7 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use('*', cloudinaryConfig)
 
 app.use('/auth', authRoutes)
-app.use('/admin', authenticated, adminRoutes)
+app.use('/admin', authenticatedAdmin, adminRoutes)
 app.use('/quiz',  authenticated,  quizRoutes)
 app.use('/slide', authenticated, slideRoutes)
 

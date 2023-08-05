@@ -9,20 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const emptyAnswersArray_1 = require("../../quiz/services/emptyAnswersArray");
-const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, emptyAnswersArray_1.emptyAnswersArray)();
-    res.clearCookie("username");
-    if (req.cookies.admincookie) {
-        res.clearCookie("admincookie");
+const cookie_authed_1 = require("./cookie-authed");
+const authenticatedAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const clientHasAdminCookies = req.cookies.admincookie;
+    console.log(clientHasAdminCookies, "does he have buiskits");
+    if (clientHasAdminCookies) {
+        console.log('this????');
+        next();
     }
-    res.render('message-to-user', {
-        message: `
-                    Bye... LOGGED OUT SUCCESSFULLY 
-                `,
-        btnHref: "/auth/login",
-        btnText: "Login Again"
-    });
+    else {
+        console.log('else auth no cookie');
+        (0, cookie_authed_1.setRestoreValue)(true);
+        res.redirect('/');
+    }
 });
-exports.default = logout;
-//# sourceMappingURL=logout.js.map
+exports.default = authenticatedAdmin;
+//# sourceMappingURL=admin-authed.js.map
