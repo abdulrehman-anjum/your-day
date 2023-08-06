@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function default_1(req, res, next) {
-    res.clearCookie("username");
+    res.clearCookie;
     res.cookie("loggedOut", true);
     next();
 }
