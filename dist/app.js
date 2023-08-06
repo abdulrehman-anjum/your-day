@@ -26,6 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+let DEVMODE = false;
 const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
@@ -39,6 +40,7 @@ const routes_2 = __importDefault(require("./quiz/routes/routes"));
 const routes_3 = __importDefault(require("./slide/routes/routes"));
 const cookie_authed_1 = __importStar(require("./Auth/utils/cookie-authed"));
 const admin_authed_1 = __importDefault(require("./Auth/utils/admin-authed"));
+const querystring_1 = require("querystring");
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
@@ -57,6 +59,43 @@ app.get('/', (req, res) => {
     const restore2 = cookie_authed_1.restore;
     (0, cookie_authed_1.setRestoreValue)(false);
     res.render('index', { mode: restore2 ? "login" : "homepage" });
+});
+//DEV SIDE
+app.get('/devAuth', (req, res) => {
+    res.send(`
+            <form action="/devAuth" method="post">
+                <input type="text" name="devAuth" placeholder='test your luck'>
+                <button type="submit">I AM A DEVELOPER</button>
+            </form>
+
+        `);
+});
+app.post('/devAuth', (req, res) => {
+    var _a;
+    if (((_a = req.body) === null || _a === void 0 ? void 0 : _a.devAuth) === process.env.DEVAUTH) {
+        DEVMODE = true;
+        res.send(`
+                <h1><a href='/devaAuth/cookies'>ALL COOKIES</a></h1>
+            `);
+    }
+    else {
+        DEVMODE = false;
+        res.send(`   
+                you are not a dev
+                <a href='/devAuth'>NO i am the real developer</a>
+            `);
+    }
+});
+app.get('/devaAuth/cookies', (req, res) => {
+    if (DEVMODE) {
+        const cookies = (0, querystring_1.stringify)(req.cookies);
+        res.send(`
+            ${cookies}
+        `);
+    }
+    else {
+        res.redirect('/devAuth');
+    }
 });
 exports.default = app;
 //# sourceMappingURL=app.js.map
