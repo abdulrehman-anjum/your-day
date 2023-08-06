@@ -17,8 +17,18 @@ const login = async (req: Request, res: Response)=>{
         })
     } else {
         // res.send(`User ${req.body.username} Save`)
-        res.cookie("username", req.body.username)
-        res.cookie("loggedOut", false)
+        res.cookie("username", req.body.username, {
+            maxAge: 5000,
+            secure: true,
+            httpOnly: true,
+            sameSite: 'lax'
+        })
+        res.cookie("loggedOut", false, {
+            maxAge: 5000,
+            secure: true,
+            httpOnly: true,
+            sameSite: 'lax'
+        })
         const user = {
             username: req.body.username,
             type: "", //determine by whether the user visited with a personal_id that exist in our db in the url already, 
