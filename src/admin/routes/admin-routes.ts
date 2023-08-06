@@ -12,10 +12,10 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/add-question', addQuestionPage)
-router.post('/add-question', addQuestion)
+// router.post('/add-question', addQuestion)
 
 router.get('/upload-image', uploadImagePage)
-router.post('/upload-image', multerUploads, cloudinaryUploads)
+// router.post('/upload-image', multerUploads, cloudinaryUploads)
 
 
 export default router
