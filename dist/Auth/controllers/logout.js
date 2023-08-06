@@ -12,8 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const emptyAnswersArray_1 = require("../../quiz/services/emptyAnswersArray");
 const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, emptyAnswersArray_1.emptyAnswersArray)();
-    res.clearCookie("username");
-    res.cookie("loggedOut", true);
     if (req.cookies.admincookie) {
         res.clearCookie("admincookie");
     }

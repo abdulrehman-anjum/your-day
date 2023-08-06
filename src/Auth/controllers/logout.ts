@@ -3,8 +3,7 @@ import { emptyAnswersArray } from "../../quiz/services/emptyAnswersArray"
 
 const logout = async (req: Request, res: Response)=>{
     emptyAnswersArray()
-    res.clearCookie("username")
-    res.cookie("loggedOut", true)
+    
     if (req.cookies.admincookie){
         res.clearCookie("admincookie")
     }
