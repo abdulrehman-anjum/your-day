@@ -9,8 +9,9 @@ export async function setRestoreValue(newValue:boolean) {
 const authenticated = async (req: Request, res: Response, next: NextFunction)=>{
    
     const clientHasCookies = req.cookies.username
-    console.log(clientHasCookies, "does he have buiskits")
-    if (clientHasCookies){
+    const loggedOut: string = req.cookies.loggedOut
+    console.log(clientHasCookies, "does he have buiskits", loggedOut)
+    if (clientHasCookies && loggedOut==="false"){
         console.log('this????')
         next()
     }else{

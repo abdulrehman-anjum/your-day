@@ -18,18 +18,20 @@ const login = async (req: Request, res: Response)=>{
     } else {
         // res.send(`User ${req.body.username} Save`)
         res.cookie("username", req.body.username)
+        res.cookie("loggedOut", false)
         const user = {
             username: req.body.username,
-            type: "", //etermine by whether the user visited with a personal_id that exist in our db in the url already, 
+            type: "", //determine by whether the user visited with a personal_id that exist in our db in the url already, 
                         //then its a taker, otherwise giver
                         //know this how???? find a way
         }
         const newUser = new User(user)
+        const userCookieName = req.body.username
         res.render('message-to-user', 
             {
                 message: 
                     `
-                        Welcome ${req.body.username}
+                        Welcome ${userCookieName}
                     `,
                 btnHref: "/quiz",
                 btnText: "Prove Your Identity"

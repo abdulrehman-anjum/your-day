@@ -18,8 +18,9 @@ function setRestoreValue(newValue) {
 exports.setRestoreValue = setRestoreValue;
 const authenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const clientHasCookies = req.cookies.username;
-    console.log(clientHasCookies, "does he have buiskits");
-    if (clientHasCookies) {
+    const loggedOut = req.cookies.loggedOut;
+    console.log(clientHasCookies, "does he have buiskits", loggedOut);
+    if (clientHasCookies && loggedOut === "false") {
         console.log('this????');
         next();
     }

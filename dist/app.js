@@ -75,7 +75,7 @@ app.post('/devAuth', (req, res) => {
     if (((_a = req.body) === null || _a === void 0 ? void 0 : _a.devAuth) === process.env.DEVAUTH) {
         DEVMODE = true;
         res.send(`
-                <h1><a href='/devaAuth/cookies'>ALL COOKIES</a></h1>
+                <h1><a href='/devAuth/cookies'>ALL COOKIES</a></h1>
             `);
     }
     else {
@@ -86,7 +86,7 @@ app.post('/devAuth', (req, res) => {
             `);
     }
 });
-app.get('/devaAuth/cookies', (req, res) => {
+app.get('/devAuth/cookies', (req, res) => {
     if (DEVMODE) {
         const cookies = (0, querystring_1.stringify)(req.cookies);
         res.send(`

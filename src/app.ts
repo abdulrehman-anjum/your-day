@@ -63,7 +63,7 @@ app.post('/devAuth', (req, res)=>{
         DEVMODE = true
         res.send(
             `
-                <h1><a href='/devaAuth/cookies'>ALL COOKIES</a></h1>
+                <h1><a href='/devAuth/cookies'>ALL COOKIES</a></h1>
             `
         )
     } else {
@@ -77,7 +77,7 @@ app.post('/devAuth', (req, res)=>{
     }
 })
 
-app.get('/devaAuth/cookies', (req ,res)=>{
+app.get('/devAuth/cookies', (req ,res)=>{
     if (DEVMODE){
         const cookies = stringify(req.cookies)
         res.send(`
