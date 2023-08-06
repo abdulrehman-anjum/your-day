@@ -29,13 +29,13 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     else {
         // res.send(`User ${req.body.username} Save`)
         res.cookie("username", req.body.username, {
-            maxAge: 5000,
+            // maxAge: 5000,
             secure: true,
             httpOnly: true,
             sameSite: 'lax'
         });
         res.cookie("loggedOut", false, {
-            maxAge: 5000,
+            // maxAge: 5000,
             secure: true,
             httpOnly: true,
             sameSite: 'lax'

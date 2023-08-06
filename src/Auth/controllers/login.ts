@@ -18,13 +18,13 @@ const login = async (req: Request, res: Response)=>{
     } else {
         // res.send(`User ${req.body.username} Save`)
         res.cookie("username", req.body.username, {
-            maxAge: 5000,
+            // maxAge: 5000,
             secure: true,
             httpOnly: true,
             sameSite: 'lax'
         })
         res.cookie("loggedOut", false, {
-            maxAge: 5000,
+            // maxAge: 5000,
             secure: true,
             httpOnly: true,
             sameSite: 'lax'
