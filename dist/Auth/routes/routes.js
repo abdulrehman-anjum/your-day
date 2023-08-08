@@ -8,10 +8,11 @@ const login_page_1 = __importDefault(require("../controllers/login-page"));
 const login_1 = __importDefault(require("../controllers/login"));
 const logout_1 = __importDefault(require("../controllers/logout"));
 const clearCookies_1 = __importDefault(require("../middlewares/clearCookies"));
+const startSession_1 = __importDefault(require("../middlewares/startSession"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => { res.redirect('back'); });
 router.get('/login', login_page_1.default);
-router.post('/login', login_1.default);
+router.post('/login', startSession_1.default, login_1.default);
 router.get('/logout', clearCookies_1.default, logout_1.default);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

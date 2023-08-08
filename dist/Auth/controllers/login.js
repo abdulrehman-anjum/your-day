@@ -13,6 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../models/user"));
+const startSession_1 = require("../middlewares/startSession");
+const randomStringGenerator_1 = __importDefault(require("../utils/randomStringGenerator"));
+const sessions_1 = __importDefault(require("../models/sessions"));
+// import { browserID } from "src/app";
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //TEMP ADMIN
     if (req.body.username === process.env.AdminSecretKey) {
@@ -28,25 +32,49 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     else {
         // res.send(`User ${req.body.username} Save`)
-        res.cookie("username", req.body.username, {
-            // maxAge: 5000,
-            secure: true,
-            httpOnly: true,
-            sameSite: 'lax'
-        });
-        res.cookie("loggedOut", false, {
-            // maxAge: 5000,
-            secure: true,
-            httpOnly: true,
-            sameSite: 'lax'
-        });
-        const user = {
-            username: req.body.username,
-            type: "", //determine by whether the user visited with a personal_id that exist in our db in the url already, 
-            //then its a taker, otherwise giver
-            //know this how???? find a way
-        };
-        const newUser = new user_1.default(user);
+        // res.cookie("username", req.body.username, {
+        //     // maxAge: 5000,
+        //     secure: true,
+        //     httpOnly: true,
+        //     sameSite: 'lax'
+        // })
+        // res.cookie("loggedOut", false, {
+        //     // maxAge: 5000,
+        //     secure: true,
+        //     httpOnly: true,
+        //     sameSite: 'lax'
+        // })
+        // console.log(generateUniqueString(20))
+        const b_id = startSession_1.thisSession[0]._id;
+        console.log("this sesson with B-id", startSession_1.thisSession, b_id);
+        // const existingUser = await User.findOne({sessions: { $in: [b_id]}}).lean()
+        const existingUser = yield user_1.default.findOne({ username: req.body.username }).lean();
+        console.log("Existing user", existingUser);
+        if (existingUser) {
+            console.log("logged in ");
+            // loginStatus = true
+            yield sessions_1.default.updateOne({ browserId: b_id }, { loginStatus: true });
+            console.log("LoginStatus True");
+        }
+        else {
+            createUser();
+        }
+        function createUser() {
+            return __awaiter(this, void 0, void 0, function* () {
+                const p_id = (0, randomStringGenerator_1.default)(20);
+                const user = {
+                    username: req.body.username,
+                    type: "reciever",
+                    //then its a reciever, otherwise giver
+                    //know this how???? find a way
+                    personal_id: p_id,
+                    sessions: [b_id]
+                };
+                const newUser = new user_1.default(user);
+                yield newUser.save();
+                console.log("new user SAVED", newUser);
+            });
+        }
         const userCookieName = req.body.username;
         res.render('message-to-user', {
             message: `

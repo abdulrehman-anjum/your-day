@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const cookie_authed_1 = require("../utils/cookie-authed");
+const cookie_authed_1 = require("../services/cookie-authed");
 const loginPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, cookie_authed_1.setRestoreValue)(true);
     res.redirect('/');

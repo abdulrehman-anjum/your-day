@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { setRestoreValue } from "../utils/cookie-authed";
+import { setRestoreValue } from "../services/cookie-authed";
 
 const loginPage = async (req: Request, res: Response)=>{
     setRestoreValue(true)

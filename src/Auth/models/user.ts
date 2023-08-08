@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import Session from "./sessions"
 
 const Schema = mongoose.Schema
 
@@ -13,11 +14,27 @@ const userSchema = new Schema ({
     },
     identified: { //after quiz
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     },
     personal_id: { //! Use a random string generator ie hash , used for recognizing the sender and pulling appropriate quiz
         //! use this field as objectId in quiz schema
-        type: String
+        type: String,
+        unique: true
+    },
+    sessions: [{
+        type: mongoose.Schema.ObjectId,
+        ref: "Session",
+        required: true
+
+        //!username, browserID > browser
+        //!username ===> SESSIONS = [{ browerID: "string324", loggedIN: true | false }] as type
+        //!another browser, another ID
+
+    }],
+    deviceCount: {
+        type: Number,
+        default: 0
     }
 })
 

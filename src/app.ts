@@ -1,4 +1,6 @@
 let DEVMODE : boolean = false
+// export const browserID: string = generateUniqueString(23)
+
 
 import path from 'path'
 import express, {Application} from 'express'
@@ -12,9 +14,11 @@ import authRoutes from './Auth/routes/routes'
 import adminRoutes from './admin/routes/admin-routes'
 import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
-import authenticated, { restore, setRestoreValue } from './Auth/utils/cookie-authed'
-import authenticatedAdmin from './Auth/utils/admin-authed'
+import authenticated, { restore, setRestoreValue } from './Auth/services/cookie-authed'
+import authenticatedAdmin from './Auth/services/admin-authed'
 import { stringify } from 'querystring'
+import { generateKey } from 'crypto'
+import generateUniqueString from './Auth/utils/randomStringGenerator'
 
 const app: Application = express()
 

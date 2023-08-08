@@ -16,11 +16,25 @@ const userSchema = new Schema({
     },
     identified: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     },
     personal_id: {
         //! use this field as objectId in quiz schema
-        type: String
+        type: String,
+        unique: true
+    },
+    sessions: [{
+            type: mongoose_1.default.Schema.ObjectId,
+            ref: "Session",
+            required: true
+            //!username, browserID > browser
+            //!username ===> SESSIONS = [{ browerID: "string324", loggedIN: true | false }] as type
+            //!another browser, another ID
+        }],
+    deviceCount: {
+        type: Number,
+        default: 0
     }
 });
 const User = mongoose_1.default.model('User', userSchema);
