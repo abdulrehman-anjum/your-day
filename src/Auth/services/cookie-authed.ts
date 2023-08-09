@@ -18,7 +18,7 @@ const authenticated = async (req: Request, res: Response, next: NextFunction)=>{
 
     console.log("Our SESSION",ourSession)
 
-    const loggedIn = ourSession?true:false
+    const loggedIn = ourSession?.loggedUser?true:false
 
     if (loggedIn){
         console.log('this????')
