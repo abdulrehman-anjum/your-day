@@ -19,24 +19,7 @@ const login = async (req: Request, res: Response)=>{
             btnText: "Do your Admin Things"
         })
     } else {
-        // res.send(`User ${req.body.username} Save`)
-        // res.cookie("username", req.body.username, {
-        //     // maxAge: 5000,
-        //     secure: true,
-        //     httpOnly: true,
-        //     sameSite: 'lax'
-        // })
-        // res.cookie("loggedOut", false, {
-        //     // maxAge: 5000,
-        //     secure: true,
-        //     httpOnly: true,
-        //     sameSite: 'lax'
-        // })
-        // console.log(generateUniqueString(20))
-        // const b_id = "browserId"
-        // console.log("this sesson with B-id", browserId, b_id)
-        // const existingUser = await User.findOne({sessions: { $in: [b_id]}}).lean()
-
+       
         const username = req.body.username
         const b_id = req.cookies.b_id
     
@@ -51,7 +34,7 @@ const login = async (req: Request, res: Response)=>{
             thisUser = existingUser
             console.log("LoginStatus True", thisUser)
         } else {    
-            await createUser()
+            thisUser = await createUser()
         } 
 
         console.log(thisUser)
@@ -71,6 +54,7 @@ const login = async (req: Request, res: Response)=>{
             const newUser = new User(user)
             thisUser = await newUser.save()
             console.log("new user SAVED", thisUser)
+            return thisUser
         }
        
         const userCookieName = req.body.username
@@ -88,5 +72,11 @@ const login = async (req: Request, res: Response)=>{
 
 
 }
+
+
+export async function setThisUser(val: any){
+    thisUser = val
+}
+
 
 export default login

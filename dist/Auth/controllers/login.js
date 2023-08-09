@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.thisUser = void 0;
+exports.setThisUser = exports.thisUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const randomStringGenerator_1 = __importDefault(require("../utils/randomStringGenerator"));
 const sessions_1 = __importDefault(require("../models/sessions"));
@@ -30,23 +30,6 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     else {
-        // res.send(`User ${req.body.username} Save`)
-        // res.cookie("username", req.body.username, {
-        //     // maxAge: 5000,
-        //     secure: true,
-        //     httpOnly: true,
-        //     sameSite: 'lax'
-        // })
-        // res.cookie("loggedOut", false, {
-        //     // maxAge: 5000,
-        //     secure: true,
-        //     httpOnly: true,
-        //     sameSite: 'lax'
-        // })
-        // console.log(generateUniqueString(20))
-        // const b_id = "browserId"
-        // console.log("this sesson with B-id", browserId, b_id)
-        // const existingUser = await User.findOne({sessions: { $in: [b_id]}}).lean()
         const username = req.body.username;
         const b_id = req.cookies.b_id;
         const existingUser = yield user_1.default.findOne({ username: username }).lean();
@@ -57,7 +40,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             console.log("LoginStatus True", exports.thisUser);
         }
         else {
-            yield createUser();
+            exports.thisUser = yield createUser();
         }
         console.log(exports.thisUser);
         yield sessions_1.default.updateOne({ browserId: b_id }, { loggedUser: exports.thisUser._id });
@@ -74,6 +57,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 const newUser = new user_1.default(user);
                 exports.thisUser = yield newUser.save();
                 console.log("new user SAVED", exports.thisUser);
+                return exports.thisUser;
             });
         }
         const userCookieName = req.body.username;
@@ -86,5 +70,11 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
 });
+function setThisUser(val) {
+    return __awaiter(this, void 0, void 0, function* () {
+        exports.thisUser = val;
+    });
+}
+exports.setThisUser = setThisUser;
 exports.default = login;
 //# sourceMappingURL=login.js.map

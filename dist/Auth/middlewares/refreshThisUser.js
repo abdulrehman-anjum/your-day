@@ -12,21 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const emptyAnswersArray_1 = require("../../quiz/services/emptyAnswersArray");
+const login_1 = require("../controllers/login");
 const sessions_1 = __importDefault(require("../models/sessions"));
-const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, emptyAnswersArray_1.emptyAnswersArray)();
-    console.log("empty array now");
-    if (req.cookies.b_id) {
-        console.log("yesss about to logout ");
-        // setThisUser(null)
-        const thisSession = yield sessions_1.default.updateOne({ browserId: req.cookies.b_id }, { $unset: { loggedUser: 1 } });
-        console.log("successssss?", thisSession);
-    }
-    if (req.cookies.admincookie) {
-        res.clearCookie("admincookie");
-    }
-    next();
-});
-exports.default = logout;
-//# sourceMappingURL=logout.js.map
+const user_1 = __importDefault(require("../models/user"));
+function default_1(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const b_id = req.cookies.b_id;
+        const session = yield sessions_1.default.findOne({ browserId: b_id });
+        console.log("sesssiooonn refreeshh", session);
+        const username = session === null || session === void 0 ? void 0 : session.loggedUser;
+        const newValueOfThisUser = yield user_1.default.findOne({ _id: username });
+        (0, login_1.setThisUser)(newValueOfThisUser);
+        console.log("refreshhhh", newValueOfThisUser);
+        next();
+    });
+}
+exports.default = default_1;
+//# sourceMappingURL=refreshThisUser.js.map

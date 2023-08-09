@@ -42,6 +42,8 @@ const cookie_authed_1 = __importStar(require("./Auth/services/cookie-authed"));
 const admin_authed_1 = __importDefault(require("./Auth/services/admin-authed"));
 const querystring_1 = require("querystring"); //! investigate this later
 const startSession_1 = __importDefault(require("./Auth/middlewares/startSession"));
+const login_1 = require("./Auth/controllers/login");
+const refreshThisUser_1 = __importDefault(require("./Auth/middlewares/refreshThisUser"));
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
@@ -50,8 +52,10 @@ app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 //image upload
-app.use(startSession_1.default);
 app.use('*', cloudinaryConfig_1.cloudinaryConfig);
+//Custom Global Middlewares
+app.use(startSession_1.default);
+app.use(refreshThisUser_1.default);
 app.use('/auth', routes_1.default);
 app.use('/admin', admin_authed_1.default, admin_routes_1.default);
 app.use('/quiz', cookie_authed_1.default, routes_2.default);
@@ -60,40 +64,41 @@ app.use('/slide', cookie_authed_1.default, routes_3.default);
 app.get('/', (req, res) => {
     const restore2 = cookie_authed_1.restore;
     (0, cookie_authed_1.setRestoreValue)(false);
-    res.render('index', { mode: restore2 ? "login" : "homepage" });
+    console.log("index", login_1.thisUser);
+    res.render('index', { mode: restore2 ? "login" : "homepage", user: login_1.thisUser });
 });
-//DEV SIDE
+//*DEV SIDE
 app.get('/devAuth', (req, res) => {
     res.send(`
-            <form action="/devAuth" method="post">
-                <input type="text" name="devAuth" placeholder='test your luck'>
-                <button type="submit">I AM A DEVELOPER</button>
-            </form>
+                <form action="/devAuth" method="post">
+                    <input type="text" name="devAuth" placeholder='test your luck'>
+                    <button type="submit">I AM A DEVELOPER</button>
+                </form>
 
-        `);
+            `);
 });
 app.post('/devAuth', (req, res) => {
     var _a;
     if (((_a = req.body) === null || _a === void 0 ? void 0 : _a.devAuth) === process.env.DEVAUTH) {
         DEVMODE = true;
         res.send(`
-                <h1><a href='/devAuth/cookies'>ALL COOKIES</a></h1>
-            `);
+                    <h1><a href='/devAuth/cookies'>ALL COOKIES</a></h1>
+                `);
     }
     else {
         DEVMODE = false;
         res.send(`   
-                you are not a dev
-                <a href='/devAuth'>NO i am the real developer</a>
-            `);
+                    you are not a dev
+                    <a href='/devAuth'>NO i am the real developer</a>
+                `);
     }
 });
 app.get('/devAuth/cookies', (req, res) => {
     if (DEVMODE) {
         const cookies = (0, querystring_1.stringify)(req.cookies);
         res.send(`
-            ${cookies}
-        `);
+                ${cookies}
+            `);
     }
     else {
         res.redirect('/devAuth');

@@ -17,6 +17,8 @@ import authenticated, { restore, setRestoreValue } from './Auth/services/cookie-
 import authenticatedAdmin from './Auth/services/admin-authed'
 import { stringify } from 'querystring' //! investigate this later
 import putACookieInTheBrowser from './Auth/middlewares/startSession'
+import { thisUser } from './Auth/controllers/login'
+import refreshThisUser from './Auth/middlewares/refreshThisUser'
 
 const app: Application = express()
 
@@ -27,8 +29,10 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 //image upload
-app.use(putACookieInTheBrowser)
 app.use('*', cloudinaryConfig)
+//Custom Global Middlewares
+app.use(putACookieInTheBrowser)
+app.use(refreshThisUser) 
 
 app.use('/auth', authRoutes)
 app.use('/admin', authenticatedAdmin, adminRoutes)
@@ -42,54 +46,56 @@ app.use('/slide', authenticated, slideRoutes)
 app.get('/', (req, res)=>{
     const restore2 = restore
     setRestoreValue(false)
-    res.render('index', {mode: restore2?"login":"homepage"})
+    console.log("index",thisUser)
+    res.render('index', {mode: restore2?"login":"homepage", user: thisUser})
     }
 )
 
 
 
-//DEV SIDE
-app.get('/devAuth', (req, res)=>{
-    res.send(
-        `
-            <form action="/devAuth" method="post">
-                <input type="text" name="devAuth" placeholder='test your luck'>
-                <button type="submit">I AM A DEVELOPER</button>
-            </form>
+//*DEV SIDE
 
-        `
-    )
-})
-
-app.post('/devAuth', (req, res)=>{
-    if (req.body?.devAuth === process.env.DEVAUTH){
-        DEVMODE = true
+    app.get('/devAuth', (req, res)=>{
         res.send(
             `
-                <h1><a href='/devAuth/cookies'>ALL COOKIES</a></h1>
-            `
-        )
-    } else {
-        DEVMODE=false
-        res.send(
-            `   
-                you are not a dev
-                <a href='/devAuth'>NO i am the real developer</a>
-            `
-        )
-    }
-})
+                <form action="/devAuth" method="post">
+                    <input type="text" name="devAuth" placeholder='test your luck'>
+                    <button type="submit">I AM A DEVELOPER</button>
+                </form>
 
-app.get('/devAuth/cookies', (req ,res)=>{
-    if (DEVMODE){
-        const cookies = stringify(req.cookies)
-        res.send(`
-            ${cookies}
-        `)
-    } else {
-        res.redirect('/devAuth')
-    }
-})
+            `
+        )
+    })
+
+    app.post('/devAuth', (req, res)=>{
+        if (req.body?.devAuth === process.env.DEVAUTH){
+            DEVMODE = true
+            res.send(
+                `
+                    <h1><a href='/devAuth/cookies'>ALL COOKIES</a></h1>
+                `
+            )
+        } else {
+            DEVMODE=false
+            res.send(
+                `   
+                    you are not a dev
+                    <a href='/devAuth'>NO i am the real developer</a>
+                `
+            )
+        }
+    })
+
+    app.get('/devAuth/cookies', (req ,res)=>{
+        if (DEVMODE){
+            const cookies = stringify(req.cookies)
+            res.send(`
+                ${cookies}
+            `)
+        } else {
+            res.redirect('/devAuth')
+        }
+    })
 
 
 
