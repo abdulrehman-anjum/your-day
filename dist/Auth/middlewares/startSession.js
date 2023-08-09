@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const randomStringGenerator_1 = __importDefault(require("../utils/randomStringGenerator"));
+const sessions_1 = __importDefault(require("../models/sessions"));
 function default_1(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const clientAlreadyHasB_Id = req.cookies.b_id ? true : false;
@@ -24,6 +25,8 @@ function default_1(req, res, next) {
                 httpOnly: true,
                 sameSite: 'lax'
             });
+            const newSession = new sessions_1.default({ browserId: b_id });
+            yield newSession.save();
         }
         next();
     });

@@ -26,7 +26,7 @@ const authenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         ourSession = yield sessions_1.default.findOne({ browserId: req.cookies.b_id }).lean();
     }
     console.log("Our SESSION", ourSession);
-    const loggedIn = false;
+    const loggedIn = ourSession ? true : false;
     if (loggedIn) {
         console.log('this????');
         next();
