@@ -1,9 +1,8 @@
 import { Response, Request } from "express";
 import User from "../models/user";
-import { thisSession } from '../middlewares/startSession'
 import generateUniqueString from "../utils/randomStringGenerator";
 import Session from "../models/sessions";
-// import { browserID } from "src/app";
+export let thisUser: any
 
 const login = async (req: Request, res: Response)=>{
 
@@ -34,33 +33,44 @@ const login = async (req: Request, res: Response)=>{
         //     sameSite: 'lax'
         // })
         // console.log(generateUniqueString(20))
-        const b_id = thisSession[0]._id
-        console.log("this sesson with B-id", thisSession, b_id)
+        // const b_id = "browserId"
+        // console.log("this sesson with B-id", browserId, b_id)
         // const existingUser = await User.findOne({sessions: { $in: [b_id]}}).lean()
-        const existingUser = await User.findOne({username: req.body.username}).lean()
+
+        const username = req.body.username
+        const b_id = req.cookies.b_id
+    
+
+        const existingUser = await User.findOne({username: username}).lean()
         console.log("Existing user", existingUser)
+        
+
+
         if (existingUser) {
             console.log("logged in ")
-            // loginStatus = true
-            await Session.updateOne({browserId: b_id}, {loginStatus: true})
-            console.log("LoginStatus True")
+            thisUser = existingUser
+            console.log("LoginStatus True", thisUser)
         } else {    
-            createUser()
-        }
+            await createUser()
+        } 
+
+        console.log(thisUser)
+        await Session.updateOne({browserId: b_id}, {loggedUser: thisUser._id})
+
 
         async function createUser(){
             const p_id = generateUniqueString(20)
             const user = {
-                username: req.body.username,
+                username: username,
                 type: "reciever", //determine by whether the user visited with a personal_id that exist in our db in the url already, 
                             //then its a reciever, otherwise giver
                             //know this how???? find a way
                 personal_id: p_id,
-                sessions: [b_id] 
+                 
             }
             const newUser = new User(user)
-            await newUser.save()
-            console.log("new user SAVED", newUser)
+            thisUser = await newUser.save()
+            console.log("new user SAVED", thisUser)
         }
        
         const userCookieName = req.body.username

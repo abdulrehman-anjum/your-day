@@ -7,9 +7,9 @@ const sessionSchema = new Schema ({
         type: String,
         required: true
     },
-    loginStatus: {
-        type: String,
-        required: true
+    loggedUser: {
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
     }
 })
 

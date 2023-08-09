@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import User from "../models/user"
+import Session from "../models/sessions"
 
 export let restore: boolean
 
@@ -9,15 +10,20 @@ export async function setRestoreValue(newValue:boolean) {
 
 const authenticated = async (req: Request, res: Response, next: NextFunction)=>{
    
-    const clientHasCookies = req.cookies.username
-    const loggedOut: string = req.cookies.loggedOut
 
-    const user = await User.find({personal_id: req.cookies.personal_id})
-    console.log(user)
+    let ourSession
+    if (req.cookies.b_id) {
+        ourSession = await Session.findOne({browserId: req.cookies.b_id}).lean()
+    }
 
-    console.log(clientHasCookies, "does he have buiskits", loggedOut)
-    // if (clientHasCookies && loggedOut==="false"){
-    if (false){
+    console.log("Our SESSION",ourSession)
+    
+
+
+
+    const loggedIn = false
+
+    if (loggedIn){
         console.log('this????')
         next()
     }else{

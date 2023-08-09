@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-import Session from "./sessions"
 
 const Schema = mongoose.Schema
 
@@ -22,16 +21,16 @@ const userSchema = new Schema ({
         type: String,
         unique: true
     },
-    sessions: [{
-        type: mongoose.Schema.ObjectId,
-        ref: "Session",
-        required: true
+    // sessions: [{
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: "Session",
+    //     required: true
 
-        //!username, browserID > browser
-        //!username ===> SESSIONS = [{ browerID: "string324", loggedIN: true | false }] as type
-        //!another browser, another ID
+    //     //!username, browserID > browser
+    //     //!username ===> SESSIONS = [{ browerID: "string324", loggedIN: true | false }] as type
+    //     //!another browser, another ID
 
-    }],
+    // }],
     deviceCount: {
         type: Number,
         default: 0

@@ -8,20 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const emptyAnswersArray_1 = require("../../quiz/services/emptyAnswersArray");
-const logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const sessions_1 = __importDefault(require("../models/sessions"));
+const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     (0, emptyAnswersArray_1.emptyAnswersArray)();
+    if (req.cookies.b_id) {
+        const thisSession = yield sessions_1.default.updateOne({ browserId: req.cookies.b_id }, { $unset: { loggedUser: 1 } });
+        console.log(thisSession);
+    }
     if (req.cookies.admincookie) {
         res.clearCookie("admincookie");
     }
-    res.render('message-to-user', {
-        message: `
-                    Bye... LOGGED OUT SUCCESSFULLY 
-                `,
-        btnHref: "/auth/login",
-        btnText: "Login Again"
-    });
+    next();
 });
 exports.default = logout;
 //# sourceMappingURL=logout.js.map

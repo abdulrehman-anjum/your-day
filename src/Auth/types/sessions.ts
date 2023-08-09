@@ -1,6 +1,6 @@
 interface sessions {
     browserId: string
-    loginStatus: boolean
+    loginStatus: string
 }
 
 export default sessions

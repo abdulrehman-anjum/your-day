@@ -1,5 +1,4 @@
 let DEVMODE : boolean = false
-// export const browserID: string = generateUniqueString(23)
 
 
 import path from 'path'
@@ -16,9 +15,8 @@ import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
 import authenticated, { restore, setRestoreValue } from './Auth/services/cookie-authed'
 import authenticatedAdmin from './Auth/services/admin-authed'
-import { stringify } from 'querystring'
-import { generateKey } from 'crypto'
-import generateUniqueString from './Auth/utils/randomStringGenerator'
+import { stringify } from 'querystring' //! investigate this later
+import putACookieInTheBrowser from './Auth/middlewares/startSession'
 
 const app: Application = express()
 
@@ -29,6 +27,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({extended: true}))
 //image upload
+app.use(putACookieInTheBrowser)
 app.use('*', cloudinaryConfig)
 
 app.use('/auth', authRoutes)

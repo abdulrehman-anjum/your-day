@@ -10,9 +10,9 @@ const sessionSchema = new Schema({
         type: String,
         required: true
     },
-    loginStatus: {
-        type: String,
-        required: true
+    loggedUser: {
+        type: mongoose_1.default.Schema.ObjectId,
+        ref: "User"
     }
 });
 const Session = mongoose_1.default.model('Session', sessionSchema);

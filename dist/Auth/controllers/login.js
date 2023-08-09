@@ -12,11 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.thisUser = void 0;
 const user_1 = __importDefault(require("../models/user"));
-const startSession_1 = require("../middlewares/startSession");
 const randomStringGenerator_1 = __importDefault(require("../utils/randomStringGenerator"));
 const sessions_1 = __importDefault(require("../models/sessions"));
-// import { browserID } from "src/app";
 const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //TEMP ADMIN
     if (req.body.username === process.env.AdminSecretKey) {
@@ -45,34 +44,36 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         //     sameSite: 'lax'
         // })
         // console.log(generateUniqueString(20))
-        const b_id = startSession_1.thisSession[0]._id;
-        console.log("this sesson with B-id", startSession_1.thisSession, b_id);
+        // const b_id = "browserId"
+        // console.log("this sesson with B-id", browserId, b_id)
         // const existingUser = await User.findOne({sessions: { $in: [b_id]}}).lean()
-        const existingUser = yield user_1.default.findOne({ username: req.body.username }).lean();
+        const username = req.body.username;
+        const b_id = req.cookies.b_id;
+        const existingUser = yield user_1.default.findOne({ username: username }).lean();
         console.log("Existing user", existingUser);
         if (existingUser) {
             console.log("logged in ");
-            // loginStatus = true
-            yield sessions_1.default.updateOne({ browserId: b_id }, { loginStatus: true });
-            console.log("LoginStatus True");
+            exports.thisUser = existingUser;
+            console.log("LoginStatus True", exports.thisUser);
         }
         else {
-            createUser();
+            yield createUser();
         }
+        console.log(exports.thisUser);
+        yield sessions_1.default.updateOne({ browserId: b_id }, { loggedUser: exports.thisUser._id });
         function createUser() {
             return __awaiter(this, void 0, void 0, function* () {
                 const p_id = (0, randomStringGenerator_1.default)(20);
                 const user = {
-                    username: req.body.username,
+                    username: username,
                     type: "reciever",
                     //then its a reciever, otherwise giver
                     //know this how???? find a way
                     personal_id: p_id,
-                    sessions: [b_id]
                 };
                 const newUser = new user_1.default(user);
-                yield newUser.save();
-                console.log("new user SAVED", newUser);
+                exports.thisUser = yield newUser.save();
+                console.log("new user SAVED", exports.thisUser);
             });
         }
         const userCookieName = req.body.username;

@@ -27,7 +27,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 let DEVMODE = false;
-// export const browserID: string = generateUniqueString(23)
 const path_1 = __importDefault(require("path"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
@@ -41,7 +40,8 @@ const routes_2 = __importDefault(require("./quiz/routes/routes"));
 const routes_3 = __importDefault(require("./slide/routes/routes"));
 const cookie_authed_1 = __importStar(require("./Auth/services/cookie-authed"));
 const admin_authed_1 = __importDefault(require("./Auth/services/admin-authed"));
-const querystring_1 = require("querystring");
+const querystring_1 = require("querystring"); //! investigate this later
+const startSession_1 = __importDefault(require("./Auth/middlewares/startSession"));
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
@@ -50,6 +50,7 @@ app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 //image upload
+app.use(startSession_1.default);
 app.use('*', cloudinaryConfig_1.cloudinaryConfig);
 app.use('/auth', routes_1.default);
 app.use('/admin', admin_authed_1.default, admin_routes_1.default);
