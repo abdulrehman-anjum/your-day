@@ -16,13 +16,15 @@ const emptyAnswersArray_1 = require("../../quiz/services/emptyAnswersArray");
 const sessions_1 = __importDefault(require("../models/sessions"));
 const logout = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     (0, emptyAnswersArray_1.emptyAnswersArray)();
+    console.log("empty array now");
     if (req.cookies.b_id) {
+        console.log("yesss about to logout ");
         const thisSession = yield sessions_1.default.updateOne({ browserId: req.cookies.b_id }, { $unset: { loggedUser: 1 } });
-        console.log(thisSession);
+        console.log("successssss?", thisSession);
     }
-    if (req.cookies.admincookie) {
-        res.clearCookie("admincookie");
-    }
+    // if (req.cookies.admincookie){
+    //     res.clearCookie("admincookie")
+    // }
     next();
 });
 exports.default = logout;

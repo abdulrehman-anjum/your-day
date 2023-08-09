@@ -4,15 +4,17 @@ import Session from "../models/sessions";
 
 const logout = async (req: Request, res: Response, next: NextFunction)=>{
     emptyAnswersArray()
+    console.log("empty array now")
     if (req.cookies.b_id) {
+        console.log("yesss about to logout ")
         const thisSession = await Session.updateOne({browserId: req.cookies.b_id}, {$unset:  {loggedUser: 1}})
-        console.log(thisSession)
+        console.log("successssss?",thisSession)
     }
 
 
-    if (req.cookies.admincookie){
-        res.clearCookie("admincookie")
-    }
+    // if (req.cookies.admincookie){
+    //     res.clearCookie("admincookie")
+    // }
 
     next()
 
