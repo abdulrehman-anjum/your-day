@@ -15,10 +15,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const quiz_1 = __importDefault(require("../../quiz/models/quiz"));
 const refreshThisUser_1 = require("../../Auth/middlewares/refreshThisUser");
+let counter = 1;
 function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const quiz = {
-            quiz_name: req.body.quizName === '' ? undefined : req.body.quizName,
+            quiz_name: req.body.quizName === '' ? `Quiz - ${counter++}` : req.body.quizName,
             quiz_creator: refreshThisUser_1.currentUser._id,
             questions: []
         };

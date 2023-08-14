@@ -17,7 +17,7 @@ const quiz_1 = __importDefault(require("../../quiz/models/quiz"));
 function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const quizList = yield quiz_1.default.find({ quiz_creator: refreshThisUser_1.currentUser._id });
-        console.log(quizList, "list", Date.now());
+        // console.log(quizList, "list", Date.now())
         res.render('quiz-list', { quizList: quizList });
     });
 }

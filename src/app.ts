@@ -43,11 +43,16 @@ app.use('/slide', authenticated, slideRoutes)
 
 //!!! explore 'express-session' ???????
 
+app.get('/logmyvalue', (req, res)=>{
+    console.log(Date.now())
+    res.redirect('/')
+})
+
 
 app.get('/', (req, res)=>{
     const originalMode = mode
     setHomepageMode(false)
-    console.log("index", currentUser)
+    // console.log("index", currentUser)
     res.render('index', {mode: originalMode?"login":"homepage", user: currentUser})
     }
 )

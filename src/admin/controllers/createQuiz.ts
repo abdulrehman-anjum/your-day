@@ -4,10 +4,11 @@
 import {Request, Response} from 'express'
 import Quiz from '../../quiz/models/quiz'
 import { currentUser } from '../../Auth/middlewares/refreshThisUser'
+let counter: number = 1
 
 export default async function (req: Request, res: Response){
     const quiz = {
-        quiz_name: req.body.quizName===''?undefined:req.body.quizName,
+        quiz_name: req.body.quizName===''?`Quiz - ${counter++}`:req.body.quizName,
         quiz_creator: currentUser._id,
         questions: []
     }

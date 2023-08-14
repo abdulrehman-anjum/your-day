@@ -26,7 +26,7 @@ const addQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const q = yield newQuestion.save();
     //push the question in quiz
     yield quiz_1.default.findByIdAndUpdate(req.params.quizId, { $push: { questions: q._id } });
-    res.redirect('/admin');
+    res.redirect(`/admin/quiz/${req.params.quizId}`);
 });
 exports.default = addQuestion;
 //# sourceMappingURL=addQuestion.js.map

@@ -6,7 +6,7 @@
             <h1>Your Quiz List</h1>
             <ul>
                 <% quizList.forEach(quiz => { %>
-                    <li><%=quiz.quiz_name%></li>
+                    <li><a href="/admin/quiz/<%=quiz._id%>"><%=quiz.quiz_name%></a></li>
                 <% }); %>
                 <li><a href="/admin/create-quiz">Add More Quiz</a></li>
             </ul>

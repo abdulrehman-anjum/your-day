@@ -5,7 +5,7 @@ import Quiz from '../../quiz/models/quiz'
 export default async function (req: Request, res: Response){
 
     const quizList = await Quiz.find({quiz_creator: currentUser._id})
-    console.log(quizList, "list", Date.now())
+    // console.log(quizList, "list", Date.now())
 
 
     res.render('quiz-list', {quizList: quizList})

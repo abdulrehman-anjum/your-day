@@ -19,7 +19,7 @@ const addQuestion = async (req: Request, res: Response) => {
     //push the question in quiz
     await Quiz.findByIdAndUpdate(req.params.quizId, { $push: {questions: q._id}})
     
-    res.redirect('/admin')
+    res.redirect(`/admin/quiz/${req.params.quizId}`)
 }
 
 export default addQuestion

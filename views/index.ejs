@@ -6,9 +6,10 @@
             <%- include('partials/login-popup') %>
         <% } else { %>
         <h1 class="q-card" align=center>
+            <a href="/logmyvalue">Log My Value</a>
+            <a><%=user?.username%></a>
             <br><a align=center href='/quiz'>Quiz</a>
-            <br><a align=center href='/slide'>Slide</a><br>
-            <h1><%=user?.username%></h1>
+            <br><a align=center href='/slide'>Slide</a>
             <br><a align=center href='/admin'>Admin</a>
             </h1>
         <% } %>

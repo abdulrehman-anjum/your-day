@@ -3,10 +3,14 @@
     <div class="main-card">
 
         <h1 class="q-card" align=center>
-            <h1><%= quiz. %></h1>
-            <br><a align=center href='/quiz/start/'>Start Quiz</a>
+            <a><%= quiz.quiz_name%></a>
+           
             <ul>
-               
+               <% quiz.questions.forEach(question=>{ %>
+                <li><%= question.question %></li>
+               <% }) %>
+
+               <a href="/admin/quiz/<%= quiz._id %>/add-question">Add Question</a>
             </ul>
         </h1>
     </div>

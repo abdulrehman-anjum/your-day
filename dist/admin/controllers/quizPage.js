@@ -17,7 +17,8 @@ function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         //display questions and add question btn
         const quizId = req.params.quizId;
-        const quiz = yield quiz_1.default.findById(quizId);
+        const quiz = yield quiz_1.default.findById(quizId).populate("questions");
+        console.log("quiz-page. quiz", quiz);
         res.render('quiz-page', { quiz: quiz });
     });
 }

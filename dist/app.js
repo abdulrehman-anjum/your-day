@@ -60,10 +60,14 @@ app.use('/admin', authenticator_1.default, admin_routes_1.default);
 app.use('/quiz', authenticator_1.default, routes_2.default);
 app.use('/slide', authenticator_1.default, routes_3.default);
 //!!! explore 'express-session' ???????
+app.get('/logmyvalue', (req, res) => {
+    console.log(Date.now());
+    res.redirect('/');
+});
 app.get('/', (req, res) => {
     const originalMode = setHomepageMode_1.mode;
     (0, setHomepageMode_1.default)(false);
-    console.log("index", refreshThisUser_1.currentUser);
+    // console.log("index", currentUser)
     res.render('index', { mode: originalMode ? "login" : "homepage", user: refreshThisUser_1.currentUser });
 });
 //*DEV SIDE

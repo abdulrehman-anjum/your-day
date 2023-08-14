@@ -7,8 +7,7 @@ const Schema = mongoose.Schema
 const quizSchema = new Schema ({
     quiz_name: {
         type: String,
-        required: true,
-        default: `Quiz - ${Date.now()}`
+        required: true
     },
     quiz_creator: {
         type: mongoose.Schema.ObjectId,

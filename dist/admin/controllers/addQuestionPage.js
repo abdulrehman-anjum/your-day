@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const addQuestionPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.render('add-question');
+    const quizId = req.params.quizId;
+    res.render('add-question', { quizId: quizId });
 });
 exports.default = addQuestionPage;
 //# sourceMappingURL=addQuestionPage.js.map
