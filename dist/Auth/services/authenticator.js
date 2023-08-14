@@ -12,30 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setRestoreValue = exports.restore = void 0;
 const sessions_1 = __importDefault(require("../models/sessions"));
-function setRestoreValue(newValue) {
-    return __awaiter(this, void 0, void 0, function* () {
-        exports.restore = newValue;
-    });
-}
-exports.setRestoreValue = setRestoreValue;
+const setHomepageMode_1 = __importDefault(require("../utils/setHomepageMode"));
 const authenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    let ourSession;
-    if (req.cookies.b_id) {
-        ourSession = yield sessions_1.default.findOne({ browserId: req.cookies.b_id }).lean();
-    }
-    console.log("Our SESSION", ourSession);
-    const loggedIn = (ourSession === null || ourSession === void 0 ? void 0 : ourSession.loggedUser) ? true : false;
+    const session = yield sessions_1.default.findOne({ browserId: req.cookies.b_id });
+    const loggedIn = (session === null || session === void 0 ? void 0 : session.loggedUser) ? true : false;
     if (loggedIn) {
-        console.log('this????');
         next();
     }
     else {
-        console.log('else auth no cookie');
-        exports.restore = true;
+        (0, setHomepageMode_1.default)(true);
         res.redirect('/');
     }
 });
 exports.default = authenticated;
-//# sourceMappingURL=cookie-authed.js.map
+//# sourceMappingURL=authenticator.js.map

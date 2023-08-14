@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+
+    <div class="main-card">
+
+        <div class="q-card" align=center>
+            <h1>Create Your Quiz Here</h1>
+            <form action="/admin/create-quiz" method="post">
+                <input type="text" name="quizName" placeholder="quiz name">
+                <input type="submit" value="Create">
+            </form>
+        </div>
+    </div>
+
+<%- include('partials/footer') %>

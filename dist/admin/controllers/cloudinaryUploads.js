@@ -15,16 +15,15 @@ const cloudinaryUploads = (req, res) => __awaiter(void 0, void 0, void 0, functi
     var _a, _b;
     if (req.file) {
         const file = yield (0, multer_1.dataUri)(req.file);
-        const cont = ((_a = file === null || file === void 0 ? void 0 : file.content) === null || _a === void 0 ? void 0 : _a.toString()) ? (_b = file === null || file === void 0 ? void 0 : file.content) === null || _b === void 0 ? void 0 : _b.toString() : "";
-        console.log(cont, "this the file2480");
+        // fileContent is the 64bit buffer of image that we converted to string
+        const fileContent = ((_a = file === null || file === void 0 ? void 0 : file.content) === null || _a === void 0 ? void 0 : _a.toString()) ? (_b = file === null || file === void 0 ? void 0 : file.content) === null || _b === void 0 ? void 0 : _b.toString() : "";
         try {
-            yield cloudinaryConfig_1.uploader.uploader.upload(cont).then(result => {
-                const image = result.url;
-                console.log(image);
+            yield cloudinaryConfig_1.uploader.uploader.upload(fileContent).then(result => {
+                const imageURL = result.url;
                 res.send(`
-                    image uploaded: <a href='${image}'>see here<a>
+                    image uploaded: <a href='${imageURL}'>see here<a>
                     <br>
-                    <img src='${image}'>
+                    <img src='${imageURL}'>
                 `);
             });
         }

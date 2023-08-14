@@ -38,12 +38,11 @@ const routes_1 = __importDefault(require("./Auth/routes/routes"));
 const admin_routes_1 = __importDefault(require("./admin/routes/admin-routes"));
 const routes_2 = __importDefault(require("./quiz/routes/routes"));
 const routes_3 = __importDefault(require("./slide/routes/routes"));
-const cookie_authed_1 = __importStar(require("./Auth/services/cookie-authed"));
-const admin_authed_1 = __importDefault(require("./Auth/services/admin-authed"));
+const authenticator_1 = __importDefault(require("./Auth/services/authenticator"));
+const setHomepageMode_1 = __importStar(require("./Auth/utils/setHomepageMode"));
 const querystring_1 = require("querystring"); //! investigate this later
 const startSession_1 = __importDefault(require("./Auth/middlewares/startSession"));
-const login_1 = require("./Auth/controllers/login");
-const refreshThisUser_1 = __importDefault(require("./Auth/middlewares/refreshThisUser"));
+const refreshThisUser_1 = __importStar(require("./Auth/middlewares/refreshThisUser"));
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
@@ -57,15 +56,15 @@ app.use('*', cloudinaryConfig_1.cloudinaryConfig);
 app.use(startSession_1.default);
 app.use(refreshThisUser_1.default);
 app.use('/auth', routes_1.default);
-app.use('/admin', admin_authed_1.default, admin_routes_1.default);
-app.use('/quiz', cookie_authed_1.default, routes_2.default);
-app.use('/slide', cookie_authed_1.default, routes_3.default);
-//!!! explore 'express-session' 
+app.use('/admin', authenticator_1.default, admin_routes_1.default);
+app.use('/quiz', authenticator_1.default, routes_2.default);
+app.use('/slide', authenticator_1.default, routes_3.default);
+//!!! explore 'express-session' ???????
 app.get('/', (req, res) => {
-    const restore2 = cookie_authed_1.restore;
-    (0, cookie_authed_1.setRestoreValue)(false);
-    console.log("index", login_1.thisUser);
-    res.render('index', { mode: restore2 ? "login" : "homepage", user: login_1.thisUser });
+    const originalMode = setHomepageMode_1.mode;
+    (0, setHomepageMode_1.default)(false);
+    console.log("index", refreshThisUser_1.currentUser);
+    res.render('index', { mode: originalMode ? "login" : "homepage", user: refreshThisUser_1.currentUser });
 });
 //*DEV SIDE
 app.get('/devAuth', (req, res) => {

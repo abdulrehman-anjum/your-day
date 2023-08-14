@@ -6,6 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
 const quizSchema = new Schema({
+    quiz_name: {
+        type: String,
+        required: true,
+        default: `Quiz - ${Date.now()}`
+    },
     quiz_creator: {
         type: mongoose_1.default.Schema.ObjectId,
         ref: "User"
@@ -13,7 +18,11 @@ const quizSchema = new Schema({
     questions: [{
             type: mongoose_1.default.Schema.ObjectId,
             ref: "Question"
-        }]
+        }],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 });
 const Quiz = mongoose_1.default.model('Quiz', quizSchema);
 exports.default = Quiz;

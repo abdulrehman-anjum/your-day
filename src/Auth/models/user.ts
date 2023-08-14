@@ -7,7 +7,7 @@ const userSchema = new Schema ({
         type: String,
         required: true
     },
-    type: { //giver(has admin priveleges) or taker(anyone by default & has to be identified)
+    type: { //giver(has admin priveleges) or taker(anyone by default & has to be identified first)
         type: String,
         required: true
     },
@@ -16,15 +16,9 @@ const userSchema = new Schema ({
         default: false,
         required: true
     },
-    personal_id: { //! Use a random string generator ie hash , used for recognizing the sender and pulling appropriate quiz
-        //! use this field as objectId in quiz schema
+    personal_id: { 
         type: String,
         unique: true
-    },
-    
-    deviceCount: {
-        type: Number,
-        default: 0
     }
 })
 

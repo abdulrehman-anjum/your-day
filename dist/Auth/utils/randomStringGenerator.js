@@ -20,8 +20,4 @@ function generateRandomChars(length) {
     }
     return randomChars;
 }
-// Example usage:
-// const desiredLength = 20;
-// const uniqueString = generateUniqueString(desiredLength);
-// console.log(uniqueString);
 //# sourceMappingURL=randomStringGenerator.js.map

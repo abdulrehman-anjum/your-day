@@ -8,8 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const cookie_authed_1 = require("./cookie-authed");
+const setHomepageMode_1 = __importDefault(require("../utils/setHomepageMode"));
 const authenticatedAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const clientHasAdminCookies = req.cookies.admincookie;
     console.log(clientHasAdminCookies, "does he have buiskits");
@@ -19,7 +22,7 @@ const authenticatedAdmin = (req, res, next) => __awaiter(void 0, void 0, void 0,
     }
     else {
         console.log('else auth no cookie');
-        (0, cookie_authed_1.setRestoreValue)(true);
+        (0, setHomepageMode_1.default)(true);
         res.redirect('/');
     }
 });

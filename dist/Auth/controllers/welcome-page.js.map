@@ -1,0 +1,1 @@
+{"version":3,"file":"welcome-page.js","sourceRoot":"","sources":["../../../src/Auth/controllers/welcome-page.ts"],"names":[],"mappings":";;AAEA,mBAAyB,GAAY,EAAE,GAAY;IAE/C,GAAG,CAAC,MAAM,CAAC,iBAAiB,EACxB;QACI,OAAO,EACH;8BACc,GAAG,CAAC,IAAI,CAAC,QAAQ;iBAC9B;QACL,OAAO,EAAE,OAAO;QAChB,OAAO,EAAE,qBAAqB;KACjC,CAAC,CAAA;AAEV,CAAC;AAZD,4BAYC"}

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express"
-import { setRestoreValue } from "./cookie-authed"
-
+import setHomepageMode from "../utils/setHomepageMode"
 
 const authenticatedAdmin = async (req: Request, res: Response, next: NextFunction)=>{
    
@@ -11,7 +10,7 @@ const authenticatedAdmin = async (req: Request, res: Response, next: NextFunctio
         next()
     }else{
         console.log('else auth no cookie')
-        setRestoreValue(true)
+        setHomepageMode(true)
         res.redirect('/')
     }
 }

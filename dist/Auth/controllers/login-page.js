@@ -8,11 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const cookie_authed_1 = require("../services/cookie-authed");
-const loginPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, cookie_authed_1.setRestoreValue)(true);
-    res.redirect('/');
-});
-exports.default = loginPage;
+const setHomepageMode_1 = __importDefault(require("../utils/setHomepageMode"));
+function default_1(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        yield (0, setHomepageMode_1.default)(true);
+        res.redirect('/');
+    });
+}
+exports.default = default_1;
 //# sourceMappingURL=login-page.js.map

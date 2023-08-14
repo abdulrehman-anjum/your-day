@@ -10,6 +10,11 @@ const sessionSchema = new Schema ({
     loggedUser: {
         type: mongoose.Schema.ObjectId,
         ref: "User"
+    },
+    createdAt: {
+        type: Date,
+        expires: '30d',
+        default: Date.now
     }
 })
 

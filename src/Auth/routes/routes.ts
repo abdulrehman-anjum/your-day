@@ -1,27 +1,17 @@
-import express from 'express'
+import express, {Request, Response} from 'express'
 import loginPage from '../controllers/login-page'
 import login from '../controllers/login'
+import welcomePage from '../controllers/welcome-page'
 import logout from '../controllers/logout'
-import startSession from '../middlewares/startSession'
+import byePage from '../controllers/bye-page'
+
 const router = express.Router()
 
-router.get('/', (req, res)=>{res.redirect('back')})
+router.get('/', (req: Request, res: Response)=>{res.redirect('back')})
 
 router.get('/login', loginPage)
+router.post('/login', login, welcomePage)
 
-router.post('/login', logout, login)
-
-router.get('/logout', logout, (req, res)=>{
-    res.render('message-to-user', 
-    {
-        message: 
-            `
-                Bye... LOGGED OUT SUCCESSFULLY 
-            `,
-        btnHref: "/auth/login",
-        btnText: "Login Again"
-    }
-)
-})
+router.get('/logout', logout, byePage)
 
 export default router

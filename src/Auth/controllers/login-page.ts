@@ -1,9 +1,7 @@
 import { Response, Request } from "express";
-import { setRestoreValue } from "../services/cookie-authed";
+import setHomepageMode from "../utils/setHomepageMode";
 
-const loginPage = async (req: Request, res: Response)=>{
-    setRestoreValue(true)
+export default async function (req: Request, res: Response){
+    await setHomepageMode(true)
     res.redirect('/')
 }
-
-export default loginPage

@@ -1,15 +1,14 @@
-import { Response, Request } from "express";
+import { Response, Request, NextFunction } from "express";
 import User from "../models/user";
-import generateUniqueString from "../utils/randomStringGenerator";
 import Session from "../models/sessions";
-export let thisUser: any
+import createUser from "../utils/createUser";
 
-const login = async (req: Request, res: Response)=>{
+const login = async (req: Request, res: Response, next: NextFunction)=>{
 
     //TEMP ADMIN
     if (req.body.username===process.env.AdminSecretKey){
-        console.log(Number(process.env.AdminSecretKey))
-        res.cookie('admincookie', Number(process.env.AdminSecretKey))
+        console.log(Number(process.env.AdminSecretKey)) //NaN //because i want no value
+        res.cookie('admincookie', Number(process.env.AdminSecretKey)) //NaN
         res.render('message-to-user', {
             message: 
                 `
@@ -19,64 +18,16 @@ const login = async (req: Request, res: Response)=>{
             btnText: "Do your Admin Things"
         })
     } else {
-       
-        const username = req.body.username
-        const b_id = req.cookies.b_id
-    
-
-        const existingUser = await User.findOne({username: username}).lean()
-        console.log("Existing user", existingUser)
         
+        const existingUser = await User.findOne({username: req.body.username})
+        const user = !existingUser?await createUser(req.body.username):existingUser
 
-
-        if (existingUser) {
-            console.log("logged in ")
-            thisUser = existingUser
-            console.log("LoginStatus True", thisUser)
-        } else {    
-            thisUser = await createUser()
-        } 
-
-        console.log(thisUser)
-        await Session.updateOne({browserId: b_id}, {loggedUser: thisUser._id})
-
-
-        async function createUser(){
-            const p_id = generateUniqueString(20)
-            const user = {
-                username: username,
-                type: "reciever", //determine by whether the user visited with a personal_id that exist in our db in the url already, 
-                            //then its a reciever, otherwise giver
-                            //know this how???? find a way
-                personal_id: p_id,
-                 
-            }
-            const newUser = new User(user)
-            thisUser = await newUser.save()
-            console.log("new user SAVED", thisUser)
-            return thisUser
-        }
-       
-        const userCookieName = req.body.username
-        res.render('message-to-user', 
-            {
-                message: 
-                    `
-                        Welcome ${userCookieName}
-                    `,
-                btnHref: "/quiz",
-                btnText: "Prove Your Identity"
-            })
-
+        await Session.updateOne({browserId: req.cookies.b_id}, {loggedUser: user._id})
+        
+        next()
     }
 
 
 }
-
-
-export async function setThisUser(val: any){
-    thisUser = val
-}
-
 
 export default login

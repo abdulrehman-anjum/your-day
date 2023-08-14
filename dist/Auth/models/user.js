@@ -20,13 +20,8 @@ const userSchema = new Schema({
         required: true
     },
     personal_id: {
-        //! use this field as objectId in quiz schema
         type: String,
         unique: true
-    },
-    deviceCount: {
-        type: Number,
-        default: 0
     }
 });
 const User = mongoose_1.default.model('User', userSchema);

@@ -17,12 +17,12 @@ const sessions_1 = __importDefault(require("../models/sessions"));
 function default_1(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const clientAlreadyHasB_Id = req.cookies.b_id ? true : false;
-        console.log("clientAlreadyHasCookies", clientAlreadyHasB_Id);
         if (!clientAlreadyHasB_Id) {
             const b_id = (0, randomStringGenerator_1.default)(23);
             res.cookie('b_id', b_id, {
-                maxAge: 2592000000,
+                maxAge: 2505600000,
                 httpOnly: true,
+                // secure: true,
                 sameSite: 'lax'
             });
             const newSession = new sessions_1.default({ browserId: b_id });

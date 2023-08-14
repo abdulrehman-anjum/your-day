@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const question_1 = __importDefault(require("../../quiz/models/question"));
+const quiz_1 = __importDefault(require("../../quiz/models/quiz"));
 //! Add questions in the quiz array 
 const addQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const options = [req.body.a, req.body.b, req.body.c];
@@ -22,7 +23,9 @@ const addQuestion = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         correct: Number(req.body.correct)
     };
     const newQuestion = new question_1.default(question);
-    yield newQuestion.save();
+    const q = yield newQuestion.save();
+    //push the question in quiz
+    yield quiz_1.default.findByIdAndUpdate(req.params.quizId, { $push: { questions: q._id } });
     res.redirect('/admin');
 });
 exports.default = addQuestion;

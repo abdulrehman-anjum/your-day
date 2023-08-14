@@ -5,6 +5,11 @@ import User from "../../Auth/models/user"
 const Schema = mongoose.Schema
 
 const quizSchema = new Schema ({
+    quiz_name: {
+        type: String,
+        required: true,
+        default: `Quiz - ${Date.now()}`
+    },
     quiz_creator: {
         type: mongoose.Schema.ObjectId,
         ref: "User"
@@ -12,7 +17,11 @@ const quizSchema = new Schema ({
     questions: [{
         type: mongoose.Schema.ObjectId,
         ref: "Question"
-    }]
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 const Quiz = mongoose.model('Quiz', quizSchema)

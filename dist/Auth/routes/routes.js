@@ -6,19 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const login_page_1 = __importDefault(require("../controllers/login-page"));
 const login_1 = __importDefault(require("../controllers/login"));
+const welcome_page_1 = __importDefault(require("../controllers/welcome-page"));
 const logout_1 = __importDefault(require("../controllers/logout"));
+const bye_page_1 = __importDefault(require("../controllers/bye-page"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => { res.redirect('back'); });
 router.get('/login', login_page_1.default);
-router.post('/login', logout_1.default, login_1.default);
-router.get('/logout', logout_1.default, (req, res) => {
-    res.render('message-to-user', {
-        message: `
-                Bye... LOGGED OUT SUCCESSFULLY 
-            `,
-        btnHref: "/auth/login",
-        btnText: "Login Again"
-    });
-});
+router.post('/login', login_1.default, welcome_page_1.default);
+router.get('/logout', logout_1.default, bye_page_1.default);
 exports.default = router;
 //# sourceMappingURL=routes.js.map
