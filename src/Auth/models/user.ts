@@ -13,9 +13,8 @@ const userSchema = new Schema ({
     },
     identified: { //after quiz
         type: Boolean,
-        default: false,
-        required: true
-    },
+        default: false
+        },
     personal_id: { 
         type: String,
         unique: true

@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.answers = void 0;
 const takeAnswer_1 = __importDefault(require("../services/takeAnswer"));
-const question_1 = __importDefault(require("../models/question"));
+const questions_1 = require("../utils/questions");
 exports.answers = [];
 const submitQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const questions = yield question_1.default.find().lean();
+    const questions = questions_1.fetchedQuestions;
     yield (0, takeAnswer_1.default)(Number(req.body.option));
     res.redirect(exports.answers.length < questions.length ? '/quiz/start' : '/quiz/result');
 });

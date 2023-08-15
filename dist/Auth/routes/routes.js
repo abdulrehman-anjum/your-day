@@ -13,6 +13,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => { res.redirect('back'); });
 router.get('/login', login_page_1.default);
 router.post('/login', login_1.default, welcome_page_1.default);
+router.get('/quiz', (req, res) => { res.redirect('/quiz'); });
 router.get('/logout', logout_1.default, bye_page_1.default);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

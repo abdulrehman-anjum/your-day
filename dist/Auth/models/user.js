@@ -16,8 +16,7 @@ const userSchema = new Schema({
     },
     identified: {
         type: Boolean,
-        default: false,
-        required: true
+        default: false
     },
     personal_id: {
         type: String,

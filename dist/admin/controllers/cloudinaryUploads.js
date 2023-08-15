@@ -13,34 +13,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const multer_1 = require("../middlewares/multer");
-const cloudinaryConfig_1 = require("../../utils/cloudinaryConfig");
-const image_1 = __importDefault(require("../models/image"));
-const refreshThisUser_1 = require("../../Auth/middlewares/refreshThisUser");
+const uploadImageToCloudinary_1 = __importDefault(require("../services/uploadImageToCloudinary"));
 const cloudinaryUploads = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     if (req.file) {
         const file = yield (0, multer_1.dataUri)(req.file);
         // fileContent is the 64bit buffer of image that we converted to string
-        const fileContent = ((_a = file === null || file === void 0 ? void 0 : file.content) === null || _a === void 0 ? void 0 : _a.toString()) ? (_b = file === null || file === void 0 ? void 0 : file.content) === null || _b === void 0 ? void 0 : _b.toString() : "";
-        try {
-            yield cloudinaryConfig_1.uploader.uploader.upload(fileContent).then((result) => __awaiter(void 0, void 0, void 0, function* () {
-                const imageURL = result.url;
-                const imagedata = {
-                    url: imageURL,
-                    uploader: refreshThisUser_1.currentUser._id
-                };
-                const newImg = new image_1.default(imagedata);
-                yield newImg.save();
-                res.send(`
-                    image uploaded: <a href='${imageURL}'>see here<a>
-                    <br>
-                    <img src='${imageURL}'>
-                `);
-            }));
+        const fileContent = ((_a = file === null || file === void 0 ? void 0 : file.content) === null || _a === void 0 ? void 0 : _a.toString()) ?
+            (_b = file === null || file === void 0 ? void 0 : file.content) === null || _b === void 0 ? void 0 : _b.toString()
+            : "";
+        //upload file
+        const { uploaded, imageURL } = yield (0, uploadImageToCloudinary_1.default)(fileContent);
+        if (uploaded) {
+            res.render('message-to-user', {
+                message: "image uploaded",
+                btnText: "See uploaded Image here",
+                btnHref: `${imageURL}`
+            });
         }
-        catch (error) {
-            console.error("Error uploading image:", error);
-            res.status(500).send("Image upload failed");
+        else {
+            res.render('message-to-user', {
+                message: "Image Upload Failed",
+                btnText: "Try Again",
+                btnHref: `/admin/upload-image`
+            });
         }
     }
 });

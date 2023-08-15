@@ -8,15 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const getAnswer_1 = require("../controllers/getAnswer");
-const question_1 = __importDefault(require("../models/question"));
+const questions_1 = require("../utils/questions");
 function takeAnswer(option) {
     return __awaiter(this, void 0, void 0, function* () {
-        const questions = yield question_1.default.find().lean();
+        const questions = questions_1.fetchedQuestions;
         console.log(option);
         if (getAnswer_1.answers.length < questions.length) {
             let answer = {

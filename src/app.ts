@@ -9,16 +9,15 @@ import cookieParser from 'cookie-parser'
 import { cloudinaryConfig } from './utils/cloudinaryConfig'
 
 //routes
+import homeRoutes from './home/routes/routes'
 import authRoutes from './Auth/routes/routes'
 import adminRoutes from './admin/routes/admin-routes'
 import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
 import authenticated from './Auth/services/authenticator'
-import setHomepageMode, { mode } from './Auth/utils/setHomepageMode'
-import authenticatedAdmin from './Auth/services/admin-authed'
-import { stringify } from 'querystring' //! investigate this later
+import { stringify } from 'querystring' // investigate this later
 import putACookieInTheBrowser from './Auth/middlewares/startSession'
-import refreshThisUser, {currentUser} from './Auth/middlewares/refreshThisUser'
+import refreshThisUser from './Auth/middlewares/refreshThisUser'
 
 const app: Application = express()
 
@@ -35,31 +34,26 @@ app.use('*', cloudinaryConfig)
 app.use(putACookieInTheBrowser)
 app.use(refreshThisUser) 
 
+app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
-app.use('/admin', authenticated, adminRoutes)
-app.use('/quiz',  authenticated,  quizRoutes)
+app.use('/quiz', quizRoutes)
 app.use('/slide', authenticated, slideRoutes)
+app.use('/admin', authenticated, adminRoutes)
 
 
 //!!! explore 'express-session' ???????
 
-app.get('/logmyvalue', (req, res)=>{
-    console.log(Date.now())
-    res.redirect('/')
-})
 
-
-app.get('/', (req, res)=>{
-    const originalMode = mode
-    setHomepageMode(false)
-    // console.log("index", currentUser)
-    res.render('index', {mode: originalMode?"login":"homepage", user: currentUser})
-    }
-)
 
 
 
 //*DEV SIDE
+
+
+    app.get('/logmyvalue', (req, res)=>{
+        console.log(Date.now())
+        res.redirect('/')
+    })
 
     app.get('/devAuth', (req, res)=>{
         res.send(

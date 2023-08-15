@@ -9,15 +9,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.wrongCounter = void 0;
 function results(userAnswers, questions) {
     return __awaiter(this, void 0, void 0, function* () {
+        exports.wrongCounter = 0;
         let i = 0;
         console.log(userAnswers, "calcResult");
         userAnswers.forEach(answer => {
             if (answer.answer === questions[i].correct) {
                 answer.valid = true;
             }
-            answer.answer = questions[i].options[Number(answer.answer)];
+            else {
+                exports.wrongCounter = exports.wrongCounter + 1;
+            }
+            answer.answer = questions[i].options[Number(answer.answer)]; //turning the number into a value (correct option string)
             i = i + 1;
         });
     });

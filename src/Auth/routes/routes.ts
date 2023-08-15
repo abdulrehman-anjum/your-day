@@ -12,6 +12,8 @@ router.get('/', (req: Request, res: Response)=>{res.redirect('back')})
 router.get('/login', loginPage)
 router.post('/login', login, welcomePage)
 
+router.get('/quiz', (req, res)=>{res.redirect('/quiz')}) 
+
 router.get('/logout', logout, byePage)
 
 export default router

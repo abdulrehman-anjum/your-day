@@ -1,9 +1,10 @@
 import {answers} from '../controllers/getAnswer'
 import Question from '../models/question';
 import Answer from '../types/answer';
+import { fetchedQuestions } from '../utils/questions';
 
 async function takeAnswer(option: number) {
-    const questions = await Question.find().lean()
+    const questions = fetchedQuestions
 
     console.log(option)
     if (answers.length < questions.length) {

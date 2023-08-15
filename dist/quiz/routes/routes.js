@@ -11,7 +11,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => {
     res.render('quiz-home');
 });
-router.get('/start', quizPage_1.default);
+router.get('/start/:quizId?', quizPage_1.default);
 router.get('/result', result_1.default);
 router.post('/submit-quiz', getAnswer_1.default);
 exports.default = router;

@@ -12,11 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const question_1 = __importDefault(require("../models/question"));
 const getAnswer_1 = require("./getAnswer");
+const quiz_1 = __importDefault(require("../models/quiz"));
+const questions_1 = require("../utils/questions");
 const quizPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const questions = yield question_1.default.find().lean();
-    console.log(questions.length);
+    if (questions_1.fetchedQuestions.length === 0) {
+        const quiz = yield quiz_1.default.findOne({ _id: req.params.quizId }).populate('questions');
+        const newQuestions = (quiz === null || quiz === void 0 ? void 0 : quiz.questions) ? quiz.questions : [];
+        (0, questions_1.setQuizQuestions)(newQuestions);
+    }
+    //get questions from one quiz instead of all
+    //get quizId
+    //get the questions array populated. and give it to questions that it we are done 
+    const questions = questions_1.fetchedQuestions;
+    console.log("questions", questions);
     res.render("quiz", {
         question: questions[getAnswer_1.answers.length]
     });

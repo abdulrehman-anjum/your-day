@@ -9,7 +9,7 @@ router.get('/', (req, res)=>{
 })
 
 
-router.get('/start', quizPage)
+router.get('/start/:quizId?', quizPage)
 router.get('/result', result)
 router.post('/submit-quiz', submitQuiz)
 
