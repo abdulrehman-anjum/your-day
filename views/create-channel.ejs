@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+    <div class="main-card">
+
+        <div class="q-card">
+            <form action="/admin/createChannel/name" method="post">
+                <h1>Create Your Channel</h1>
+                <h2>Type name of your channel</h2>
+                <input type="text" placeholder="type name of your channel use dashes(-) instead of spaces" name="channelName">
+                <p><%= message %></p>
+                <button type="submit">Next</button>
+
+            </form>
+        </div>
+        
+    </div>
+
+<%- include('partials/footer') %>

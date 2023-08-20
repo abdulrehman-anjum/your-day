@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+
+    <div class="main-card">
+
+        <div class="q-card">
+            <form action="/admin/createChannel/quiz" method="post">
+                <input type="text" value="<%= channelName %>" name="channelName" hidden>
+                <h1>Create Your Channel</h1>
+                <h2>Select a Quiz</h2>
+                <select name="quizId">
+                    <% quizzes.forEach(quiz=>{ %>
+                        <option value="<%= quiz._id %>"><%= quiz.quiz_name %></option>
+                    <% }) %>
+                </select>
+                <button type="submit">create</button>
+
+            </form>
+        </div>
+        
+    </div>
+
+<%- include('partials/footer') %>

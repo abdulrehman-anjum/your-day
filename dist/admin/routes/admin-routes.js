@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const createChannelPage_1 = __importDefault(require("../controllers/createChannelPage"));
+const createChannel_1 = __importDefault(require("../controllers/createChannel"));
 const addQuestionPage_1 = __importDefault(require("../controllers/addQuestionPage"));
 const uploadImagePage_1 = __importDefault(require("../controllers/uploadImagePage"));
 const addQuestion_1 = __importDefault(require("../controllers/addQuestion"));
@@ -13,10 +15,15 @@ const quizPage_1 = __importDefault(require("../controllers/quizPage"));
 const quizList_1 = __importDefault(require("../controllers/quizList"));
 const multer_1 = require("../middlewares/multer");
 const cloudinaryUploads_1 = __importDefault(require("../controllers/cloudinaryUploads"));
+const sameUsernameChecker_1 = __importDefault(require("../middlewares/sameUsernameChecker"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => {
     res.render('admin');
 });
+//CHANNELS
+router.get('/createChannel', createChannelPage_1.default);
+router.post('/createChannel/quiz', createChannel_1.default); //save the channel and create a link
+router.post('/createChannel/name', sameUsernameChecker_1.default); //save the channel and create a link
 //QUIZ
 router.get('/create-quiz', createQuizPage_1.default);
 router.post('/create-quiz', createQuiz_1.default);

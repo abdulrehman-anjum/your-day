@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-import { currentUser } from "../../Auth/middlewares/refreshThisUser"
 
 const Schema = mongoose.Schema
 
