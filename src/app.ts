@@ -18,7 +18,7 @@ import authenticated from './Auth/services/authenticator'
 import { stringify } from 'querystring' //* investigate this later
 import putACookieInTheBrowser from './Auth/middlewares/startSession'
 import refreshThisUser from './Auth/middlewares/refreshThisUser'
-import quizAuth from './Auth/services/quiz-auth'
+import slideAuth from './Auth/services/slide-auth'
 
 const app: Application = express()
 
@@ -37,8 +37,8 @@ app.use(refreshThisUser)
 
 app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
-app.use('/quiz', quizAuth, quizRoutes)
-app.use('/slide', authenticated, slideRoutes)
+app.use('/quiz', authenticated, quizRoutes)
+app.use('/slide', slideAuth, slideRoutes)
 app.use('/admin', authenticated, adminRoutes)
 
 

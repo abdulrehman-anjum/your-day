@@ -15,17 +15,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sessions_1 = __importDefault(require("../models/sessions"));
 const setHomepageMode_1 = __importDefault(require("../utils/setHomepageMode"));
 const refreshThisUser_1 = require("../middlewares/refreshThisUser");
-const quizAuth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const authenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const session = yield sessions_1.default.findOne({ browserId: req.cookies.b_id });
     const loggedIn = (session === null || session === void 0 ? void 0 : session.loggedUser) ? true : false;
     const identified = refreshThisUser_1.currentUser === null || refreshThisUser_1.currentUser === void 0 ? void 0 : refreshThisUser_1.currentUser.identified;
     if (loggedIn) {
-        next();
+        if (identified) {
+            next();
+        }
+        else {
+            res.redirect('/auth/quiz');
+        }
     }
     else {
         (0, setHomepageMode_1.default)(true);
         res.redirect('/');
     }
 });
-exports.default = quizAuth;
-//# sourceMappingURL=quiz-auth.js.map
+exports.default = authenticated;
+//# sourceMappingURL=slide-auth.js.map

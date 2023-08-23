@@ -4,13 +4,17 @@ import setHomepageMode from "../utils/setHomepageMode"
 import { currentUser } from "../middlewares/refreshThisUser"
 
 
-const quizAuth = async (req: Request, res: Response, next: NextFunction)=>{
+const authenticated = async (req: Request, res: Response, next: NextFunction)=>{
     const session = await Session.findOne({browserId: req.cookies.b_id})
     const loggedIn = session?.loggedUser?true:false
     const identified = currentUser?.identified
 
     if (loggedIn){
-        next()
+        if(identified){
+            next()
+        }else{
+            res.redirect('/auth/quiz')
+        }
     }
     else{
         setHomepageMode(true)
@@ -18,4 +22,4 @@ const quizAuth = async (req: Request, res: Response, next: NextFunction)=>{
     }
 }
 
-export default quizAuth
+export default authenticated
