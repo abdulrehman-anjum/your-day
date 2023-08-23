@@ -12,19 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sameUsernameChecker_1 = require("../middlewares/sameUsernameChecker");
 const channel_1 = __importDefault(require("../models/channel"));
-const lodash_1 = __importDefault(require("lodash"));
 function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req.body, "=>", lodash_1.default.kebabCase(req.body.channelName));
-        const newChannel = new channel_1.default({
-            channelName: lodash_1.default.kebabCase(req.body.channelName), quizId: req.body.quizId
-        });
-        yield newChannel.save();
-        (0, sameUsernameChecker_1.setChannelCreation)(false);
-        res.redirect('/admin');
+        const channelName = req.params.channelName;
+        console.log(channelName);
+        const channel = yield channel_1.default.findOne({ channelName: channelName });
+        if (channel) {
+            yield channel_1.default.findOneAndUpdate({ _id: channel._id }, { $inc: { expirePoints: -1 } });
+        }
+        console.log(channel);
+        let expiryPoint = (channel === null || channel === void 0 ? void 0 : channel.expirePoints) ? channel === null || channel === void 0 ? void 0 : channel.expirePoints : 0;
+        if (expiryPoint <= 0) {
+            res.render('message-to-user', { message: "link expired", btnText: 'main-page', btnHref: "/" });
+        }
+        else {
+            console.log('answer the quiz');
+            res.redirect(`/quiz/start/${channel === null || channel === void 0 ? void 0 : channel.quizId}`);
+        }
     });
 }
 exports.default = default_1;
-//# sourceMappingURL=createChannel.js.map
+//# sourceMappingURL=linkHandler.js.map

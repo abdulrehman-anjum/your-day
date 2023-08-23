@@ -12,19 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const sameUsernameChecker_1 = require("../middlewares/sameUsernameChecker");
-const channel_1 = __importDefault(require("../models/channel"));
-const lodash_1 = __importDefault(require("lodash"));
-function default_1(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log(req.body, "=>", lodash_1.default.kebabCase(req.body.channelName));
-        const newChannel = new channel_1.default({
-            channelName: lodash_1.default.kebabCase(req.body.channelName), quizId: req.body.quizId
-        });
-        yield newChannel.save();
-        (0, sameUsernameChecker_1.setChannelCreation)(false);
-        res.redirect('/admin');
-    });
-}
-exports.default = default_1;
-//# sourceMappingURL=createChannel.js.map
+const sessions_1 = __importDefault(require("../models/sessions"));
+const setHomepageMode_1 = __importDefault(require("../utils/setHomepageMode"));
+const refreshThisUser_1 = require("../middlewares/refreshThisUser");
+const quizAuth = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const session = yield sessions_1.default.findOne({ browserId: req.cookies.b_id });
+    const loggedIn = (session === null || session === void 0 ? void 0 : session.loggedUser) ? true : false;
+    const identified = refreshThisUser_1.currentUser === null || refreshThisUser_1.currentUser === void 0 ? void 0 : refreshThisUser_1.currentUser.identified;
+    if (loggedIn) {
+        next();
+    }
+    else {
+        (0, setHomepageMode_1.default)(true);
+        res.redirect('/');
+    }
+});
+exports.default = quizAuth;
+//# sourceMappingURL=quiz-auth.js.map

@@ -17,9 +17,10 @@ const admin_routes_1 = __importDefault(require("./admin/routes/admin-routes"));
 const routes_3 = __importDefault(require("./quiz/routes/routes"));
 const routes_4 = __importDefault(require("./slide/routes/routes"));
 const authenticator_1 = __importDefault(require("./Auth/services/authenticator"));
-const querystring_1 = require("querystring"); // investigate this later
+const querystring_1 = require("querystring"); //* investigate this later
 const startSession_1 = __importDefault(require("./Auth/middlewares/startSession"));
 const refreshThisUser_1 = __importDefault(require("./Auth/middlewares/refreshThisUser"));
+const quiz_auth_1 = __importDefault(require("./Auth/services/quiz-auth"));
 const app = (0, express_1.default)();
 app.set('view engine', 'ejs');
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
@@ -34,7 +35,7 @@ app.use(startSession_1.default);
 app.use(refreshThisUser_1.default);
 app.use('/', routes_1.default);
 app.use('/auth', routes_2.default);
-app.use('/quiz', routes_3.default);
+app.use('/quiz', quiz_auth_1.default, routes_3.default);
 app.use('/slide', authenticator_1.default, routes_4.default);
 app.use('/admin', authenticator_1.default, admin_routes_1.default);
 //!!! explore 'express-session' ???????

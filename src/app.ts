@@ -15,9 +15,10 @@ import adminRoutes from './admin/routes/admin-routes'
 import quizRoutes from './quiz/routes/routes'
 import slideRoutes from './slide/routes/routes'
 import authenticated from './Auth/services/authenticator'
-import { stringify } from 'querystring' // investigate this later
+import { stringify } from 'querystring' //* investigate this later
 import putACookieInTheBrowser from './Auth/middlewares/startSession'
 import refreshThisUser from './Auth/middlewares/refreshThisUser'
+import quizAuth from './Auth/services/quiz-auth'
 
 const app: Application = express()
 
@@ -36,7 +37,7 @@ app.use(refreshThisUser)
 
 app.use('/', homeRoutes)
 app.use('/auth', authRoutes)
-app.use('/quiz', quizRoutes)
+app.use('/quiz', quizAuth, quizRoutes)
 app.use('/slide', authenticated, slideRoutes)
 app.use('/admin', authenticated, adminRoutes)
 
