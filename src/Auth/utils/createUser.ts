@@ -1,12 +1,11 @@
 import User from "../models/user"
-import generateUniqueString from "./randomStringGenerator"
+import { hashPassword } from "./bcryptConfig"
 
-export default async function createUser(username: string){
-    const p_id = generateUniqueString(20)
+export default async function createUser(username: string, password: string){
+    const hashedPassword = await hashPassword(password)
     const userdata = { 
         username: username, // type:  //!find a way
-        type: "reciever", //determine by whether the user visited with a personal_id that exist in our db in the url already, 
-        personal_id: p_id
+        password: hashedPassword
     }
     const newUser = new User(userdata)
     const user = await newUser.save()

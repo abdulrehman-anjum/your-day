@@ -1,6 +1,6 @@
 import express from 'express'
 import home from '../controllers/home'
-import linkHandler from '../../admin/controllers/linkHandler'
+import linkHandler from '../../User/controllers/linkHandler'
 
 const router = express.Router()
 

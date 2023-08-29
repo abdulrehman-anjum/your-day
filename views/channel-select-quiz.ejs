@@ -3,7 +3,8 @@
     <div class="main-card">
 
         <div class="q-card">
-            <form action="/admin/createChannel/quiz" method="post">
+            <% if(quizzes.length !=0){ %>
+            <form action="/u/createChannel/quiz" method="post">
                 <input type="text" value="<%= channelName %>" name="channelName" hidden>
                 <h1>Create Your Channel</h1>
                 <h2>Select a Quiz</h2>
@@ -15,6 +16,10 @@
                 <button type="submit">create</button>
 
             </form>
+           <% } else { %>
+                No Quiz Found. Please add a quiz first. <br>
+                <a href="/u/quiz-list"><button>Add Quiz</button></a>
+         <% }%>
         </div>
         
     </div>

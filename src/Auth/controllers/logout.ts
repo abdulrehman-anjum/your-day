@@ -1,11 +1,17 @@
-import { Response, Request, NextFunction } from "express";
-import { emptyAnswersArray } from "../../quiz/services/emptyAnswersArray"
-import Session from "../models/sessions";
+import { Response, Request, NextFunction }  from "express";
+import { emptyAnswersArray }                from "../../quiz/services/emptyAnswersArray"
+import Session                              from "../models/sessions";
 
-const logout = async (req: Request, res: Response, next: NextFunction)=>{
+export default async function (req: Request, res: Response, next: NextFunction){
     emptyAnswersArray()
-    await Session.updateOne({browserId: req.cookies.b_id}, {$unset:  {loggedUser: 1}})
-    next()
+    const session = await Session.findOne({browserId: req.cookies.b_id})
+    const loggedInUser = session?.loggedUser
+    if (loggedInUser){
+        await Session
+        .updateOne({browserId: req.cookies.b_id}, {$unset:  {loggedUser: 1}})
+        next()
+    } else {
+            res.redirect('/a/login')
+    }
+    
 }
-
-export default logout

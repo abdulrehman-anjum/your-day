@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+
+    <div class="main-card">
+
+        <div class="q-card" align=center>
+            <h1>Your Channel List</h1>
+            <p>copy link address to share</p>
+            <ul>
+                <% channelList.forEach(channel => { %>
+                    <li><a href="/link/<%=channel.channelName%>"><%=channel.channelName%></a></li>
+                <% }); %>
+                <li><a href="/u/createChannel">Create Another Channel</a></li>
+            </ul>
+            
+        </div>
+    </div>
+
+<%- include('partials/footer') %>

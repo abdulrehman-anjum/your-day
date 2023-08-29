@@ -1,0 +1,17 @@
+<%- include('partials/header') %>
+
+    <div class="main-card">
+
+        <div class="q-card" align=center>
+            <h1>Your Slide List</h1>
+            <ul>
+                <% slideList.forEach(slide => { %>
+                    <li><a href="/u/slide/<%=slide._id%>"><%=slide.slide_name%></a></li>
+                <% }); %>
+                <li><a href="/u/create-slide">Add More Slide</a></li>
+            </ul>
+            
+        </div>
+    </div>
+
+<%- include('partials/footer') %>

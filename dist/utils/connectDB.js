@@ -13,9 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const currentTime = new Date().toLocaleTimeString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true });
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const connection = yield mongoose_1.default.connect(`${process.env.MONGO_URI}`);
-    console.log(`🟢 Mongo db connected`);
+    console.log(`🟢 Mongo db connected at ${currentTime}`);
 });
 exports.default = connectDB;
 //# sourceMappingURL=connectDB.js.map

@@ -13,14 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../models/user"));
-const randomStringGenerator_1 = __importDefault(require("./randomStringGenerator"));
-function createUser(username) {
+const bcryptConfig_1 = require("./bcryptConfig");
+function createUser(username, password) {
     return __awaiter(this, void 0, void 0, function* () {
-        const p_id = (0, randomStringGenerator_1.default)(20);
+        const hashedPassword = yield (0, bcryptConfig_1.hashPassword)(password);
         const userdata = {
             username: username,
-            type: "reciever",
-            personal_id: p_id
+            password: hashedPassword
         };
         const newUser = new user_1.default(userdata);
         const user = yield newUser.save();

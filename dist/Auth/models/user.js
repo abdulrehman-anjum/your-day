@@ -10,18 +10,14 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    type: {
+    password: {
         type: String,
         required: true
     },
-    identified: {
-        type: Boolean,
-        default: false
-    },
-    personal_id: {
-        type: String,
-        unique: true
-    }
+    authorized: [{
+            type: mongoose_1.default.Schema.ObjectId,
+            ref: "Channel"
+        }]
 });
 const User = mongoose_1.default.model('User', userSchema);
 exports.default = User;

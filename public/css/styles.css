@@ -1,9 +1,19 @@
 body{
     padding: 0;
+    color: rgb(56, 228, 87);
     background-color: blueviolet;
     margin: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.images{
+    display: flex;
+}
+
+.images img {
+    margin: 5px;;
+}
+
 
 nav{
     display: flex;
@@ -17,11 +27,37 @@ nav{
     align-items: center;
 }
 
-nav a {
-    padding-right: 23.5rem;
+form{
+    border-radius: 5px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-bottom-width: 3px;
+    border-right-width: 3px;
+}
 
+input{
+    border-style: solid;
+    border-color: black;
+    border-radius: 3px;
+    padding: 5px;
+    margin: 10px;
+    border-width: 0.5px;
+    border-top-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+}
+
+nav a {
+    /* padding-right: 23.5rem; */
     color: white;
     position: relative;
+    text-decoration: none
+}
+
+a {
+    color: rgb(255, 218, 53);
     text-decoration: none
 }
 
@@ -33,14 +69,14 @@ img{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: blueviolet;
+    background-color: rgb(226, 43, 43);
     height: 100vh;
     padding: 0;
     margin: 0;
 }
 
 .q-card{
-    background-color: rgb(255, 176, 72);
+    background-color: rgba(255, 132, 132, 0.678);
     height: 30rem;
     width: 20rem;
     border-radius: 5px;
@@ -49,9 +85,4 @@ img{
     justify-content: center;
     flex-direction: column;
     padding: 14px;
-}
-
-
-.login-popup {
-    background-color: #fff;
 }

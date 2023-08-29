@@ -1,33 +1,20 @@
-import { Response, Request, NextFunction } from "express";
-import User from "../models/user";
-import Session from "../models/sessions";
-import createUser from "../utils/createUser";
+import { Response, Request, NextFunction }  from "express";
+import createUser                           from "../utils/createUser";
+import Session                              from "../models/sessions";
+import User                                 from "../models/user";
+import { comparePasswords } from "../utils/bcryptConfig";
 
-const login = async (req: Request, res: Response, next: NextFunction)=>{
+export let tryAgain: boolean = false;export function setTryAgain(val: boolean){tryAgain = val}
 
-    //TEMP ADMIN
-    if (req.body.username===process.env.AdminSecretKey){
-        console.log(Number(process.env.AdminSecretKey)) //NaN //because i want no value
-        res.cookie('admincookie', Number(process.env.AdminSecretKey)) //NaN
-        res.render('message-to-user', {
-            message: 
-                `
-                    Hello Admin
-                `,
-            btnHref: "/admin",
-            btnText: "Do your Admin Things"
-        })
+export default async function (req: Request, res: Response, next: NextFunction){
+    const existingUser = await User.findOne({username: req.body.username})
+    const user = !existingUser?await createUser(req.body.username, req.body.password):existingUser
+
+    if (await comparePasswords(req.body.password , user.password)){
+        await Session.updateOne({browserId: req.cookies.b_id}, {loggedUser: user._id}) //logs in
     } else {
-        
-        const existingUser = await User.findOne({username: req.body.username})
-        const user = !existingUser?await createUser(req.body.username):existingUser
-
-        await Session.updateOne({browserId: req.cookies.b_id}, {loggedUser: user._id})
-        
-        next()
+        setTryAgain(true)
+        res.redirect('/a/login')
     }
-
-
+    next()
 }
-
-export default login

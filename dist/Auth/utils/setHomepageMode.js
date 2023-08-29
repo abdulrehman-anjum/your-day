@@ -11,9 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mode = void 0;
 function default_1(newValue) {
-    return __awaiter(this, void 0, void 0, function* () {
-        exports.mode = newValue;
-    });
+    return __awaiter(this, void 0, void 0, function* () { exports.mode = newValue; });
 }
 exports.default = default_1;
 //# sourceMappingURL=setHomepageMode.js.map

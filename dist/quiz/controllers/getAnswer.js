@@ -19,7 +19,7 @@ exports.answers = [];
 const submitQuiz = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const questions = questions_1.fetchedQuestions;
     yield (0, takeAnswer_1.default)(Number(req.body.option));
-    res.redirect(exports.answers.length < questions.length ? '/quiz/start' : '/quiz/result');
+    res.redirect(exports.answers.length < questions.length ? '/a/start' : '/q/result');
 });
 exports.default = submitQuiz;
 //# sourceMappingURL=getAnswer.js.map

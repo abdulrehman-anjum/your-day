@@ -12,28 +12,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_1 = __importDefault(require("../models/user"));
-const sessions_1 = __importDefault(require("../models/sessions"));
+exports.setTryAgain = exports.tryAgain = void 0;
 const createUser_1 = __importDefault(require("../utils/createUser"));
-const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    //TEMP ADMIN
-    if (req.body.username === process.env.AdminSecretKey) {
-        console.log(Number(process.env.AdminSecretKey)); //NaN //because i want no value
-        res.cookie('admincookie', Number(process.env.AdminSecretKey)); //NaN
-        res.render('message-to-user', {
-            message: `
-                    Hello Admin
-                `,
-            btnHref: "/admin",
-            btnText: "Do your Admin Things"
-        });
-    }
-    else {
+const sessions_1 = __importDefault(require("../models/sessions"));
+const user_1 = __importDefault(require("../models/user"));
+const bcryptConfig_1 = require("../utils/bcryptConfig");
+exports.tryAgain = false;
+function setTryAgain(val) { exports.tryAgain = val; }
+exports.setTryAgain = setTryAgain;
+function default_1(req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
         const existingUser = yield user_1.default.findOne({ username: req.body.username });
-        const user = !existingUser ? yield (0, createUser_1.default)(req.body.username) : existingUser;
-        yield sessions_1.default.updateOne({ browserId: req.cookies.b_id }, { loggedUser: user._id });
+        const user = !existingUser ? yield (0, createUser_1.default)(req.body.username, req.body.password) : existingUser;
+        if (yield (0, bcryptConfig_1.comparePasswords)(req.body.password, user.password)) {
+            yield sessions_1.default.updateOne({ browserId: req.cookies.b_id }, { loggedUser: user._id }); //logs in
+        }
+        else {
+            setTryAgain(true);
+            res.redirect('/a/login');
+        }
         next();
-    }
-});
-exports.default = login;
+    });
+}
+exports.default = default_1;
 //# sourceMappingURL=login.js.map

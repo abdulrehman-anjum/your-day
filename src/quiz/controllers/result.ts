@@ -7,6 +7,7 @@ import { emptyAnswersArray }    from '../services/emptyAnswersArray'
 import User                     from '../../Auth/models/user'
 import { currentUser }          from '../../Auth/middlewares/refreshThisUser'
 import { fetchedQuestions } from '../utils/questions'
+import { channel } from '../../User/controllers/linkHandler'
 
 const result = async (req: Request, res: Response)=>{
     const questions: QuestionType[] = fetchedQuestions
@@ -17,7 +18,7 @@ const result = async (req: Request, res: Response)=>{
     await results(userAnswers, questions) //complete calc result
     console.log("wrongCounter",wrongCounter)
     if (wrongCounter===0){
-        await User.findByIdAndUpdate(currentUser._id, {identified: true})
+        await User.findByIdAndUpdate(currentUser._id, { $push: {authorized: channel._id} }) //push the channel id in authorized array 
         
         console.log("doneee true wrongcounter 0")
     }

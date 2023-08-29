@@ -3,22 +3,18 @@ import mongoose from "mongoose"
 const Schema = mongoose.Schema
 
 const userSchema = new Schema ({
-    username: { //input at the time of login
+    username: {
         type: String,
         required: true
     },
-    type: { //giver(has admin priveleges) or taker(anyone by default & has to be identified first)
+    password: {
         type: String,
         required: true
     },
-    identified: { //after quiz
-        type: Boolean,
-        default: false
-        },
-    personal_id: { 
-        type: String,
-        unique: true
-    }
+    authorized: [{ //contains the ids of channels, successfully captured by this user
+        type: mongoose.Schema.ObjectId,
+        ref: "Channel"
+    }]
 })
 
 const User = mongoose.model('User', userSchema)

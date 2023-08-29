@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+
+    <div class="main-card">
+
+        <div class="q-card" align=center>
+            <h1>Create Your slide Here</h1>
+            <form action="/u/create-slide" method="post">
+                <input type="text" name="slideName" placeholder="slide name">
+                <input type="submit" value="Create">
+            </form>
+        </div>
+    </div>
+
+<%- include('partials/footer') %>

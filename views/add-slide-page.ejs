@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+   
+    <div class="main-card">
+        <div class="q-card">
+                <h1>Add Page</h1><br>
+                <form action='/u/slide/add-slide-page/<%= slideId %>' method="post">
+                    <input type="text" name="pageName" placeholder="type the page name here">
+                    <button type="submit">Next</button>
+                </form>
+        </div>
+    </div>
+
+<%- include('partials/footer') %>

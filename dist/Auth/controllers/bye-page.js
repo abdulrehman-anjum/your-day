@@ -2,10 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function default_1(req, res) {
     res.render('message-to-user', {
-        message: `
-                    Bye... LOGGED OUT SUCCESSFULLY 
-                `,
-        btnHref: "/auth/login",
+        message: 'Logged Out',
+        btnHref: "/a/login",
         btnText: "Login Again"
     });
 }
