@@ -11,6 +11,8 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 //global-middlewares
 const cloudinaryConfig_1 = require("./utils/cloudinaryConfig");
+const startSession_1 = __importDefault(require("./Auth/middlewares/startSession"));
+const refreshThisUser_1 = __importDefault(require("./Auth/middlewares/refreshThisUser"));
 //route-middlewares
 const authenticator_1 = __importDefault(require("./Auth/services/authenticator"));
 const slide_auth_1 = __importDefault(require("./Auth/services/slide-auth"));
@@ -28,7 +30,8 @@ app.set('view engine', 'ejs');
 app.use(express_1.default.static(path_1.default.resolve(__dirname, '..', 'public')));
 app.set('views', path_1.default.resolve(__dirname, '..', 'views'));
 app.use(body_parser_1.default.urlencoded({ extended: true }));
-// app.use(ourSessionCookie);app.use(refreshThisUser) 
+app.use(startSession_1.default);
+app.use(refreshThisUser_1.default);
 app.use('*', cloudinaryConfig_1.cloudinaryConfig);
 app.use('/', routes_4.default); //home routes
 app.use('/a', routes_2.default); //auth routes
