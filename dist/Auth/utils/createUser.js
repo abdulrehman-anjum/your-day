@@ -19,7 +19,8 @@ function createUser(username, password) {
         const hashedPassword = yield (0, bcryptConfig_1.hashPassword)(password);
         const userdata = {
             username: username,
-            password: hashedPassword
+            password: hashedPassword,
+            authorized: []
         };
         const newUser = new user_1.default(userdata);
         const user = yield newUser.save();
