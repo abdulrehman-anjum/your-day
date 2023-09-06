@@ -25,7 +25,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'public')))
 app.set('views', path.resolve(__dirname, '..', 'views'))
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.use(ourSessionCookie);app.use(refreshThisUser) 
+// app.use(ourSessionCookie);app.use(refreshThisUser) 
 app.use('*', cloudinaryConfig)
 
 app.use('/', homeRoutes) //home routes
