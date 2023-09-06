@@ -1,40 +1,14 @@
 <%- include('partials/header') %>
-
+<hr>
+<% slide['pages'].forEach(page=>{ %>
     <div class="main-card">
+        <% console.log(slide['pages']) %>
         <ul>
-            <li><img src="/images/01.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/02.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/03.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/04.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/05.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/06.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/07.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
-            <li><img src="/images/08.png" loading="lazy" width="200" alt="oops"></li>
+        <% page['images'].forEach(image=>{ %>
+            <a href="<%= image.url %>"><li><img src="<%= image.url %>" loading="lazy" width="200" alt="oops"></li></a>
+        <% }) %>
         </ul>
     </div>
-
+    <hr>
+<% }) %>
 <%- include('partials/footer') %>

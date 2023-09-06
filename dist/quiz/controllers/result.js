@@ -41,7 +41,7 @@ const emptyAnswersArray_1 = require("../services/emptyAnswersArray");
 const user_1 = __importDefault(require("../../Auth/models/user"));
 const refreshThisUser_1 = require("../../Auth/middlewares/refreshThisUser");
 const questions_1 = require("../utils/questions");
-const linkHandler_1 = require("../../User/controllers/linkHandler");
+const linkHandler_1 = require("../../User/controllers/channels/linkHandler");
 const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const questions = questions_1.fetchedQuestions;
     const userAnswers = JSON.parse(JSON.stringify(getAnswer_1.answers)); //copying array:bcs we want original array be empty
@@ -54,7 +54,8 @@ const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         yield user_1.default.findByIdAndUpdate(refreshThisUser_1.currentUser._id, { $push: { authorized: linkHandler_1.channel._id } }); //push the channel id in authorized array 
         console.log("doneee true wrongcounter 0");
     }
-    res.render('results', { results: userAnswers });
+    console.log(linkHandler_1.channel);
+    res.render('results', { results: userAnswers, slideId: linkHandler_1.channel.slideId, wrongCounter: calcResult_1.wrongCounter });
 });
 exports.default = result;
 //# sourceMappingURL=result.js.map

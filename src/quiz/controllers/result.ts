@@ -7,7 +7,7 @@ import { emptyAnswersArray }    from '../services/emptyAnswersArray'
 import User                     from '../../Auth/models/user'
 import { currentUser }          from '../../Auth/middlewares/refreshThisUser'
 import { fetchedQuestions } from '../utils/questions'
-import { channel } from '../../User/controllers/linkHandler'
+import { channel } from '../../User/controllers/channels/linkHandler'
 
 const result = async (req: Request, res: Response)=>{
     const questions: QuestionType[] = fetchedQuestions
@@ -22,7 +22,8 @@ const result = async (req: Request, res: Response)=>{
         
         console.log("doneee true wrongcounter 0")
     }
-    res.render('results', {results: userAnswers})
+    console.log(channel)
+    res.render('results', {results: userAnswers, slideId: channel.slideId, wrongCounter: wrongCounter})
 }
 
 export default result

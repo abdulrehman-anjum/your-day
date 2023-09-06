@@ -14,8 +14,8 @@ export async function setChannelName(val: string){
 }
 
 export default async function(req: Request, res: Response, next: NextFunction){
-    channelName = _.kebabCase(`${req.body.channelName} by ${currentUser.username}`)
-    const found = await findExisting('Channel', 'channelName', channelName)
+    channelName = req.body.channelName
+    const found = await findExisting('Channel', 'channelName', _.kebabCase(`${channelName} by ${currentUser.username}`))
     if (!found) {
         await setChannelCreation(true)
     }

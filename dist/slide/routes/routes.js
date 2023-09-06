@@ -4,9 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const slide_1 = __importDefault(require("../controllers/slide"));
 const router = express_1.default.Router();
-router.get('/', (req, res) => {
-    res.render('slide');
-});
+router.get('/start/:slideId', slide_1.default);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

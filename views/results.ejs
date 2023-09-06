@@ -9,8 +9,11 @@
                     <li><%= result.question %> - <%= result.answer %> <%= result.valid?"😌":"😛" %></li>
                 <% }) %>
             </ul>
-            <p><a href="/q/start/">Retake Test</a></p>
-            <p><a href="/s/">Go Farward -></a></p>
+            <% if (wrongCounter === 0){ %>
+                <p><a href="/s/start/<%= slideId %>"><button>Go Farward -></button></a></p>
+            <% } else { %>
+                <p><a href="/q/start/"><button>Retake Test</button></a></p>
+            <%} %>
         </div>
     </div>
 

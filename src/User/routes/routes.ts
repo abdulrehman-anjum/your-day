@@ -1,25 +1,24 @@
 import express              from 'express'
-import createChannelPage    from '../controllers/createChannelPage'
-import createChannel        from '../controllers/createChannel'
-import addQuestionPage      from '../controllers/addQuestionPage'
-import uploadImagePage      from '../controllers/uploadImagePage'
-import addQuestion          from '../controllers/addQuestion'
-import createQuizPage       from '../controllers/createQuizPage'
-import createQuiz           from '../controllers/createQuiz'
-import quizPage             from '../controllers/quizPage'
-import quizList             from '../controllers/quizList'
+import createChannelPage    from '../controllers/channels/createChannelPage'
+import createChannel        from '../controllers/channels/createChannel'
+import addQuestionPage      from '../controllers/quiz/addQuestionPage'
+import addQuestion          from '../controllers/quiz/addQuestion'
+import createQuizPage       from '../controllers/quiz/createQuizPage'
+import createQuiz           from '../controllers/quiz/createQuiz'
+import quizPage             from '../controllers/quiz/quizPage'
+import quizList             from '../controllers/quiz/quizList'
 import { multerUploads }    from '../middlewares/multer'
-import cloudinaryUploads    from '../controllers/cloudinaryUploads'
-import sameUsernameChecker from '../middlewares/sameUsernameChecker'
-import channelList from '../controllers/channelList'
-import createSlide from '../controllers/createSlide'
-import createSlidePage from '../controllers/createSlidePage'
-import slideList from '../controllers/slideList'
-import slidePage from '../controllers/slidePage'
-import addSlidePage from '../controllers/addSlidePage'
-import addSlidePagePage from '../controllers/addSlidePagePage'
-import addMediaPage from '../controllers/addMediaPage'
-import addMedia from '../controllers/addMedia'
+import sameUsernameChecker  from '../middlewares/sameUsernameChecker'
+import channelList          from '../controllers/channels/channelList'
+import createSlide          from '../controllers/slides/createSlide'
+import createSlidePage      from '../controllers/slides/createSlidePage'
+import slideList            from '../controllers/slides/slideList'
+import slidePage            from '../controllers/slides/slidePage'
+import addSlidePage         from '../controllers/slides/addSlidePage'
+import addSlidePagePage     from '../controllers/slides/addSlidePagePage'
+import addMediaPage         from '../controllers/media/addMediaPage'
+import addMedia             from '../controllers/media/addMedia'
+import imageList            from '../controllers/media/imageList'
 const router = express.Router()
 
 
@@ -55,8 +54,7 @@ router.get('/quiz/:quizId/add-question', addQuestionPage)
 router.post('/quiz/add-question/:quizId', addQuestion)
 
 //IMAGE
-router.get('/upload-image', uploadImagePage)
-router.post('/upload-image', multerUploads, cloudinaryUploads)
+router.get('/image-list', imageList)
 
 
 export default router

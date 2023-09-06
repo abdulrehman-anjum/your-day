@@ -20,7 +20,7 @@ const bcryptConfig_1 = require("../utils/bcryptConfig");
 exports.tryAgain = false;
 function setTryAgain(val) { exports.tryAgain = val; }
 exports.setTryAgain = setTryAgain;
-function default_1(req, res, next) {
+function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const existingUser = yield user_1.default.findOne({ username: req.body.username });
         const user = !existingUser ? yield (0, createUser_1.default)(req.body.username, req.body.password) : existingUser;
@@ -31,7 +31,7 @@ function default_1(req, res, next) {
             setTryAgain(true);
             res.redirect('/a/login');
         }
-        next();
+        res.redirect('/');
     });
 }
 exports.default = default_1;

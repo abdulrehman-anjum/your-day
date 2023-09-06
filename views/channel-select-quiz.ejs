@@ -13,6 +13,12 @@
                         <option value="<%= quiz._id %>"><%= quiz.quiz_name %></option>
                     <% }) %>
                 </select>
+                <h2>Select a Slide</h2>
+                <select name="slideId">
+                    <% slides.forEach(slide=>{ %>
+                        <option value="<%= slide._id %>"><%= slide.slide_name %></option>
+                    <% }) %>
+                </select>
                 <button type="submit">create</button>
 
             </form>

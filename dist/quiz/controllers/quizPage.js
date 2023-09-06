@@ -21,9 +21,6 @@ const quizPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const newQuestions = (quiz === null || quiz === void 0 ? void 0 : quiz.questions) ? quiz.questions : [];
         (0, questions_1.setQuizQuestions)(newQuestions);
     }
-    //get questions from one quiz instead of all
-    //get quizId
-    //get the questions array populated. and give it to questions that it we are done 
     const questions = questions_1.fetchedQuestions;
     console.log("questions", questions);
     res.render("quiz", {

@@ -32,8 +32,8 @@ function setChannelName(val) {
 exports.setChannelName = setChannelName;
 function default_1(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        exports.channelName = lodash_1.default.kebabCase(`${req.body.channelName} by ${refreshThisUser_1.currentUser.username}`);
-        const found = yield (0, findExisting_1.default)('Channel', 'channelName', exports.channelName);
+        exports.channelName = req.body.channelName;
+        const found = yield (0, findExisting_1.default)('Channel', 'channelName', lodash_1.default.kebabCase(`${exports.channelName} by ${refreshThisUser_1.currentUser.username}`));
         if (!found) {
             yield setChannelCreation(true);
         }

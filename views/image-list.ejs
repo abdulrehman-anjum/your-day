@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+    <div class="main-card">
+
+        <div class="q-card" align=center>
+            <h1>Your Image List</h1>
+            <ul>
+                <% images.forEach(image => { %>
+                    <li><a href="<%= image.url %>"><img width="200" src="<%= image.url %>" alt="<%= image.url %>"><%= image.createdAt %></a></li>
+                <% }); %>
+            </ul>
+            
+        </div>
+    </div>
+
+<%- include('partials/footer') %>

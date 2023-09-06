@@ -1,9 +1,8 @@
 import express from 'express'
+import slide from '../controllers/slide'
 
 const router = express.Router()
 
-router.get('/', (req, res)=>{
-    res.render('slide')
-})
+router.get('/start/:slideId', slide)
 
 export default router

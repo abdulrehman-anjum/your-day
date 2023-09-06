@@ -1,7 +1,4 @@
 import mongoose from "mongoose"
-import Channel from "../models/channel"
-
-
 
 export default async function find(modelname: string, fieldname: string, userInput: string): Promise<boolean>{
     const Model = mongoose.models[`${modelname}`]

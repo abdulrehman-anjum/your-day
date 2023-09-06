@@ -11,6 +11,7 @@ body{
 }
 
 .images img {
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.405));
     margin: 5px;;
 }
 
@@ -59,6 +60,30 @@ nav a {
 a {
     color: rgb(255, 218, 53);
     text-decoration: none
+}
+
+a button {
+    font-size: larger;
+    background-color: #5f9ea0;
+    border-radius: 10px;
+    border: none;
+    border-bottom: solid 1px black;
+    padding: 5px 15px;
+    margin: 0 5px;
+}
+a button:focus {
+    font-size: larger;
+    background-color: rgb(132, 158, 180);
+    border-radius: 10px;
+    border: none;
+    border-bottom: solid 1px black;
+}
+a button:hover {
+    font-size: larger;
+    background-color: rgb(87, 145, 146);
+    border-radius: 15px;
+    border: none;
+    border-top: solid 1px rgb(176, 176, 176);
 }
 
 img{

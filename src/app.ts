@@ -18,7 +18,7 @@ import userRoutes               from './User/routes/routes'
 import homeRoutes               from './home/routes/routes'
 import quizRoutes               from './quiz/routes/routes'
 
-const app: Application = express();export default app
+const app: Application = express(); export default app
 
 app.use(express.json());app.use(cookieParser());app.set('view engine', 'ejs')
 app.use(express.static(path.resolve(__dirname, '..', 'public')))
@@ -33,6 +33,7 @@ app.use('/a', authRoutes) //auth routes
 app.use('/u', authenticator, userRoutes) //user routes
 app.use('/q', authenticator, quizRoutes) // quiz routes
 app.use('/s', slideAuth, slideRoutes) //slide routes
+
 
 
 //*::::::::::::::::::::::::::::::::::::::::

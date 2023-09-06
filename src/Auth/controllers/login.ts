@@ -1,4 +1,4 @@
-import { Response, Request, NextFunction }  from "express";
+import { Response, Request }  from "express";
 import createUser                           from "../utils/createUser";
 import Session                              from "../models/sessions";
 import User                                 from "../models/user";
@@ -6,7 +6,7 @@ import { comparePasswords } from "../utils/bcryptConfig";
 
 export let tryAgain: boolean = false;export function setTryAgain(val: boolean){tryAgain = val}
 
-export default async function (req: Request, res: Response, next: NextFunction){
+export default async function (req: Request, res: Response){
     const existingUser = await User.findOne({username: req.body.username})
     const user = !existingUser?await createUser(req.body.username, req.body.password):existingUser
 
@@ -16,5 +16,5 @@ export default async function (req: Request, res: Response, next: NextFunction){
         setTryAgain(true)
         res.redirect('/a/login')
     }
-    next()
+    res.redirect('/')
 }

@@ -16,6 +16,11 @@ const channelSchema = new Schema ({
         ref: "Quiz",
         required: true
     },
+    slideId: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Slide",
+        required: true
+    },
     expirePoints: {
         type: Number,
         default: 3
