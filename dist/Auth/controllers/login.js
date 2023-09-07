@@ -27,16 +27,16 @@ function default_1(req, res) {
         const user = !existingUser ? yield (0, createUser_1.default)(req.body.username, req.body.password) : existingUser;
         if (yield (0, bcryptConfig_1.comparePasswords)(req.body.password, user.password)) {
             yield sessions_1.default.updateOne({ browserId: req.cookies.b_id }, { loggedUser: user._id }); //logs in
+            if (linkHandler_1.channel) {
+                res.redirect(`/q/start/${linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel.quizId}`);
+            }
+            else {
+                res.redirect('/');
+            }
         }
         else {
             setTryAgain(true);
             res.redirect('/a/login');
-        }
-        if (linkHandler_1.channel) {
-            res.redirect(`/q/start/${linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel.quizId}`);
-        }
-        else {
-            res.redirect('/');
         }
     });
 }
