@@ -3,6 +3,7 @@ import createUser                           from "../utils/createUser";
 import Session                              from "../models/sessions";
 import User                                 from "../models/user";
 import { comparePasswords } from "../utils/bcryptConfig";
+import { channel } from "../../User/controllers/channels/linkHandler";
 
 export let tryAgain: boolean = false;export function setTryAgain(val: boolean){tryAgain = val}
 
@@ -16,5 +17,9 @@ export default async function (req: Request, res: Response){
         setTryAgain(true)
         res.redirect('/a/login')
     }
-    res.redirect('/')
+    if(channel){
+        res.redirect(`/q/start/${channel?.quizId}`)
+    }else{
+        res.redirect('/')
+    }
 }

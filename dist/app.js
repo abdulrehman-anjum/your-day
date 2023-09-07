@@ -46,9 +46,6 @@ app.get('/logmyvalue', (req, res) => {
     if (true) {
         console.log(array.includes(21), "huzzah");
     }
-    else {
-        console.log("awww snap");
-    }
 });
 // *404 //always write it on the end
 app.use(_404_1.default);

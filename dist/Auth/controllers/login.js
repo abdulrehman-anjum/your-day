@@ -17,6 +17,7 @@ const createUser_1 = __importDefault(require("../utils/createUser"));
 const sessions_1 = __importDefault(require("../models/sessions"));
 const user_1 = __importDefault(require("../models/user"));
 const bcryptConfig_1 = require("../utils/bcryptConfig");
+const linkHandler_1 = require("../../User/controllers/channels/linkHandler");
 exports.tryAgain = false;
 function setTryAgain(val) { exports.tryAgain = val; }
 exports.setTryAgain = setTryAgain;
@@ -31,7 +32,12 @@ function default_1(req, res) {
             setTryAgain(true);
             res.redirect('/a/login');
         }
-        res.redirect('/');
+        if (linkHandler_1.channel) {
+            res.redirect(`/q/start/${linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel.quizId}`);
+        }
+        else {
+            res.redirect('/');
+        }
     });
 }
 exports.default = default_1;

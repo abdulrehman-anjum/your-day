@@ -42,8 +42,6 @@ app.get('/logmyvalue', (req, res)=>{
     const array = [2, 34, 3]
     if (true){
         console.log(array.includes(21), "huzzah")
-    } else {
-        console.log("awww snap")
     }
 })
 // *404 //always write it on the end
