@@ -1,14 +1,21 @@
 <%- include('partials/header') %>
 
     <div class="main-card">
-
+<!-- add quiz -->
+        <div class="q-card" align=center>
+            <h1>Create Your Quiz Here</h1>
+            <form action="/u/create-quiz" method="post">
+                <input type="text" name="quizName" placeholder="quiz name">
+                <input type="submit" value="Create">
+            </form>
+        </div>
+        <!-- quiz list -->
         <div class="q-card" align=center>
             <h1>Your Quiz List</h1>
             <ul>
                 <% quizList.forEach(quiz => { %>
                     <li><a href="/u/quiz/<%=quiz._id%>"><%=quiz.quiz_name%></a></li>
                 <% }); %>
-                <li><a href="/u/create-quiz"><button>Add More Quiz</button></a></li>
             </ul>
             
         </div>

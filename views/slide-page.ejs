@@ -1,16 +1,23 @@
 <%- include('partials/header') %>
 
     <div class="main-card">
-
+        <!-- add page -->
+        <div class="q-card">
+            <h1>Add Page</h1><br>
+            <form action='/u/slide/add-slide-page/<%= slide._id %>' method="post">
+                <input required type="text" name="pageName" placeholder="type the page name here">
+                <button type="submit">Next</button>
+            </form>
+        </div>
+            <!-- pages list -->
         <h1 class="q-card" align=center>
             <a><%= slide.slide_name%></a>
            
             <ul>
                <% slide.pages.forEach(page=>{ %>
-                <li><a href="/u/slide/<%= page._id %>/add-media"><%= page.page_name %></a></li>
+                <li><a href="/u/slide/<%= slide._id %>/<%= page._id %>/add-media"><%= page.page_name %></a></li>
                <% }) %>
 
-               <a href="/u/slide/<%= slide._id %>/add-slide-page/"><button>Add Page +</button></a>
             </ul>
         </h1>
     </div>

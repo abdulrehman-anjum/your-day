@@ -27,8 +27,13 @@ function default_1(req, res) {
             yield channel_1.default.findOneAndUpdate({ _id: exports.channel._id }, { $inc: { expirePoints: -1 } });
         }
         let expiryPoint = (exports.channel === null || exports.channel === void 0 ? void 0 : exports.channel.expirePoints) ? exports.channel === null || exports.channel === void 0 ? void 0 : exports.channel.expirePoints : 0;
-        if (expiryPoint > 0 || (refreshThisUser_1.currentUser === null || refreshThisUser_1.currentUser === void 0 ? void 0 : refreshThisUser_1.currentUser.authorized.includes(exports.channel._id))) {
-            res.redirect(`/q/start/${exports.channel === null || exports.channel === void 0 ? void 0 : exports.channel.quizId}`);
+        if (expiryPoint > 0) {
+            if (refreshThisUser_1.currentUser === null || refreshThisUser_1.currentUser === void 0 ? void 0 : refreshThisUser_1.currentUser.authorized.includes(exports.channel._id)) {
+                res.redirect(`/s/start/${exports.channel.slideId}`);
+            }
+            else {
+                res.redirect(`/q/start/${exports.channel === null || exports.channel === void 0 ? void 0 : exports.channel.quizId}`);
+            }
         }
         else {
             res.render('message-to-user', {

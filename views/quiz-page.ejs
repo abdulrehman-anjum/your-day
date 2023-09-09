@@ -1,18 +1,36 @@
 <%- include('partials/header') %>
 
-    <div class="main-card">
+        <!-- add question form -->
+        <div class="main-card">
+            <div class="q-card">
+                <form action="/u/quiz/add-question/<%- quiz._id %>" method="post">
+                    <h1>Add Question</h1><br>
+                    <div>
+                         <input required type="text" name="question" placeholder="Question" style="width: 201px;">
+                    </div>
+                    <div>
+                        <input value="0" required name="correct" type="radio"><input required type="text" placeholder="option 'a'" name="a"><br>
+                        <input value="1" required name="correct" type="radio"><input required type="text" placeholder="option 'b'" name="b"><br>
+                        <input value="2" required name="correct" type="radio"><input required type="text" placeholder="option 'c'" name="c">
+                    </div>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
 
-        <h1 class="q-card" align=center>
-            <a><%= quiz.quiz_name%></a>
-           
-            <ul>
-               <% quiz.questions.forEach(question=>{ %>
-                <li><%= question.question %></li>
-               <% }) %>
+            <!-- questions list -->
+            <h1 class="q-card" align=center>
+                <a><%= quiz.quiz_name%></a>
+               
+                <ol>
+                   <% quiz.questions.forEach(question=>{ %>
+                    <li align="left" style="font-size: medium; color: white;"><%= question.question %></li>
+                   <% }) %>
+    
+                   <!-- <a href="/u/quiz/<%= quiz._id %>/add-question"><button>Add Question</button></a> -->
+                </ol>
+            </h1>
 
-               <a href="/u/quiz/<%= quiz._id %>/add-question"><button>Add Question</button></a>
-            </ul>
-        </h1>
-    </div>
+
+        </div>
 
 <%- include('partials/footer') %>

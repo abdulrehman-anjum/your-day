@@ -30,7 +30,7 @@ const authenticated = (req, res, next) => __awaiter(void 0, void 0, void 0, func
             }
             else {
                 console.log('NOT idenifeid');
-                res.redirect('q/start/');
+                res.redirect(`/q/start/${linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel.quizId}`);
             }
         }
         else {

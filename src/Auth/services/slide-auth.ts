@@ -18,7 +18,7 @@ const authenticated = async (req: Request, res: Response, next: NextFunction)=>{
                 next()
             }else{
                 console.log('NOT idenifeid')
-                res.redirect('q/start/')
+                res.redirect(`/q/start/${channel?.quizId}`)
             }
         }
         else{

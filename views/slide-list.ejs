@@ -1,14 +1,22 @@
 <%- include('partials/header') %>
 
     <div class="main-card">
+        <!-- create Slide -->
+        <div class="q-card" align=center>
+            <h1>Create Your slide Here</h1>
+            <form action="/u/create-slide" method="post">
+                <input type="text" name="slideName" placeholder="slide name">
+                <input type="submit" value="Create">
+            </form>
+        </div>
 
+        <!-- slide list -->
         <div class="q-card" align=center>
             <h1>Your Slide List</h1>
             <ul>
                 <% slideList.forEach(slide => { %>
                     <li><a href="/u/slide/<%=slide._id%>"><%=slide.slide_name%></a></li>
                 <% }); %>
-                <li><a href="/u/create-slide"><button>Add More Slide</button></a></li>
             </ul>
             
         </div>

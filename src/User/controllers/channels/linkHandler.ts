@@ -17,8 +17,12 @@ export default async function(req: Request, res: Response){
 
     let expiryPoint:number = (channel?.expirePoints)?channel?.expirePoints:0
 
-    if (expiryPoint > 0 || currentUser?.authorized.includes(channel._id)) {
-        res.redirect(`/q/start/${channel?.quizId}`)
+    if (expiryPoint > 0) {
+        if(currentUser?.authorized.includes(channel._id)){
+            res.redirect(`/s/start/${channel.slideId}`)
+        }else {
+            res.redirect(`/q/start/${channel?.quizId}`)
+        }
     } else {
         res.render('message-to-user', {
             message: "Sorry, This link has been expired. You can ask the sender to send you the link again.", 

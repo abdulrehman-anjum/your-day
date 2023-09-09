@@ -19,7 +19,8 @@ const addSlidePage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const pageName = req.body.pageName;
     const page = {
         page_name: pageName,
-        page_creator: refreshThisUser_1.currentUser._id
+        page_creator: refreshThisUser_1.currentUser._id,
+        images: []
     };
     console.log(page);
     const newPage = new page_1.default(page);

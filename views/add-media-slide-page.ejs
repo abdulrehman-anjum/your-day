@@ -1,21 +1,71 @@
 <%- include('partials/header') %>
    
     <div class="main-card">
-        <div class="q-card">
-            <div class="images">
-                <% images?.forEach(image=>{ %>
-                    <img width="150" src="<%= image.url %>" alt="">
-                <% }) %>
-            </div>            
 
-            <h1>Add images</h1><br>
-            <form action="/u/slide/<%= pageId %>/add-media" method="post" enctype="multipart/form-data">
-                <label for="image">Upload Image</label>
-                <input type="file" name="image" id="image">
-                <input type="file" name="image" id="image">
-                <input type="submit" value="Upload Image">
-            </form>
-        </div>
+        <!-- pages list -->
+        <h1 class="q-card" align=center>
+            <a><%= slide.slide_name%></a>
+            
+            <ul>
+                <% slide.pages.forEach(page=>{ %>
+                <li><a href="/u/slide/<%= slide._id %>/<%= page._id %>/add-media"><%= page.page_name %></a></li>
+                <% }) %>
+
+            </ul>
+        </h1>
+
+        <form class="media-upload" action="/u/slide/<%= slide._id %>/<%= pageId %>/add-media" method="post" enctype="multipart/form-data">
+                <h1>Add images</h1><br>
+                <% console.log(images) %>
+                <div class="image-upload">
+                    <div class="image-box">
+                        <label for="image1"><img id="selectedImage1" width="150" src="<%= images[0].url %>" accept="image/*" alt="Picture 1"><br><p align="center">Tap to Change</p></label>
+                        <input hidden type="file" name="image" id="image1">
+                    </div>
+                    <div class="image-box">
+                        <label for="image2"><img id="selectedImage2" width="150" src="<%= images[1].url %>" accept="image/*" alt="Picture 2"><br><p align="center">Tap to Change</p></label>
+                        <input hidden type="file" name="image" id="image2">
+                    </div>
+                </div>
+                <input type="submit" value="Upload">
+        </form>
+
     </div>
 
+    <script>
+        const imageInput1 = document.getElementById('image1');
+        const selectedImage1 = document.getElementById('selectedImage1');
+
+        imageInput1.addEventListener('change', function () {
+            const file = imageInput1.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    selectedImage1.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        const imageInput2 = document.getElementById('image2');
+        const selectedImage2 = document.getElementById('selectedImage2');
+
+        imageInput2.addEventListener('change', function () {
+            const file = imageInput2.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    selectedImage2.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
+
+    
 <%- include('partials/footer') %>

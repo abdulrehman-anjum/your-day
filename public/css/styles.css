@@ -90,6 +90,29 @@ img{
     margin: 50px
 }
 
+.media-upload{
+    display: flex; 
+    background-color: rgba(255, 132, 132, 0.678);
+    height: 30rem;
+    width: 40rem;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 14px;
+}
+
+
+.image-upload{
+    display: flex;
+    padding: 10px;
+}
+
+
+.image-box{
+    margin: 10px;
+}
+
 .main-card{
     display: flex;
     align-items: center;

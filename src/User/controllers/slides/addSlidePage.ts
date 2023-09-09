@@ -10,7 +10,8 @@ const addSlidePage = async (req: Request, res: Response) => {
 
    const page = {
     page_name: pageName,
-    page_creator: currentUser._id
+    page_creator: currentUser._id,
+    images: []
    }
 
    console.log(page)
