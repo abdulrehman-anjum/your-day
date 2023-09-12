@@ -7,11 +7,16 @@ exports.dataUri = exports.multerUploads = void 0;
 const multer_1 = __importDefault(require("multer"));
 const parser_1 = __importDefault(require("datauri/parser"));
 const path_1 = __importDefault(require("path"));
+// allow image only 
 const storage = multer_1.default.memoryStorage();
-const multerUploads = (0, multer_1.default)({ storage }).array('image', 2);
+const multerUploads = (0, multer_1.default)({
+    storage: storage,
+    limits: { fileSize: 1024 * 1024 }, //1MB
+}).single("image");
 exports.multerUploads = multerUploads;
 // const multerUploads = multer({storage}).single('image')
 const dUri = new parser_1.default();
+//JSDoc
 /**
 * @description This function converts the buffer to data url
 * @param {Object} req containing the field object

@@ -14,57 +14,62 @@
             </ul>
         </h1>
 
-        <form class="media-upload" action="/u/slide/<%= slide._id %>/<%= pageId %>/add-media" method="post" enctype="multipart/form-data">
+        <%
+        const twoImages = images[1].url!="/images/default-image.png"?false:true
+        if (twoImages){%>
+            <form class="q-card" action="/u/slide/<%= slide._id %>/<%= pageId %>/add-media"method="post" enctype="multipart/form-data">
                 <h1>Add images</h1><br>
                 <% console.log(images) %>
                 <div class="image-upload">
                     <div class="image-box">
-                        <label for="image1"><img id="selectedImage1" width="150" src="<%= images[0].url %>" accept="image/*" alt="Picture 1"><br><p align="center">Tap to Change</p></label>
-                        <input hidden type="file" name="image" id="image1">
-                    </div>
-                    <div class="image-box">
-                        <label for="image2"><img id="selectedImage2" width="150" src="<%= images[1].url %>" accept="image/*" alt="Picture 2"><br><p align="center">Tap to Change</p></label>
-                        <input hidden type="file" name="image" id="image2">
+                        <label for="image">
+                            <img id="selectedImage" width="150" src="/images/default-image.png" accept="image/*" alt="Picture 1"><br>
+                            <p align="center">Tap to Change</p>
+                        </label>
+                        <input hidden type="file" name="image" id="image">
                     </div>
                 </div>
                 <input type="submit" value="Upload">
         </form>
+        <%}%>
+
+
+        <div class="q-card">
+            <div class="image-box">
+                <%if(images[0].url!=="/images/default-image.png"){%>
+                    <a href="/u/slide/<%= slide._id %>/<%= pageId %>/x/<%= images[0].id %>">Delete</a><br>
+                <%}%>
+                <img width="150" src="<%= images[0].url %>" accept="image/*" alt="Picture 1">
+            </div>
+
+            <div class="image-box">
+                <%if(images[1].url!=="/images/default-image.png"){%>
+                    <a href="/u/slide/<%= slide._id %>/<%= pageId %>/x/<%= images[1]._id %>">Delete</a><br>            
+                <%}%>
+                <img width="150" src="<%= images[1].url %>" accept="image/*" alt="Picture 2">
+            </div>
+        </div>
+                
+        
 
     </div>
 
     <script>
-        const imageInput1 = document.getElementById('image1');
-        const selectedImage1 = document.getElementById('selectedImage1');
+        const imageInput = document.getElementById('image');
+        const selectedImage = document.getElementById('selectedImage');
 
-        imageInput1.addEventListener('change', function () {
-            const file = imageInput1.files[0];
+        imageInput.addEventListener('change', function () {
+            const file = imageInput.files[0];
             if (file) {
                 const reader = new FileReader();
 
                 reader.onload = function (e) {
-                    selectedImage1.src = e.target.result;
+                    selectedImage.src = e.target.result;
                 };
 
                 reader.readAsDataURL(file);
             }
-        });
-
-        const imageInput2 = document.getElementById('image2');
-        const selectedImage2 = document.getElementById('selectedImage2');
-
-        imageInput2.addEventListener('change', function () {
-            const file = imageInput2.files[0];
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = function (e) {
-                    selectedImage2.src = e.target.result;
-                };
-
-                reader.readAsDataURL(file);
-            }
-        });
-
+        });       
     </script>
 
     

@@ -21,13 +21,14 @@ let imageId;
 function uploadImageToCloudinary(fileContent) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield cloudinaryConfig_1.uploader
-                .uploader
-                .upload(fileContent)
+            yield cloudinaryConfig_1.uploader.uploader
+                .upload(fileContent, { "width": 700 })
                 .then((result) => __awaiter(this, void 0, void 0, function* () {
-                // console.log("this result image", result)
-                imageURL = result.secure_url;
-                const newImg = new image_1.default({ url: imageURL, uploader: refreshThisUser_1.currentUser._id });
+                const newImg = new image_1.default({
+                    url: result.secure_url,
+                    publicId: result.public_id,
+                    uploader: refreshThisUser_1.currentUser._id
+                });
                 const savedImage = yield newImg.save();
                 uploaded = true;
                 imageId = savedImage._id;

@@ -15,6 +15,7 @@ import addSlidePage         from '../controllers/slides/addSlidePage'
 import addMediaPage         from '../controllers/media/addMediaPage'
 import addMedia             from '../controllers/media/addMedia'
 import imageList            from '../controllers/media/imageList'
+import deleteImage from '../controllers/media/delete-image'
 const router = express.Router()
 
 
@@ -36,6 +37,7 @@ router.post('/slide/add-slide-page/:slideId', addSlidePage)
 //media
 router.get('/slide/:slideId/:pageId/add-media', addMediaPage)
 router.post('/slide/:slideId/:pageId/add-media', multerUploads, addMedia)
+router.get('/slide/:slideId/:pageId/x/:imageId', deleteImage)
 
 //QUIZ
 router.get('/quiz-list', quizList)

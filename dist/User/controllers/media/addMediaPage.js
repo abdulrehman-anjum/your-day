@@ -30,6 +30,7 @@ const addMediaPage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             const url = pageImages && pageImages[0] !== undefined ? pageImages[0] : "";
             images = [
                 {
+                    id: url._id,
                     url: url.url
                 },
                 {
@@ -48,7 +49,7 @@ const addMediaPage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             ];
         }
     }
-    res.render('add-media-slide-page', { pageId: pageId, images: images, slide: slide });
+    res.render('add-media-slide-page', { pageId: pageId, images: images, slide: slide, });
 });
 exports.default = addMediaPage;
 //# sourceMappingURL=addMediaPage.js.map

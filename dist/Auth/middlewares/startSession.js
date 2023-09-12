@@ -17,7 +17,7 @@ const sessions_1 = __importDefault(require("../models/sessions"));
 function default_1(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const clientHasB_Id = req.cookies.b_id ? true : false;
-        if (!clientHasB_Id) {
+        if (!clientHasB_Id) { //no cookie, no session
             const b_id = (0, randomStringGenerator_1.default)(23);
             res.cookie('b_id', b_id, {
                 maxAge: 2505600000,
@@ -28,6 +28,14 @@ function default_1(req, res, next) {
             const newSession = new sessions_1.default({ browserId: b_id });
             yield newSession.save();
         }
+        else { //already has the cookie but no session on our db
+            const session = yield sessions_1.default.findOne({ browserId: req.cookies.b_id });
+            if (!session) {
+                const newSession = new sessions_1.default({ browserId: req.cookies.b_id });
+                yield newSession.save();
+            }
+        }
+        //if user cleared cookies then we have to make a new session and cookie for him.
         next();
     });
 }

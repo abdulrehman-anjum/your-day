@@ -44,5 +44,5 @@ app.get('/logmyvalue', (req, res)=>{
         console.log(array.includes(21), "huzzah")
     }
 })
-// *404 //always write it on the end
+// *404 page //always write it on the end
 app.use(page404)

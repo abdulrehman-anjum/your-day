@@ -9,21 +9,26 @@ let imageId: Types.ObjectId
 
 export default async function uploadImageToCloudinary(fileContent:string) {
     try {
-        await uploader
-                .uploader
-                    .upload(fileContent)
-                        .then(async result => 
-                            {
-                                // console.log("this result image", result)
-                                imageURL = result.secure_url;
-                                const newImg = new Image({url: imageURL, uploader: currentUser._id})
-                                const savedImage = await newImg.save()
-                                uploaded = true
-                                imageId = savedImage._id
-                            });
+        await uploader.uploader
+        .upload(fileContent, {"width": 700})
+        .then(async result =>
+            {
+                const newImg = new Image(
+                    {
+                        url: result.secure_url, 
+                        publicId:  result.public_id, 
+                        uploader: currentUser._id
+                    }
+                )
+                const savedImage = await newImg.save()
+
+                uploaded = true
+                imageId = savedImage._id
+            }
+        )
     } catch (error) {
         console.error("Error uploading image:", error);
-        uploaded = false         
+        uploaded = false      
     }
 
     return {

@@ -2,6 +2,7 @@ import cloudinary from 'cloudinary'
 import { NextFunction, Request, Response } from 'express';
 
 const uploader = cloudinary.v2
+const api_cloudinary = uploader.api
 const config = uploader.config
 
 const cloudinaryConfig = (req: Request, res: Response, next: NextFunction) => {
@@ -12,4 +13,4 @@ const cloudinaryConfig = (req: Request, res: Response, next: NextFunction) => {
     });
     next()
 }
-export {cloudinaryConfig, uploader}
+export {cloudinaryConfig, uploader, api_cloudinary}

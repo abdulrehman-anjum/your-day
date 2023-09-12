@@ -20,6 +20,7 @@ const addSlidePage_1 = __importDefault(require("../controllers/slides/addSlidePa
 const addMediaPage_1 = __importDefault(require("../controllers/media/addMediaPage"));
 const addMedia_1 = __importDefault(require("../controllers/media/addMedia"));
 const imageList_1 = __importDefault(require("../controllers/media/imageList"));
+const delete_image_1 = __importDefault(require("../controllers/media/delete-image"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => {
     res.render('admin');
@@ -37,6 +38,7 @@ router.post('/slide/add-slide-page/:slideId', addSlidePage_1.default);
 //media
 router.get('/slide/:slideId/:pageId/add-media', addMediaPage_1.default);
 router.post('/slide/:slideId/:pageId/add-media', multer_1.multerUploads, addMedia_1.default);
+router.get('/slide/:slideId/:pageId/x/:imageId', delete_image_1.default);
 //QUIZ
 router.get('/quiz-list', quizList_1.default);
 router.post('/create-quiz', createQuiz_1.default);
