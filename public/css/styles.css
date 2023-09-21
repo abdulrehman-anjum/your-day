@@ -1,7 +1,7 @@
 body{
     padding: 0;
-    color: rgb(56, 228, 87);
-    background-color: blueviolet;
+    color: rgb(255, 255, 255);
+    background-color: #ab00fa;
     margin: 0;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -13,19 +13,6 @@ body{
 .images img {
     filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.405));
     margin: 5px;;
-}
-
-
-nav{
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 2rem;
-    position: absolute;
-    top: 0;
-    left:50%;
-    width: 100%;
-    height: 2rem;
-    align-items: center;
 }
 
 form{
@@ -48,7 +35,21 @@ input{
     border-left-width: 0px;
     border-right-width: 2px;
     border-bottom-width: 2px;
+
 }
+
+
+nav{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 2rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 2rem;
+    align-items: center;
+}
+
 
 nav a {
     color: white;
@@ -57,7 +58,7 @@ nav a {
 }
 
 a {
-    color: rgb(255, 218, 53);
+    color: #e0da26;
     text-decoration: none
 }
 
@@ -115,11 +116,39 @@ img{
 .main-card{
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: rgb(226, 43, 43);
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    
+    background: rgb(224,218,38);
+    background: -moz-linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
+    background: linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e0da26",endColorstr="#a226e0",GradientType=1);
     height: 100vh;
     padding: 0;
     margin: 0;
+    
+}
+
+.slide-main-card{
+    display: none;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row-reverse;
+    
+    background: rgb(224,218,38);
+    background: -moz-linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
+    background: linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e0da26",endColorstr="#a226e0",GradientType=1);
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    
+}
+
+#slide0 {
+    display: flex
 }
 
 .q-card{
@@ -133,3 +162,35 @@ img{
     flex-direction: column;
     padding: 14px;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* slide styles   */
+
+
+.slide-picture-box {
+    height: 30rem;
+    width: 50rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.slide-picture-box img {
+    width: 100%;
+    height: auto;
+}
+
+
+

@@ -15,9 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const quiz_1 = __importDefault(require("../../../quiz/models/quiz"));
 function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const quizId = req.params.quizId;
-        const quiz = yield quiz_1.default.findById(quizId).populate("questions");
-        res.render('quiz-page', { quiz: quiz });
+        try {
+            const quizId = req.params.quizId;
+            const quiz = yield quiz_1.default.findById(quizId).populate("questions");
+            res.render('quiz-page', { quiz: quiz });
+        }
+        catch (err) {
+            console.error(err);
+            res.redirect('/page404');
+        }
     });
 }
 exports.default = default_1;

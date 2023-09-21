@@ -1,14 +1,91 @@
 <%- include('partials/header') %>
-<hr>
-<% slide['pages'].forEach(page=>{ %>
-    <div class="main-card">
-        <% console.log(slide['pages']) %>
-        <ul>
-        <% page['images'].forEach(image=>{ %>
-            <a href="<%= image.url %>"><li><img src="<%= image.url %>" loading="lazy" width="200" alt="oops"></li></a>
-        <% }) %>
-        </ul>
+
+<div id="slide0" class="main-card">
+    <h1>This is 0</h1>
+        <div class="q-card content">Title Lorem ipsum dolor sit</div>
+</div>
+
+<%
+const slides = [{name: "Hi no 1",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 2",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 3",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 4",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 5",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 6",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 7",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},]; 
+
+slides.reverse().forEach((slide, index)=>{ 
+    console.log(index-slides.length)
+    %>
+    <div id="slide<%= index-slides.length %>" class="slide-main-card">
+        <h1>This is <%= slide.name %></h1>
+            <div class="slide-picture-box"><img src="/images/default-image.png" alt=""></div>
     </div>
-    <hr>
 <% }) %>
+
+
+
+ <button style="position: absolute; top: 0; right: 0" id="nextBtn">Next</button>
+
+
+
+<script>
+    let currentDivCount = 1;
+    
+    document.getElementById('nextBtn').addEventListener('click', function(){
+        let currentDiv = document.getElementById('slide-' + currentDivCount);
+        console.log(currentDiv)
+        let AllDivs = document.querySelector(".main-card");
+        console.log(AllDivs)
+        AllDivs.style.display = "none";
+        if (currentDiv) {
+            currentDiv.style.display = "flex";
+            currentDivCount++;
+            // currentContent.scrollIntoView({ behavior: "smooth" })
+        }
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- <hr> -->
+            <% // slide['pages'].forEach(page=>{ %>
+                <!-- <div class="main-card"> -->
+                    <% // console.log(slide['pages']) %>
+                    <!-- <ul> -->
+                    <% // page['images'].forEach(image=>{ %>
+                        <!-- <a href="<%= // image.url %>"><li><img src="<%= // image.url %>" loading="lazy" width="200" alt="oops"></li></a> -->
+                    <% // }) %>
+                    <!-- </ul> -->
+                <!-- </div> -->
+                <!-- <hr> -->
+            <% // }) %>
 <%- include('partials/footer') %>

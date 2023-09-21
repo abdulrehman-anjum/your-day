@@ -13,11 +13,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const slide_1 = __importDefault(require("../models/slide"));
+const refreshThisUser_1 = require("../../Auth/middlewares/refreshThisUser");
+const channel_1 = __importDefault(require("../../User/models/channel"));
 function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const slide = yield slide_1.default.findOne({ _id: req.params.slideId })
-            .populate({ path: 'pages', populate: { path: 'images' } });
-        res.render('slide', { slide: slide });
+        try {
+            let identified = false;
+            const channels = yield channel_1.default.find({ slideId: req.params.slideId }).lean();
+            channels === null || channels === void 0 ? void 0 : channels.forEach((channel) => __awaiter(this, void 0, void 0, function* () {
+                if (refreshThisUser_1.currentUser === null || refreshThisUser_1.currentUser === void 0 ? void 0 : refreshThisUser_1.currentUser.authorized.includes(channel._id)) {
+                    identified = true;
+                }
+            }));
+            if (identified) {
+                const slide = yield slide_1.default.findOne({ _id: req.params.slideId })
+                    .populate({ path: 'pages', populate: { path: 'images' } });
+                res.render('slide', { slide: slide });
+            }
+            else {
+                res.redirect('/page404');
+            }
+        }
+        catch (err) {
+            console.error(err);
+            res.redirect('/page404');
+        }
     });
 }
 exports.default = default_1;

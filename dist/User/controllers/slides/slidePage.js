@@ -15,9 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const slide_1 = __importDefault(require("../../../slide/models/slide"));
 function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const slideId = req.params.slideId;
-        const slide = yield slide_1.default.findById(slideId).populate("pages");
-        res.render('slide-page', { slide: slide });
+        try {
+            const slideId = req.params.slideId;
+            const slide = yield slide_1.default.findById(slideId).populate("pages");
+            res.render('slide-page', { slide: slide });
+        }
+        catch (err) {
+            console.error(err);
+            res.redirect('/page404');
+        }
     });
 }
 exports.default = default_1;

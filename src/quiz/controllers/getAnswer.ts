@@ -7,7 +7,7 @@ export let answers: Answer[] = []
 const submitQuiz = async (req: Request, res: Response) => {
     const questions = fetchedQuestions
     await takeAnswer(Number(req.body.option))
-    res.redirect(answers.length<questions.length?'/a/start':'/q/result')        
+    res.redirect(answers.length<questions.length?'/q/start':'/q/result')        
 }
 
 export default submitQuiz

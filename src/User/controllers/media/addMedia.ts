@@ -4,6 +4,7 @@ import uploadImageToCloudinary from '../../services/uploadImageToCloudinary'
 import Page from '../../../slide/models/page'
 
 const addSlidePage = async (req: Request, res: Response) => {
+    
     const pageId = req.params.pageId
     const slideId = req.params.slideId
     const image = req.file

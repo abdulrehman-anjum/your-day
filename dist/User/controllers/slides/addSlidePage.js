@@ -16,18 +16,24 @@ const refreshThisUser_1 = require("../../../Auth/middlewares/refreshThisUser");
 const page_1 = __importDefault(require("../../../slide/models/page"));
 const slide_1 = __importDefault(require("../../../slide/models/slide"));
 const addSlidePage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const pageName = req.body.pageName;
-    const page = {
-        page_name: pageName,
-        page_creator: refreshThisUser_1.currentUser._id,
-        images: []
-    };
-    console.log(page);
-    const newPage = new page_1.default(page);
-    const p = yield newPage.save();
-    const pageId = p._id;
-    yield slide_1.default.updateOne({ _id: req.params.slideId }, { $push: { pages: pageId } });
-    res.redirect(`/u/slide/${req.params.slideId}`);
+    try {
+        const pageName = req.body.pageName;
+        const page = {
+            page_name: pageName,
+            page_creator: refreshThisUser_1.currentUser._id,
+            images: []
+        };
+        console.log(page);
+        const newPage = new page_1.default(page);
+        const p = yield newPage.save();
+        const pageId = p._id;
+        yield slide_1.default.updateOne({ _id: req.params.slideId }, { $push: { pages: pageId } });
+        res.redirect(`/u/slide/${req.params.slideId}`);
+    }
+    catch (err) {
+        console.error(err);
+        res.redirect('/page404');
+    }
 });
 exports.default = addSlidePage;
 //# sourceMappingURL=addSlidePage.js.map
