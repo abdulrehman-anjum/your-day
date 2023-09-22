@@ -42,6 +42,7 @@ const user_1 = __importDefault(require("../../Auth/models/user"));
 const refreshThisUser_1 = require("../../Auth/middlewares/refreshThisUser");
 const questions_1 = require("../utils/questions");
 const linkHandler_1 = require("../../User/controllers/channels/linkHandler");
+const channel_1 = __importDefault(require("../../User/models/channel"));
 const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const questions = questions_1.fetchedQuestions;
     const userAnswers = JSON.parse(JSON.stringify(getAnswer_1.answers)); //copying array:bcs we want original array be empty
@@ -54,8 +55,26 @@ const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         yield user_1.default.findByIdAndUpdate(refreshThisUser_1.currentUser._id, { $push: { authorized: linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel._id } }); //push the channel id in authorized array 
         console.log("doneee true wrongcounter 0");
     }
+    else {
+        if (calcResult_1.wrongCounter > 0) {
+            if (linkHandler_1.channel) {
+                yield channel_1.default.findOneAndUpdate({ _id: linkHandler_1.channel._id }, { $inc: { expirePoints: -1 } });
+            }
+        }
+    }
     console.log(linkHandler_1.channel);
-    res.render('results', { results: userAnswers, slideId: linkHandler_1.channel.slideId, wrongCounter: calcResult_1.wrongCounter });
+    const thisChannel = yield channel_1.default.findById(linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel._id);
+    let expiryPoint = (thisChannel === null || thisChannel === void 0 ? void 0 : thisChannel.expirePoints) ? thisChannel === null || thisChannel === void 0 ? void 0 : thisChannel.expirePoints : 0;
+    if (expiryPoint > 0) {
+        res.render('results', { results: userAnswers, slideId: linkHandler_1.channel.slideId, wrongCounter: calcResult_1.wrongCounter });
+    }
+    else {
+        res.render('message-to-user', {
+            message: "Limit Exceeded. Link Expired. You couldn't answer all questions.",
+            btnText: "Main Page",
+            btnHref: "/"
+        });
+    }
 });
 exports.default = result;
 //# sourceMappingURL=result.js.map

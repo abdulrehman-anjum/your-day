@@ -7,6 +7,7 @@ import User                     from '../../Auth/models/user'
 import { currentUser }          from '../../Auth/middlewares/refreshThisUser'
 import { fetchedQuestions } from '../utils/questions'
 import { channel } from '../../User/controllers/channels/linkHandler'
+import Channel from '../../User/models/channel'
 
 const result = async (req: Request, res: Response)=>{
     const questions: QuestionType[] = fetchedQuestions
@@ -20,9 +21,28 @@ const result = async (req: Request, res: Response)=>{
         await User.findByIdAndUpdate(currentUser._id, { $push: {authorized: channel?._id} }) //push the channel id in authorized array 
         
         console.log("doneee true wrongcounter 0")
+    }else {
+        if (wrongCounter >0) {
+            if (channel){
+                await Channel.findOneAndUpdate({_id: channel._id}, {$inc: {expirePoints: -1}})
+            }
+        }
     }
     console.log(channel)
-    res.render('results', {results: userAnswers, slideId: channel.slideId, wrongCounter: wrongCounter})
+    const thisChannel = await Channel.findById(channel?._id)
+    let expiryPoint:number = (thisChannel?.expirePoints)?thisChannel?.expirePoints:0
+    if (expiryPoint>0){
+        res.render('results', {results: userAnswers, slideId: channel.slideId, wrongCounter: wrongCounter})
+    } else {
+        res.render(
+            'message-to-user', 
+            {
+                message: "Limit Exceeded. Link Expired. You couldn't answer all questions.", 
+                btnText: "Main Page", 
+                btnHref: "/"
+            }
+        )
+    }
 }
 
 export default result

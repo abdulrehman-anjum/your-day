@@ -1,7 +1,7 @@
 <%- include('partials/header') %>
 
-<div id="slide0" class="slide-main-card show-next-page">
-        <div class="slide-card slide-picture-box">Title Lorem ipsum dolor sit</div>
+<div id="slide0" class="slide-main-card" style="height: 100vh; width: 100%;position: absolute;z-index: -3;">
+        <div class="slide-card" style="height: 30rem;">Title Lorem ipsum dolor sit</div>
 </div>
 
 <%
@@ -11,7 +11,7 @@ slides.reverse().forEach((slide, index)=>{
     console.log(index-slides.length)
     %>
     <div id="slide<%= index-slides.length %>" class="slide-main-card">
-        <h1>This is <%= slide.name %></h1>
+        <h1 id="title<%= index-slides.length %>" style="display: none;" >This is <%= slide.name %></h1>
             <div id="slide-card<%= index-slides.length %>" class="slide-picture-box"><img src="/images/default-image.png" alt=""></div>
     </div>
 <% }) %>
@@ -26,19 +26,22 @@ slides.reverse().forEach((slide, index)=>{
     let currentDivCount = 1;
     
     document.getElementById('nextBtn').addEventListener('click', function(){
+        let AllDivs = document.querySelector(".slide-main-card");
+        AllDivs.classList.add("hide-main-card");
+
         let slideMainCard = document.getElementById('slide-' + currentDivCount);
         let slideCard = document.getElementById('slide-card-' + currentDivCount);
         let slidePictureBox = document.getElementById('slide-card-' + currentDivCount);
-        console.log(slideCard)
-        let AllDivs = document.querySelector(".slide-main-card");
-        console.log(AllDivs)
-        AllDivs.style.display = "none";
+        let titleH1 = document.getElementById('title-' + currentDivCount);
+        
         if (slideMainCard) {
+
             slideMainCard.classList.add('show-next-page')
             slideCard.classList.add('show-card')
             slidePictureBox.classList.add('show-card')
+            titleH1.style.display = "flex"
+
             currentDivCount++;
-            // currentContent.scrollIntoView({ behavior: "smooth" })
         }
     });
 

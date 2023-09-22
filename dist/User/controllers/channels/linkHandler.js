@@ -23,15 +23,16 @@ function default_1(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const channelName = req.params.channelName;
         exports.channel = yield channel_1.default.findOne({ channelName: channelName });
-        if (exports.channel) {
-            yield channel_1.default.findOneAndUpdate({ _id: exports.channel._id }, { $inc: { expirePoints: -1 } });
-        }
         let expiryPoint = (exports.channel === null || exports.channel === void 0 ? void 0 : exports.channel.expirePoints) ? exports.channel === null || exports.channel === void 0 ? void 0 : exports.channel.expirePoints : 0;
+        console.log(expiryPoint, "expirr");
         if (expiryPoint > 0) {
             if (refreshThisUser_1.currentUser === null || refreshThisUser_1.currentUser === void 0 ? void 0 : refreshThisUser_1.currentUser.authorized.includes(exports.channel._id)) {
                 res.redirect(`/s/start/${exports.channel.slideId}`);
             }
             else {
+                // if (channel){
+                //     await Channel.findOneAndUpdate({_id: channel._id}, {$inc: {expirePoints: -1}})
+                // }
                 res.redirect(`/q/start/${exports.channel === null || exports.channel === void 0 ? void 0 : exports.channel.quizId}`);
             }
         }
