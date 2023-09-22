@@ -1,7 +1,6 @@
 import { Request, Response }    from 'express'
 import { answers }              from './getAnswer'
 import results, { wrongCounter }from '../services/calcResult'
-import Question                 from '../models/question'
 import QuestionType             from '../types/question'
 import { emptyAnswersArray }    from '../services/emptyAnswersArray'
 import User                     from '../../Auth/models/user'
@@ -18,7 +17,7 @@ const result = async (req: Request, res: Response)=>{
     await results(userAnswers, questions) //complete calc result
     console.log("wrongCounter",wrongCounter)
     if (wrongCounter===0){
-        await User.findByIdAndUpdate(currentUser._id, { $push: {authorized: channel._id} }) //push the channel id in authorized array 
+        await User.findByIdAndUpdate(currentUser._id, { $push: {authorized: channel?._id} }) //push the channel id in authorized array 
         
         console.log("doneee true wrongcounter 0")
     }

@@ -51,7 +51,7 @@ const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, calcResult_1.default)(userAnswers, questions); //complete calc result
     console.log("wrongCounter", calcResult_1.wrongCounter);
     if (calcResult_1.wrongCounter === 0) {
-        yield user_1.default.findByIdAndUpdate(refreshThisUser_1.currentUser._id, { $push: { authorized: linkHandler_1.channel._id } }); //push the channel id in authorized array 
+        yield user_1.default.findByIdAndUpdate(refreshThisUser_1.currentUser._id, { $push: { authorized: linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel._id } }); //push the channel id in authorized array 
         console.log("doneee true wrongcounter 0");
     }
     console.log(linkHandler_1.channel);

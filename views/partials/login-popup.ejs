@@ -1,10 +1,9 @@
 <div class="login-popup">
-    <div class="main-card">
-        <form class="q-card" action="/a/login" method="post">
-            <p><%= errMsg %></p>
-            <input type="text" placeholder="tell me your name" name="username"><br>
-            <input type="passsword" placeholder="write your passsword" name="password"><br>
-            <input type="submit" value="GO">
-        </form>
-    </div>    
-</div>
+    <form class="q-card" action="/a/login" method="post">
+        <h1>Sign In</h1>
+        <p><%= errMsg %></p>
+        <input type="text" placeholder="tell me your username" name="username"><br>
+        <input type="passsword" placeholder="write your passsword" name="password"><br>
+        <input type="submit" value="GO">
+    </form>
+</div>    
