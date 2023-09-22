@@ -17,7 +17,8 @@ export default async function(req: Request, res: Response){
         if (identified){
             const slide = await Slide.findOne({_id:  req.params.slideId})
             .populate({path: 'pages', populate: {path: 'images'}})
-            res.render('slide', {slide: slide})
+            // res.render('slide', {slide: slide})
+            res.render('slide')
         } else {
             res.redirect('/page404')
         }

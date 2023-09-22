@@ -1,8 +1,7 @@
 <%- include('partials/header') %>
 
-<div id="slide0" class="main-card">
-    <h1>This is 0</h1>
-        <div class="q-card content">Title Lorem ipsum dolor sit</div>
+<div id="slide0" class="slide-main-card show-next-page">
+        <div class="slide-card slide-picture-box">Title Lorem ipsum dolor sit</div>
 </div>
 
 <%
@@ -13,13 +12,13 @@ slides.reverse().forEach((slide, index)=>{
     %>
     <div id="slide<%= index-slides.length %>" class="slide-main-card">
         <h1>This is <%= slide.name %></h1>
-            <div class="slide-picture-box"><img src="/images/default-image.png" alt=""></div>
+            <div id="slide-card<%= index-slides.length %>" class="slide-picture-box"><img src="/images/default-image.png" alt=""></div>
     </div>
 <% }) %>
 
 
 
- <button style="position: absolute; top: 0; right: 0" id="nextBtn">Next</button>
+ <button style="position: absolute; top: 50%; right: 30px; font-size: larger; border-radius: 5px;" id="nextBtn">Next</button>
 
 
 
@@ -27,13 +26,17 @@ slides.reverse().forEach((slide, index)=>{
     let currentDivCount = 1;
     
     document.getElementById('nextBtn').addEventListener('click', function(){
-        let currentDiv = document.getElementById('slide-' + currentDivCount);
-        console.log(currentDiv)
-        let AllDivs = document.querySelector(".main-card");
+        let slideMainCard = document.getElementById('slide-' + currentDivCount);
+        let slideCard = document.getElementById('slide-card-' + currentDivCount);
+        let slidePictureBox = document.getElementById('slide-card-' + currentDivCount);
+        console.log(slideCard)
+        let AllDivs = document.querySelector(".slide-main-card");
         console.log(AllDivs)
         AllDivs.style.display = "none";
-        if (currentDiv) {
-            currentDiv.style.display = "flex";
+        if (slideMainCard) {
+            slideMainCard.classList.add('show-next-page')
+            slideCard.classList.add('show-card')
+            slidePictureBox.classList.add('show-card')
             currentDivCount++;
             // currentContent.scrollIntoView({ behavior: "smooth" })
         }
