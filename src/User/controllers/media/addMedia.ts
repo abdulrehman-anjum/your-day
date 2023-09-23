@@ -34,19 +34,10 @@ const addSlidePage = async (req: Request, res: Response) => {
                         )
                     } else { //success
                         const thisPage = await Page.findOne({_id: pageId})
-                        if (thisPage && thisPage['images'].length !==2){
-                            await Page.updateOne({_id: pageId}, { $push: {images: imageId}})
+                        if (thisPage){
+                            await Page.updateOne({_id: pageId}, {image: imageId})
                             res.redirect(`/u/slide/${slideId}/${pageId}/add-media`)
-                        } else {
-                            res.render('message-to-user', 
-                            {
-                                message: "Cant upload more than two images",
-                                btnText: "Delet one of the image or both images and try again",
-                                btnHref: `/u/slide/${slideId}/${pageId}/add-media`
-                            }
-                        )
-                        }
-                        
+                        }                        
                     }
                 }catch(err){
                     console.log(err)

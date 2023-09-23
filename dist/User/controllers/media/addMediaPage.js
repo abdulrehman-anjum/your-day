@@ -19,38 +19,20 @@ const addMediaPage = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const slideId = req.params.slideId;
         const slide = yield slide_1.default.findOne({ _id: slideId }).populate('pages');
         const pageId = req.params.pageId;
-        const page = yield page_1.default.findOne({ _id: pageId }).populate('images');
-        const pageImages = page === null || page === void 0 ? void 0 : page.images;
-        console.log(pageImages);
-        let images;
-        if ((pageImages === null || pageImages === void 0 ? void 0 : pageImages.length) != undefined ? (pageImages === null || pageImages === void 0 ? void 0 : pageImages.length) > 1 : false) {
-            images = pageImages;
+        const page = yield page_1.default.findOne({ _id: pageId }).populate('image');
+        const pageImage = page === null || page === void 0 ? void 0 : page.image;
+        console.log(pageImage);
+        let image;
+        if (pageImage) {
+            image = pageImage;
         }
         else {
-            if ((pageImages === null || pageImages === void 0 ? void 0 : pageImages.length) != undefined ? (pageImages === null || pageImages === void 0 ? void 0 : pageImages.length) > 0 : false) {
-                const url = pageImages && pageImages[0] !== undefined ? pageImages[0] : "";
-                images = [
-                    {
-                        id: url._id,
-                        url: url.url
-                    },
-                    {
-                        url: "/images/default-image.png"
-                    }
-                ];
-            }
-            else if ((pageImages === null || pageImages === void 0 ? void 0 : pageImages.length) != undefined ? (pageImages === null || pageImages === void 0 ? void 0 : pageImages.length) == 0 : false) {
-                images = [
-                    {
-                        url: "/images/default-image.png"
-                    },
-                    {
-                        url: "/images/default-image.png"
-                    }
-                ];
-            }
+            image =
+                {
+                    url: "/images/default-image.png"
+                };
         }
-        res.render('add-media-slide-page', { pageId: pageId, images: images, slide: slide, });
+        res.render('add-media-slide-page', { pageId: pageId, image: image, slide: slide, });
     }
     catch (err) {
         console.error(err);

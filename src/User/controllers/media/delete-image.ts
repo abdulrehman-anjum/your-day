@@ -4,12 +4,12 @@ import Image from '../../models/image'
 import { api_cloudinary } from '../../../utils/cloudinaryConfig'
 
 const deleteImage = async (req: Request, res: Response) => {
+    const pageId = req.params.pageId
+    const slideId = req.params.slideId
+    const imageId = req.params.imageId
+    
     try{
-        const pageId = req.params.pageId
-        const slideId = req.params.slideId
-        const imageId = req.params.imageId
-
-        await Page.findOneAndUpdate({_id: pageId}, { $pull: {images: imageId}})
+        await Page.findOneAndUpdate({_id: pageId}, { $unset: {image: imageId}})
 
         const image = await Image.findOne({_id: imageId})
         const publicId: string = typeof image?.publicId === 'string'? image?.publicId : ""
@@ -26,7 +26,11 @@ const deleteImage = async (req: Request, res: Response) => {
 
     }catch(err){
         console.error(err)
-        res.redirect('/page404')
+        res.render('message-to-user', {
+            message: 'Image Delete Failed',
+            btnText: "Go Back",
+            btnHref: `/u/slide/${slideId}/${pageId}/add-media`
+        })
     }
 }
 export default deleteImage

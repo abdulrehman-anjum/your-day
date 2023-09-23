@@ -14,12 +14,9 @@ const pageSchema = new Schema({
         type: String,
         required: true
     },
-    images: [{
-            type: mongoose_1.default.Schema.ObjectId,
-            ref: "Image"
-        }],
-    caption: {
-        type: String
+    image: {
+        type: mongoose_1.default.Schema.ObjectId,
+        ref: "Image"
     },
     audio: {
         type: String

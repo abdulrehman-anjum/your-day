@@ -1,31 +1,50 @@
 <%- include('partials/header') %>
 
 <div id="slide0" class="slide-main-card" style="height: 100vh; width: 100%;position: absolute;z-index: -3;">
-        <div class="slide-card" style="height: 30rem;">Title Lorem ipsum dolor sit</div>
+        <div class="slide-card" style="height: 30rem;"><%= slide.slide_name %> <br><br><br><br><br> <p>click next to see more..</p> </div>
 </div>
 
 <%
-const slides = [{name: "Hi no 1",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 2",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 3",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 4",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 5",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 6",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},{name: "Hi no 7",image: [{url: "/images/default-image.png"},{url: "/images/default-image.png"}]},]; 
-
-slides.reverse().forEach((slide, index)=>{ 
+const slides = slide['pages']; 
+slides.reverse().forEach((page, index)=>{
     console.log(index-slides.length)
     %>
     <div id="slide<%= index-slides.length %>" class="slide-main-card">
-        <h1 id="title<%= index-slides.length %>" style="display: none;" >This is <%= slide.name %></h1>
-            <div id="slide-card<%= index-slides.length %>" class="slide-picture-box"><img src="/images/default-image.png" alt=""></div>
+        <h1 id="title<%= index-slides.length %>" style="display: none;" ><%= page.page_name %></h1>
+            <div id="slide-card<%= index-slides.length %>" class="slide-picture-box"><img src="<%= page['image'].url %>" alt=""></div>
     </div>
 <% }) %>
 
-
-
- <button style="position: absolute; top: 50%; right: 30px; font-size: larger; border-radius: 5px;" id="nextBtn">Next</button>
-
+<button style="position: absolute; top: 50%; right: 30px; font-size: larger; border-radius: 5px;" id="nextBtn">Next</button>
 
 
 <script>
+
     let currentDivCount = 1;
     
-    document.getElementById('nextBtn').addEventListener('click', function(){
+    document.getElementById('nextBtn').addEventListener('click', function(){        
+
+        const flickerColors = ["disppearFlicker", "flickerYellow", "flickerGreen", "flickerRed"];
+        let pictureBox = document.querySelectorAll('.slide-picture-box');
+        let indexC = 0;
+        const flickerInterval = setInterval(()=>{
+            pictureBox.forEach((box)=>{
+                // console.log(flickerColors[indexC]);
+                box.classList.toggle(flickerColors[indexC]);
+            });
+            if ( indexC<3 ) { indexC++ } else { indexC = 0 }
+        }, 100)
+
+
+
+        let totalDivs =  document.getElementsByClassName("slide-main-card").length;
+
+        let slideLength = totalDivs - 1;
+        if (currentDivCount == slideLength){
+            document.getElementById('nextBtn').style.display = "none";
+        }
+
+
         let AllDivs = document.querySelector(".slide-main-card");
         AllDivs.classList.add("hide-main-card");
 
@@ -44,54 +63,5 @@ slides.reverse().forEach((slide, index)=>{
             currentDivCount++;
         }
     });
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- <hr> -->
-            <% // slide['pages'].forEach(page=>{ %>
-                <!-- <div class="main-card"> -->
-                    <% // console.log(slide['pages']) %>
-                    <!-- <ul> -->
-                    <% // page['images'].forEach(image=>{ %>
-                        <!-- <a href="<%= // image.url %>"><li><img src="<%= // image.url %>" loading="lazy" width="200" alt="oops"></li></a> -->
-                    <% // }) %>
-                    <!-- </ul> -->
-                <!-- </div> -->
-                <!-- <hr> -->
-            <% // }) %>
 <%- include('partials/footer') %>

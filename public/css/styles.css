@@ -211,15 +211,31 @@ img{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    padding: 0;
     overflow: hidden;
+    transition: padding 2.5s cubic-bezier(0.35,-0.6, 0.83, 1.64);
     transition: height 2.5s cubic-bezier(0.35,-0.6, 0.83, 1.64);
 }
 
+.flickerRed {
+    border: double 3px red;
+}
+.flickerYellow {
+    border: dotted 3px yellow;
+}
+.flickerGreen {
+    border: solid 3px green;
+}
+.disappearFlicker {
+    border: dotted 3px white;
+}
+
 .show-card {
-    height: 30rem;
+    padding-bottom: 5px;
+    height: 25rem;
 }
 .slide-picture-box img {
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
