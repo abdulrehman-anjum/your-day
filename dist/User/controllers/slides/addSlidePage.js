@@ -18,8 +18,10 @@ const slide_1 = __importDefault(require("../../../slide/models/slide"));
 const addSlidePage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const pageName = req.body.pageName;
+        const pageDesc = req.body.pageDesc;
         const page = {
             page_name: pageName,
+            page_desc: pageDesc,
             page_creator: refreshThisUser_1.currentUser._id,
             images: []
         };

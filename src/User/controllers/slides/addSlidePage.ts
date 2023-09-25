@@ -8,9 +8,11 @@ import Slide from '../../../slide/models/slide'
 const addSlidePage = async (req: Request, res: Response) => {
    try{
       const pageName = req.body.pageName
+      const pageDesc = req.body.pageDesc
 
       const page = {
       page_name: pageName,
+      page_desc: pageDesc,
       page_creator: currentUser._id,
       images: []
       }

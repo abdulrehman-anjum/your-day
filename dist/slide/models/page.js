@@ -14,6 +14,9 @@ const pageSchema = new Schema({
         type: String,
         required: true
     },
+    page_desc: {
+        type: String,
+    },
     image: {
         type: mongoose_1.default.Schema.ObjectId,
         ref: "Image"

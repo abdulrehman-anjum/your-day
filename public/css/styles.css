@@ -170,19 +170,28 @@ img{
 
 .slide-main-card{
     display: flex;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: space-around;
     flex-direction: row-reverse;
-    
+    flex-wrap: wrap;
     background: rgb(224,218,38);
-    background: -moz-linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
+    background: -moz-linear-gradient(90deg, rgba(224,218,38,1) 0%, rgb(162, 38, 224) 100%);
     background: -webkit-linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
     background: linear-gradient(90deg, rgba(224,218,38,1) 0%, rgba(162,38,224,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#e0da26",endColorstr="#a226e0",GradientType=1);
     height: 0vh;
-    padding: 0;
+    width: 100%;
+    /* border: solid 3px white; */
+    padding: 0px;
     margin: 0;
     transition: height 1.5s cubic-bezier(0.05, 1.02, 0.42, 1.37);
+}
+
+.slide-main-card p, .slide-main-card h3 {
+    font-size: large;
+    width: 20rem;
+    text-align: justify;
+    line-height: 1.5rem;
 }
 
 
@@ -192,7 +201,7 @@ img{
 }
 
 .slide-card{
-    background-color: rgba(255, 132, 132, 0.678);
+    background-color: rgb(162, 38, 224, 100%);
     height: 0rem;
     width: 20rem;
     border-radius: 5px;
@@ -200,42 +209,36 @@ img{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 14px;
+    /* padding: 14px; */
 }
 
 .slide-picture-box {
-    height: 0rem;
-    width: 50rem;
+    /* margin-top: 100px; */
+    /* height: 0rem; */
+    /* width: 50rem; */
+    max-width: 100%;
+    max-height: 0;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0;
+    display: inline-block;
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* flex-direction: column; */
+    padding: 10px;
+    padding-top: 0;
     overflow: hidden;
-    transition: padding 2.5s cubic-bezier(0.35,-0.6, 0.83, 1.64);
-    transition: height 2.5s cubic-bezier(0.35,-0.6, 0.83, 1.64);
-}
-
-.flickerRed {
-    border: double 3px red;
-}
-.flickerYellow {
-    border: dotted 3px yellow;
-}
-.flickerGreen {
-    border: solid 3px green;
-}
-.disappearFlicker {
-    border: dotted 3px white;
+    transition: max-height 1.5s ease;
 }
 
 .show-card {
+    max-height: 100%;
     padding-bottom: 5px;
     height: 25rem;
 }
 .slide-picture-box img {
     width: 100%;
     height: 100%;
+    position: relative;
+    top:0;
+    margin: 10px;
 }
 
