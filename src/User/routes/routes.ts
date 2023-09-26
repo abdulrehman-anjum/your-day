@@ -8,6 +8,7 @@ import quizList             from '../controllers/quiz/quizList'
 import { multerUploads }    from '../middlewares/multer'
 import sameUsernameChecker  from '../middlewares/sameUsernameChecker'
 import channelList          from '../controllers/channels/channelList'
+import deleteChannel        from '../controllers/channels/deleteChannel'
 import createSlide          from '../controllers/slides/createSlide'
 import slideList            from '../controllers/slides/slideList'
 import slidePage            from '../controllers/slides/slidePage'
@@ -26,6 +27,7 @@ router.get('/', (req, res)=>{
 //CHANNELS
 router.get('/channel-list', channelList)
 router.get('/createChannel', createChannelPage)
+router.get('/deleteChannel/:id', deleteChannel)
 router.post('/createChannel/quiz', createChannel) //save the channel and create a link
 router.post('/createChannel/name', sameUsernameChecker) //save the channel and create a link
 

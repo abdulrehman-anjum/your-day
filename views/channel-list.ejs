@@ -7,7 +7,9 @@
             <p>copy link address to share</p>
             <ul>
                 <% channelList.forEach(channel => { %>
-                    <li><a href="/link/<%=channel.channelName%>"><%=channel.channelName%></a></li>
+                    <li><a style="font-size: large;" href="/link/<%=channel.channelName%>"><%=channel.channelName%></a>-<a
+                        style="color: red;font-size: small;"
+                        href="/u/deleteChannel/<%= channel._id %>">Delete</a></li>
                 <% }); %>
                 <li><a href="/u/createChannel"><button>Create Another Channel</button></a></li>
             </ul>

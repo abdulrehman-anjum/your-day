@@ -2,17 +2,15 @@
 
     <div class="main-card">
         <div class="q-card">
-            <p>true=😌, false=😛</p><br>
-            <h1>You Choose</h1><br>
-            <ul>
-                <%  results.forEach(result=>{ %> 
-                    <li><%= result.question %> - <%= result.answer %> <%= result.valid?"😌":"😛" %></li>
-                <% }) %>
-            </ul>
+            <p>Attempts left: <%= expire %></p>
             <% if (wrongCounter === 0){ %>
-                <p><a href="/s/start/<%= slideId %>"><button>Go Farward -></button></a></p>
+            <h1 align="center">Phew 😍 <br>You're mine <br>Not a imposter 😌</h1><br>
+            <p><a href="/s/start/<%= slideId %>"><button>Claim Your Present 💌</button></a></p>
             <% } else { %>
-                <p><a href="/q/start/"><button>Retake Test</button></a></p>
+            <h3 align="center">You look like an imposter <br> because you didn't answer all the questions correctly <br> Better Luck next time imposter!! 😛
+            <br>You are allowed to take the test again but keep looking at the Attempts left at the top.
+            </h3><br>
+            <p><a href="/q/start/<%= quizId %>"><button>Retake Test</button></a></p>
             <%} %>
         </div>
     </div>

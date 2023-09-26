@@ -13,6 +13,7 @@ const quizList_1 = __importDefault(require("../controllers/quiz/quizList"));
 const multer_1 = require("../middlewares/multer");
 const sameUsernameChecker_1 = __importDefault(require("../middlewares/sameUsernameChecker"));
 const channelList_1 = __importDefault(require("../controllers/channels/channelList"));
+const deleteChannel_1 = __importDefault(require("../controllers/channels/deleteChannel"));
 const createSlide_1 = __importDefault(require("../controllers/slides/createSlide"));
 const slideList_1 = __importDefault(require("../controllers/slides/slideList"));
 const slidePage_1 = __importDefault(require("../controllers/slides/slidePage"));
@@ -28,6 +29,7 @@ router.get('/', (req, res) => {
 //CHANNELS
 router.get('/channel-list', channelList_1.default);
 router.get('/createChannel', createChannelPage_1.default);
+router.get('/deleteChannel/:id', deleteChannel_1.default);
 router.post('/createChannel/quiz', createChannel_1.default); //save the channel and create a link
 router.post('/createChannel/name', sameUsernameChecker_1.default); //save the channel and create a link
 //SLIDE

@@ -5,17 +5,28 @@
         display: none;
     }
 
-    #nextBtn {
+    .nextBtnpage1 {
+        /* position: absolute; 
+        top: 70%; 
+        right: 38.5%;  */
+        font-size: larger; 
+        border-radius: 5px; 
+        height:70px;
+        width: 200px;
+    }
+
+    .nextBtn {
         position: absolute; 
         top: 45%; 
         right: 11px; 
+        display: none;
         font-size: larger; 
         border-radius: 5px; 
         height:100px;
     }
 
     @media screen and (max-width: 940px) {
-        #nextBtn {
+        .nextBtn {
             position: absolute; 
             top: 95%; 
             right: 45%; 
@@ -27,13 +38,60 @@
     }
 </style>
 
-<div id="slide0" class="slide-main-card" style="height: 100vh; width: 100%;position: absolute;z-index: -3;">
-        <div class="slide-card" style="height: 100vh; width: 100%;"><%= slide.slide_name %> <br><br><br><br><br> <p>click next to see more..</p> </div>
-</div>
 
-<%
-const slides = slide['pages']; 
-slides.reverse().forEach((page, index)=>{
+
+
+
+<div class="box">
+
+    <div class="ribbon ribbon-top-left"><span>from <%= slide.slide_creator['username'] %></span></div>
+    <div class="ribbon ribbon-top-right"><span>to <%= currentUser.username %> ❤</span></div>
+    <!-- <div class="ribbon ribbon-bottom-left"><span>ribbon</span></div>
+    <div class="ribbon ribbon-bottom-right"><span>ribbon</span></div> -->
+
+
+
+
+
+
+    <div id="slide0" class="slide-main-card" style="height: 100vh; width: 100%;position: absolute;z-index: -3;">
+
+
+        <div class="slide-card" style="justify-content:flex-start;height: 100vh; width: 100%;">
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <%= slide.slide_name %> <br>
+            <br><br><br> 
+
+            
+            <!-- <div id="card">
+                <div class="heart"></div>
+                <div class="heart1"></div>
+                <div class="heart2"></div>
+                <div class="heart3"></div>
+                <div class="heart4"></div>
+            </div> -->
+            from <%= slide.slide_creator['username'] %>
+        </div>
+    </div>
+    <button style="position: absolute; top:50%; left: 43%;" id="OpenBtn" class="nextBtnpage1">
+        Open it 👆🏻😗
+    </button>
+
+    <%
+    const slides = slide['pages']; 
+    slides.reverse().forEach((page, index)=>{
     console.log(index-slides.length)
     %>
     <div id="slide<%= index-slides.length %>" class="slide-main-card">
@@ -50,15 +108,47 @@ slides.reverse().forEach((page, index)=>{
     </div>
 <% }) %>
 
-<button id="nextBtn">Next</button>
+<button id="nextBtn" class="nextBtn">Next</button>
+</div>
+
+
 
 
 <script>
 
+
+
+
     let currentDivCount = 1;
     
-    document.getElementById('nextBtn').addEventListener('click', function(){        
+    document.getElementById('OpenBtn').addEventListener('click', function(){ 
+        document.querySelector('#OpenBtn').style.display = "none"
+        document.querySelector('#nextBtn').style.display = "block"
+        // document.getElementById('card').style.display = "none"
 
+        let AllDivs = document.querySelector(".slide-main-card");
+        AllDivs.classList.add("hide-main-card");
+
+        let slideMainCard = document.getElementById('slide-' + currentDivCount);
+        let slideCard = document.getElementById('slide-card-' + currentDivCount);
+        let slidePictureBox = document.getElementById('slide-card-' + currentDivCount);
+        let titleH1 = document.getElementById('title-' + currentDivCount);
+        let titleP = document.getElementById('paragraph-' + currentDivCount);
+        
+        if (slideMainCard) {
+
+            slideMainCard.classList.add('show-next-page');
+            slideCard.classList.add('show-card');
+            slidePictureBox.classList.add('show-card');
+            titleH1.style.display = "flex";
+            titleP.style.display = "flex";
+
+            currentDivCount++;
+        }
+    });
+
+document.getElementById('nextBtn').addEventListener('click', function(){ 
+        
         let totalDivs =  document.getElementsByClassName("slide-main-card").length;
 
         let slideLength = totalDivs - 1;
@@ -87,5 +177,9 @@ slides.reverse().forEach((page, index)=>{
             currentDivCount++;
         }
     });
+
+
+
+    
 </script>
 <%- include('partials/footer') %>

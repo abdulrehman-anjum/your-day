@@ -26,11 +26,12 @@ function default_1(req, res) {
                 }
             }));
             if (identified) {
-                const slide = yield slide_1.default.findOne({ _id: req.params.slideId })
+                const slide = yield slide_1.default.findOne({ _id: req.params.slideId }).populate("slide_creator")
                     .populate({ path: 'pages', populate: { path: 'image' } });
-                res.render('slide', { slide: slide });
+                res.render('slide', { slide: slide, currentUser: refreshThisUser_1.currentUser });
             }
             else {
+                console.log("it was me all along...slide.ts muuhahahahahaaa");
                 res.redirect('/page404');
             }
         }

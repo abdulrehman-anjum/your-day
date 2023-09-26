@@ -19,7 +19,7 @@ function results(userAnswers, questions) {
             console.log(userAnswers, "calcResult");
             userAnswers.forEach(answer => {
                 if (answer.answer === questions[i].correct) {
-                    answer.valid = true;
+                    answer.valid = true; //why is it not getting true
                 }
                 else {
                     exports.wrongCounter = exports.wrongCounter + 1;

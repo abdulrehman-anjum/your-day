@@ -44,14 +44,16 @@ const questions_1 = require("../utils/questions");
 const linkHandler_1 = require("../../User/controllers/channels/linkHandler");
 const channel_1 = __importDefault(require("../../User/models/channel"));
 const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const questions = questions_1.fetchedQuestions;
     const userAnswers = JSON.parse(JSON.stringify(getAnswer_1.answers)); //copying array:bcs we want original array be empty
+    const userQuestions = JSON.parse(JSON.stringify(questions_1.fetchedQuestions)); //copying array:bcs we want original array be empty
     console.log("iser amserrr", userAnswers);
     (0, emptyAnswersArray_1.emptyAnswersArray)();
+    (0, questions_1.setQuizQuestions)([]);
     console.log("iser amserrr", userAnswers);
-    yield (0, calcResult_1.default)(userAnswers, questions); //complete calc result
+    yield (0, calcResult_1.default)(userAnswers, userQuestions); //complete calc result
     console.log("wrongCounter", calcResult_1.wrongCounter);
     if (calcResult_1.wrongCounter === 0) {
+        console.log("channel from resultjs", linkHandler_1.channel);
         yield user_1.default.findByIdAndUpdate(refreshThisUser_1.currentUser._id, { $push: { authorized: linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel._id } }); //push the channel id in authorized array 
         console.log("doneee true wrongcounter 0");
     }
@@ -64,16 +66,26 @@ const result = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     console.log(linkHandler_1.channel);
     const thisChannel = yield channel_1.default.findById(linkHandler_1.channel === null || linkHandler_1.channel === void 0 ? void 0 : linkHandler_1.channel._id);
-    let expiryPoint = (thisChannel === null || thisChannel === void 0 ? void 0 : thisChannel.expirePoints) ? thisChannel === null || thisChannel === void 0 ? void 0 : thisChannel.expirePoints : 0;
-    if (expiryPoint > 0) {
-        res.render('results', { results: userAnswers, slideId: linkHandler_1.channel.slideId, wrongCounter: calcResult_1.wrongCounter });
+    let expiryPoint = (thisChannel === null || thisChannel === void 0 ? void 0 : thisChannel.expirePoints) ? thisChannel === null || thisChannel === void 0 ? void 0 : thisChannel.expirePoints : -1;
+    if (expiryPoint >= 0) {
+        res.render('results', {
+            results: userAnswers,
+            slideId: linkHandler_1.channel.slideId,
+            quizId: linkHandler_1.channel.quizId,
+            expire: expiryPoint,
+            wrongCounter: calcResult_1.wrongCounter
+        });
     }
-    else {
+    else if (expiryPoint == -1) {
         res.render('message-to-user', {
             message: "Limit Exceeded. Link Expired. You couldn't answer all questions.",
             btnText: "Main Page",
             btnHref: "/"
         });
+    }
+    else {
+        console.log("hi ia m the 404");
+        res.redirect('/page404');
     }
 });
 exports.default = result;

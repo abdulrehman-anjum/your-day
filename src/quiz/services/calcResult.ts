@@ -9,7 +9,7 @@ async function results(userAnswers: Answer[], questions: QuestionType[]){
         console.log(userAnswers, "calcResult");
         userAnswers.forEach(answer=>{
             if (answer.answer === questions[i].correct){
-                answer.valid = true
+                answer.valid = true //why is it not getting true
             } else {
                 wrongCounter = wrongCounter + 1
             }

@@ -1,5 +1,13 @@
 <%- include('partials/header') %>
 
+    <% if (!user){ %>
+        <style>
+            nav {
+                display: none;
+            }
+        </style>
+    <% } %>
+
     <div class="main-card">
 
         <% if (mode==='login') { %>
@@ -7,8 +15,14 @@
         <% } else { %>
         <h1 class="q-card" align=center>
             <a href="/logmyvalue"><p style="font-size: small;">username: </p><%=user?.username%></a>
-            <br><a align=center href='/u'><button>Tools</button></a>
-            </h1>
+            <a href="/a/logout"><button>Login/Logout</button></a>
+            <!-- <br><a align=center href='/u'><button>Tools</button></a> -->
+            <ul>
+                <% authorizedChannels?.forEach(link=>{ %>
+                    <li style="font-size: small;"><a href="/link/<%= link.channelName %>"> <%= link.channelName %> </a></li>
+                <% }); %>
+            </ul>
+        </h1>
         <% } %>
     </div>
 

@@ -12,22 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const getAnswer_1 = require("./getAnswer");
-const quiz_1 = __importDefault(require("../models/quiz"));
-const questions_1 = require("../utils/questions");
-const quizPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let quiz;
-    if (questions_1.fetchedQuestions.length === 0) {
-        quiz = yield quiz_1.default.findOne({ _id: req.params.quizId }).populate('questions');
-        const newQuestions = (quiz === null || quiz === void 0 ? void 0 : quiz.questions) ? quiz.questions : [];
-        (0, questions_1.setQuizQuestions)(newQuestions);
-    }
-    const questions = questions_1.fetchedQuestions;
-    console.log("questions", quiz);
-    res.render("quiz", {
-        quiz: quiz,
-        question: questions[getAnswer_1.answers.length]
+const channel_1 = __importDefault(require("../../../User/models/channel"));
+const user_1 = __importDefault(require("../../../Auth/models/user"));
+const refreshThisUser_1 = require("../../../Auth/middlewares/refreshThisUser");
+function default_1(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const id = req.params.id;
+        const channel = yield channel_1.default.findById(id);
+        yield user_1.default.findOneAndUpdate({ _id: refreshThisUser_1.currentUser._id }, { $pull: { authorized: channel === null || channel === void 0 ? void 0 : channel._id } });
+        yield channel_1.default.findByIdAndDelete(id);
+        res.redirect('/u/channel-list');
     });
-});
-exports.default = quizPage;
-//# sourceMappingURL=quizPage.js.map
+}
+exports.default = default_1;
+//# sourceMappingURL=deleteChannel.js.map

@@ -15,10 +15,11 @@ export default async function(req: Request, res: Response){
             }
         })
         if (identified){
-            const slide = await Slide.findOne({_id:  req.params.slideId})
+            const slide = await Slide.findOne({_id:  req.params.slideId}).populate("slide_creator")
             .populate({path: 'pages', populate: {path: 'image'}})
-            res.render('slide', {slide: slide})
+            res.render('slide', {slide: slide, currentUser: currentUser})
         } else {
+            console.log("it was me all along...slide.ts muuhahahahahaaa")
             res.redirect('/page404')
         }
         
